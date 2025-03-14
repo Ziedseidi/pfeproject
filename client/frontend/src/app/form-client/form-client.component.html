@@ -1,0 +1,25 @@
+<form (ngSubmit)="onSubmit()" #clientForm="ngForm">
+  <label for="nom">Nom :</label>
+  <input id="nom" name="nom" [(ngModel)]="client.nom" required />
+
+  <label for="prenom">Prénom :</label>
+  <input id="prenom" name="prenom" [(ngModel)]="client.prenom" required />
+
+  <label for="email">Email :</label>
+  <input id="email" name="email" [(ngModel)]="client.email" type="email" required />
+
+  <label for="password">Mot de passe :</label>
+  <input id="password" name="password" [(ngModel)]="client.password" type="password" required />
+
+  <label for="phone">Téléphone :</label>
+  <input id="phone" name="phone" [(ngModel)]="client.phone" type="tel" required />
+
+  <label for="imageprofile">Téléphone :</label>
+  <input id="imageprofile" name="imageprofile" [(ngModel)]="client.imageprofile" type="file" required />
+
+  
+
+  <button type="submit">S'inscrire</button>
+</form>
+
+<p>{{ message }}</p>

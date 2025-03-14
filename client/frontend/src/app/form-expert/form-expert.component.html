@@ -1,0 +1,32 @@
+<form (ngSubmit)="onSubmit()" #expertForm="ngForm">
+  <label for="nom">Nom :</label>
+  <input id="nom" name="nom" [(ngModel)]="expert.nom" required />
+
+  <label for="prenom">Prénom :</label>
+  <input id="prenom" name="prenom" [(ngModel)]="expert.prenom" required />
+
+  <label for="email">Email :</label>
+  <input id="email" name="email" [(ngModel)]="expert.email" type="email" required />
+
+  <label for="password">Mot de passe :</label>
+  <input id="password" name="password" [(ngModel)]="expert.password" type="password" required />
+
+  <label for="imageprofile">Téléphone :</label>
+  <input id="imageprofile" name="imageprofile" [(ngModel)]="expert.imageprofile" type="file" required />
+
+  <label for="phone">Téléphone :</label>
+  <input id="phone" name="phone" [(ngModel)]="expert.phone" type="tel" required />
+
+  <label for="adresse">Adresse :</label>
+  <input id="adresse" name="adresse" [(ngModel)]="expert.adresse" required />
+
+  <label for="dateExpertise">Date d'expertise :</label>
+  <input id="dateExpertise" name="dateExpertise" [(ngModel)]="expert.dateExpertise" type="date" />
+
+  <label for="fraisExpertise">Frais d'expertise :</label>
+  <input id="fraisExpertise" name="fraisExpertise" [(ngModel)]="expert.fraisExpertise" type="number" />
+
+  <button type="submit">S'inscrire</button>
+</form>
+
+<p>{{ message }}</p>

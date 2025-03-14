@@ -1,0 +1,94 @@
+/* Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    align-items: center;
+    height: 60px; /* Ajuster la hauteur de la navbar */
+  }
+  
+  .logo-container {
+    flex-shrink: 0; /* Empêche le logo de se réduire */
+  }
+  
+  .logo {
+    width: 11vw; /* Le logo prend 10% de la largeur de la fenêtre */
+    height: auto; /* Maintient les proportions de l'image */
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-button, .login-button {
+    background-color: #ffffff;
+    color: rgb(24, 17, 17);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .nav-button i, .login-button i {
+    font-size: 20px; /* Taille de l'icône */
+  }
+  
+  .nav-button:hover, .login-button:hover {
+    background-color: #d0c4c4;
+  }
+  
+  .login-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Styles pour la partie centrale : Recherche et boutons */
+  .center-container {
+    display: flex;
+    justify-content: center; /* Centrer tout au centre */
+    align-items: center;
+    gap: 30px; /* Espace entre les boutons et le champ de recherche */
+    flex-grow: 1;
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacement entre l'input et le bouton */
+  }
+  
+  .search-input {
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .search-button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .search-button i {
+    font-size: 18px; /* Taille de l'icône de recherche */
+  }
+  
+  .search-button:hover {
+    background-color: #555;
+  }
+  

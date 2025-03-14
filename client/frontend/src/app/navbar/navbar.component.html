@@ -1,0 +1,42 @@
+<nav class="navbar">
+    <!-- Logo à gauche -->
+    <div class="logo-container">
+      <img src="assets/images/tunisair.png" alt="Logo" class="logo" />
+    </div>
+  
+    <!-- Partie centrale avec les boutons -->
+    <div class="center-container">
+      <ul class="nav-links">
+        <li>
+          <button [routerLink]="['/about']" class="nav-button">
+            <i class="fa fa-info-circle"></i> About
+          </button>
+        </li>
+        <li>
+          <button [routerLink]="['/help']" class="nav-button">
+            <i class="fa fa-question-circle"></i> Help
+          </button>
+        </li>
+        <li>
+          <button [routerLink]="['/service']" class="nav-button">
+            <i class="fa fa-cogs"></i> Service
+          </button>
+        </li>
+      </ul>
+  
+      <!-- Partie de recherche -->
+      <div class="search-container">
+        <input type="text" placeholder="Search..." class="search-input" />
+        <button class="search-button">
+          <i class="fa fa-search"></i> Search
+        </button>
+      </div>
+    </div>
+  
+    <!-- Partie de connexion -->
+    <div class="login-container">
+      <button [routerLink]="['/login']" class="login-button">
+        <i class="fa fa-user"></i> Login
+      </button>
+    </div>
+</nav>

@@ -1,0 +1,41 @@
+<form (ngSubmit)="onSubmit()" #avocatForm="ngForm">
+  <label for="nom">Nom :</label>
+  <input id="nom" name="nom" [(ngModel)]="avocat.nom" required />
+
+  <label for="prenom">Prénom :</label>
+  <input id="prenom" name="prenom" [(ngModel)]="avocat.prenom" required />
+
+  <label for="email">Email :</label>
+  <input id="email" name="email" [(ngModel)]="avocat.email" type="email" required />
+
+  <label for="password">Mot de passe :</label>
+  <input id="password" name="password" [(ngModel)]="avocat.password" type="password" required />
+
+  <label for="phone">Téléphone :</label>
+  <input id="phone" name="phone" [(ngModel)]="avocat.phone" type="tel" required />
+
+  <label for="imageprofile">Image de profile:</label>
+  <input id="imageprofile" name="imageprofile" [(ngModel)]="avocat.imageprofile" type="file" required />
+
+  <label for="adresse">Adresse :</label>
+  <input id="adresse" name="adresse" [(ngModel)]="avocat.adresse" required />
+
+  <label for="referenceConvention">Référence Convention :</label>
+  <input id="referenceConvention" name="referenceConvention" [(ngModel)]="avocat.referenceConvention" />
+
+  <label for="dateDebutConvention">Date Début Convention :</label>
+  <input id="dateDebutConvention" name="dateDebutConvention" [(ngModel)]="avocat.dateDebutConvention" type="date" />
+
+  <label for="dateFinConvention">Date Fin Convention :</label>
+  <input id="dateFinConvention" name="dateFinConvention" [(ngModel)]="avocat.dateFinConvention" type="date" />
+
+  <label for="region">Région :</label>
+  <input id="region" name="region" [(ngModel)]="avocat.region" required />
+
+  <label for="honoraires">Honoraires :</label>
+  <input id="honoraires" name="honoraires" [(ngModel)]="avocat.honoraires" type="number" required />
+
+  <button type="submit">S'inscrire</button>
+</form>
+
+<p>{{ message }}</p>
