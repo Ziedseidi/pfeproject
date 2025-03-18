@@ -17,10 +17,31 @@
             <i class="fa fa-question-circle"></i> Help
           </button>
         </li>
-        <li>
-          <button [routerLink]="['/service']" class="nav-button">
+        <!-- Bouton Service -->
+        <li class="service-container">
+          <button class="nav-button" 
+                  (mouseenter)="onServiceMouseEnter()" 
+                  (mouseleave)="onServiceMouseLeave()">
             <i class="fa fa-cogs"></i> Service
           </button>
+  
+          <!-- Conteneur des services et procédures qui s'affiche au survol -->
+          <div *ngIf="showService" class="service-box">
+            <h3>Nos Services</h3>
+            <ul>
+              <li><i class="fa fa-users"></i> Service 1: Consultation</li>
+              <li><i class="fa fa-file-alt"></i> Service 2: Gestion des réclamations</li>
+              <li><i class="fa fa-gavel"></i> Service 3: Assistance juridique</li>
+              <li><i class="fa fa-folder-open"></i> Service 4: Gestion de dossiers</li>
+              <li><i class="fa fa-handshake"></i> Service 5: Contrats</li>
+            </ul>
+            <h4>Procédures</h4>
+            <ul>
+              <li><i class="fa fa-cogs"></i> Procédure 1: Contact avocat<
+              <li><i class="fa fa-cogs"></i> Procédure 2: Description</li>
+              <li><i class="fa fa-cogs"></i> Procédure 3: Description</li>
+            </ul>
+          </div>
         </li>
       </ul>
   
@@ -33,10 +54,43 @@
       </div>
     </div>
   
+    <!-- Bouton Globe pour les langues -->
+    <div class="language-container">
+      <button class="language-button" 
+              (mouseenter)="onMouseEnter()" 
+              (mouseleave)="onMouseLeave()">
+        <i class="fa fa-globe"></i>
+      </button>
+      <ul *ngIf="showCountries" class="dropdown-menu">
+        <li (click)="selectCountry('Maroc')">
+          <img src="assets/flags/morocco.png" alt="Maroc" class="flag-icon"> Maroc
+        </li>
+        <li (click)="selectCountry('Algerie')">
+          <img src="assets/flags/algeria.png" alt="Algérie" class="flag-icon"> Algérie
+        </li>
+        <li (click)="selectCountry('Tunisie')">
+          <img src="assets/flags/tunisia.png" alt="Tunisie" class="flag-icon"> Tunisie
+        </li>
+        <li (click)="selectCountry('Libye')">
+          <img src="assets/flags/libya.png" alt="Libye" class="flag-icon"> Libye
+        </li>
+        <li (click)="selectCountry('Mauritanie')">
+          <img src="assets/flags/mauritania.png" alt="Mauritanie" class="flag-icon"> Mauritanie
+        </li>
+        <li (click)="selectCountry('France')">
+          <img src="assets/flags/france.png" alt="France" class="flag-icon"> France
+        </li>
+        <li (click)="selectCountry('Belgique')">
+          <img src="assets/flags/belgium.png" alt="Belgique" class="flag-icon"> Belgique
+        </li>
+      </ul>
+    </div>
+  
     <!-- Partie de connexion -->
     <div class="login-container">
       <button [routerLink]="['/login']" class="login-button">
         <i class="fa fa-user"></i> Login
       </button>
     </div>
-</nav>
+  </nav>
+  

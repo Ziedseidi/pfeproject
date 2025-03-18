@@ -1,3 +1,17 @@
 <app-navbar></app-navbar>
-<div class="home-container">
- 
+
+<!-- Section d'arrière-plan avec image -->
+<div class="home-container"></div>
+
+<!-- Conteneur des cartes sous l'image -->
+<div class="container mt-5">
+  <div class="row card-container">
+    <!-- Ajout d'une instance du CardComponent pour chaque carte -->
+    <div class="col-md-2" *ngFor="let card of cards">
+      <app-card [card]="card"></app-card>
+    </div>
+  </div>
+</div>
+
+<!-- Intégration du Footer -->
+<app-footer></app-footer>

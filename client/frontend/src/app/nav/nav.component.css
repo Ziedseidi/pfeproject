@@ -1,0 +1,31 @@
+.navbar {
+    display: flex;
+    justify-content: flex-start;  /* Place les éléments au début */
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-container img {
+    width: 120px;
+  }
+  
+  .login-container {
+    margin-left: 2cm;  /* Espacement de 2 cm entre le logo et le texte "Connexion" */
+  }
+  
+  .login-text {
+    color: #000000;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;  /* Soulignement par défaut */
+    text-decoration-color: rgb(202, 15, 15);  /* Couleur rouge sous le texte */
+    text-decoration-thickness: 9px;  /* Augmente l'épaisseur de la ligne de soulignement */
+  }
+  
+  .login-text:hover {
+    text-decoration: none;  /* Supprime le soulignement au survol */
+  }
+  

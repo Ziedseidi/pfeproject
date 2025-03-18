@@ -1,0 +1,116 @@
+/* Réinitialiser marges et paddings par défaut */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Assurer que le body occupe toute la largeur de la page */
+    overflow-x: hidden; /* Empêcher le débordement horizontal */
+    box-sizing: border-box; /* Assurer que les bordures et paddings sont inclus dans la largeur totale */
+}
+
+/* Appliquer box-sizing à tous les éléments */
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+.footer {
+    background-color: #2a3f52;
+    color: white;
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+    width: 100%;
+    box-sizing: border-box; /* Inclure les paddings dans la largeur totale */
+    margin: 0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #3a4d63;
+    padding-bottom: 1.5rem;
+    width: 100%; /* S'assurer que la container occupe toute la largeur */
+    box-sizing: border-box; /* Inclure les paddings dans la largeur totale */
+}
+
+.footer-section {
+    width: 20%;
+    min-width: 150px;
+}
+
+.footer-section h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: #a9c4e3;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    width: 100%;
+    box-sizing: border-box; /* Inclure les paddings dans la largeur totale */
+}
+
+.newsletter {
+    max-width: 50%;
+}
+
+.subscribe {
+    display: flex;
+    margin-top: 0.5rem;
+}
+
+.subscribe input {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    margin-right: 0.5rem;
+    width: 250px;
+}
+
+.subscribe button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.social-media {
+    text-align: right;
+}
+
+.icons a {
+    color: white;
+    font-size: 1.5rem;
+    margin-left: 10px;
+}
+
+.icons a:hover {
+    color: #a9c4e3;
+}

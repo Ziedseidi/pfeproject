@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';  // Assurez-vous que FormsModule est importé
-import { HttpClientModule } from '@angular/common/http';  // Assurez-vous que HttpClientModule est importé
-import { AppRoutingModule } from './app-routing.module';  // Assurez-vous que AppRoutingModule est importé
-import { RouterModule } from '@angular/router';  // Ajoutez cette ligne pour RouterModule
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { FormAvocatComponent } from './form-avocat/form-avocat.component';
@@ -15,10 +15,14 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { AvocatDashboardComponent } from './avocat-dashboard/avocat-dashboard.component';
 import { ExpertDashboardComponent } from './expert-dashboard/expert-dashboard.component';
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
-import { SpinnerComponent } from './spinner/spinner.component';
-
+import { DatePipe } from '@angular/common';  // Assurez-vous que DatePipe est importé
 
 import { NavbarComponent } from './navbar/navbar.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { CardComponent } from './card/card.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { NavComponent } from './nav/nav.component';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -34,16 +38,20 @@ import { NavbarComponent } from './navbar/navbar.component';
     ExpertDashboardComponent,
     ClientDashboardComponent,
     SpinnerComponent,
-    NavbarComponent
+    NavbarComponent,
+    CardComponent,
+    FooterComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,  // AppRoutingModule est correctement importé ici
-    RouterModule,      // Importez RouterModule ici pour activer routerLink
-    FormsModule,       // Assurez-vous que FormsModule est bien importé
-    HttpClientModule   // Assurez-vous que HttpClientModule est bien importé
+    AppRoutingModule,
+    RouterModule,
+    FormsModule,
+    HttpClientModule,
+    RecaptchaModule
   ],
-  providers: [],
+  providers: [DatePipe],  // Ajoute DatePipe ici pour qu'il soit disponible dans le composant
   bootstrap: [AppComponent]
 })
 export class AppModule { }
