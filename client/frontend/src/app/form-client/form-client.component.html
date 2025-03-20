@@ -1,25 +1,44 @@
-<form (ngSubmit)="onSubmit()" #clientForm="ngForm">
-  <label for="nom">Nom :</label>
-  <input id="nom" name="nom" [(ngModel)]="client.nom" required />
+<form (ngSubmit)="onSubmit()" #clientForm="ngForm" class="form-container">
+  <h2>Inscription Client</h2>
+  <p class="form-subtitle">Veuillez remplir les informations suivantes</p>
 
-  <label for="prenom">Prénom :</label>
-  <input id="prenom" name="prenom" [(ngModel)]="client.prenom" required />
+  <div class="form-row">
+    <div class="form-group">
+      <label for="nom">Nom :</label>
+      <input id="nom" name="nom" [(ngModel)]="client.nom" required />
+    </div>
+    <div class="form-group">
+      <label for="prenom">Prénom :</label>
+      <input id="prenom" name="prenom" [(ngModel)]="client.prenom" required />
+    </div>
+  </div>
 
-  <label for="email">Email :</label>
-  <input id="email" name="email" [(ngModel)]="client.email" type="email" required />
+  <div class="form-row">
+    <div class="form-group">
+      <label for="email">Email :</label>
+      <input id="email" name="email" [(ngModel)]="client.email" type="email" required />
+    </div>
+    <div class="form-group">
+      <label for="password">Mot de passe :</label>
+      <input id="password" name="password" [(ngModel)]="client.password" type="password" required />
+    </div>
+  </div>
 
-  <label for="password">Mot de passe :</label>
-  <input id="password" name="password" [(ngModel)]="client.password" type="password" required />
+  <div class="form-row">
+    <div class="form-group">
+      <label for="phone">Téléphone :</label>
+      <input id="phone" name="phone" [(ngModel)]="client.phone" type="tel" required />
+    </div>
+    <div class="form-group">
+      <label for="imageprofile">Image de profil :</label>
+      <input id="imageprofile" name="imageprofile" [(ngModel)]="client.imageprofile" type="file" required />
+    </div>
+  </div>
 
-  <label for="phone">Téléphone :</label>
-  <input id="phone" name="phone" [(ngModel)]="client.phone" type="tel" required />
+  <div class="form-footer">
+    <button type="submit" class="submit-btn">S'inscrire →</button>
+  </div>
 
-  <label for="imageprofile">Téléphone :</label>
-  <input id="imageprofile" name="imageprofile" [(ngModel)]="client.imageprofile" type="file" required />
-
-  
-
-  <button type="submit">S'inscrire</button>
 </form>
 
 <p>{{ message }}</p>

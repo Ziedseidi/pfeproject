@@ -23,6 +23,8 @@ import { CardComponent } from './card/card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './nav/nav.component';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { RecaptchaModule } from 'ng-recaptcha';
     NavbarComponent,
     CardComponent,
     FooterComponent,
-    NavComponent
+    NavComponent,
+    SidebarComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

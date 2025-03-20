@@ -21,7 +21,7 @@
         <label for="remember-me">Se souvenir de moi</label>
       </div>
 
-     
+      
 
       <button type="submit" class="btn" [disabled]="isLoading">
         <app-spinner *ngIf="isLoading" [isLoading]="isLoading"></app-spinner>
@@ -31,8 +31,8 @@
 
     <a href="#" class="forgot-password">Mot de passe oublié ?</a>
     <div class="signup-section">
-      <p>Vous n'avez pas encore de compte ?</p>
-      <button class="signup-btn">S'inscrire</button>
-    </div>
+        <p>Vous n'avez pas encore de compte ?</p>
+        <button class="signup-btn" (click)="goToRegister()">S'inscrire</button>
+      </div>
   </div>
 </div>

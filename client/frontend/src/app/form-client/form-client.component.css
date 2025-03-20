@@ -1,0 +1,82 @@
+.form-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 80px;
+    background: #f8fbff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    margin-top: -520px; /* Ajuste pour plus de séparation si nécessaire */
+    
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 20px; /* Espacement entre les deux colonnes */
+  }
+  
+  .form-group {
+    flex: 1; /* Chaque input prend la moitié de la ligne */
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  input:focus {
+    border-color: #007bff;
+  }
+  
+  .password-hint {
+    font-size: 12px;
+    color: #888;
+  }
+  
+  .submit-btn {
+    width: 22%;
+    padding: 12px;
+    background: #2868a7;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .submit-btn:hover {
+    background: #0056b3;
+  }
+  
+  .message {
+    margin-top: 10px;
+    font-size: 14px;
+    color: green;
+    text-align: center;
+  }
+  
+  /* Style du footer */
+  .form-footer {
+    margin-top: 30px; /* Espace au-dessus du footer */
+    text-align: center;
+    padding: 20px 0; /* Ajoute un padding pour donner plus d'espace autour du bouton */
+    background: #f0f0f0; /* Fond gris clair pour le footer */
+    border-radius: 5px 5px 10px 10px; /* Bords arrondis */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère pour donner de la profondeur */
+  }
+  

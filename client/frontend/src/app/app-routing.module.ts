@@ -9,17 +9,26 @@ import { AvocatDashboardComponent } from './avocat-dashboard/avocat-dashboard.co
 import { ExpertDashboardComponent } from './expert-dashboard/expert-dashboard.component';
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'form-avocat', component: FormAvocatComponent },
-  { path: 'form-client', component: FormClientComponent },
-  { path: 'form-expert', component: FormExpertComponent },
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'avocat-dashboard', component: AvocatDashboardComponent },
   { path: 'expert-dashboard', component: ExpertDashboardComponent },
   { path: 'client-dashboard', component: ClientDashboardComponent },
-  { path: 'login', component: LoginComponent },  // Ajoute cette ligne pour la page de connexion
+  { path: 'login', component: LoginComponent },
+
+  // Route `register` avec ses enfants
+  { 
+    path: 'register', component: RegisterComponent, 
+    children: [
+      { path: 'form-avocat', component: FormAvocatComponent },
+      { path: 'form-expert', component: FormExpertComponent },
+      { path: 'form-client', component: FormClientComponent }
+    ]
+  },
+
   { path: '**', redirectTo: '' },
 ];
 
