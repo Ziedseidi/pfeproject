@@ -1,12 +1,14 @@
-const Avocat=require('../models/Avocat.model');
-const User= require('../models/User.model');
-const bcrypt=require('bcryptjs');
+const Avocat = require('../models/Avocat.model');
+const User = require('../models/User.model');
+const bcrypt = require('bcryptjs');
+const uploadImage = require('../midelware/multer'); // Importer le middleware Multer
 
-const avocatController={};
+const avocatController = {};
 
+// Route pour l'inscription de l'avocat
 avocatController.registerAvocat = async (req, res) => {
     try {
-        const { nom, prenom, email, password, phone,imageprofile,adresse, honoraires, region, referenceConvention, dateDebutConvention, dateFinConvention } = req.body;
+        const { nom, prenom, email, password, phone, adresse, honoraires, region, referenceConvention, dateDebutConvention, dateFinConvention } = req.body;
 
         // Vérification si l'utilisateur existe déjà
         const existingUser = await User.findOne({ email });
@@ -17,13 +19,26 @@ avocatController.registerAvocat = async (req, res) => {
         // Hachage du mot de passe
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Créer un nouvel utilisateur (nom, prénom, email, mot de passe)
-        const newUser = new User({ nom, prenom, email, password: hashedPassword ,phone,imageprofile});
+        // Gestion de l'image de profil
+        let imageprofile = '';
+        if (req.file) {
+            imageprofile = 'http://localhost:7501/uploads/' + req.file.filename; // Le chemin vers l'image
+        }
+
+        // Créer un nouvel utilisateur avec l'image de profil
+        const newUser = new User({
+            nom,
+            prenom,
+            email,
+            password: hashedPassword,
+            phone,
+            imageprofile  // Ajout de l'image de profil dans l'utilisateur
+        });
 
         // Enregistrer l'utilisateur
         await newUser.save();
 
-        // Créer un avocat avec les informations spécifiques (adresse, honoraires, etc.)
+        // Créer un avocat avec les informations spécifiques
         const newAvocat = new Avocat({
             utilisateur: newUser._id,  // Référence à l'utilisateur créé
             adresse,
@@ -43,4 +58,4 @@ avocatController.registerAvocat = async (req, res) => {
     }
 };
 
-module.exports=avocatController;
+module.exports = avocatController;

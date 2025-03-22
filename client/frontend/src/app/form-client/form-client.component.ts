@@ -13,24 +13,38 @@ export class FormClientComponent {
     email: '',
     password: '',
     phone: '',
-    imageprofile:'',
-    
+    imageprofile: '' // on n'utilise plus ngModel ici pour l'image
   };
 
+  selectedFile: File | null = null; // pour stocker le fichier sélectionné
   message: string = '';
 
   constructor(private clientService: clientService) {}
 
+  // Méthode pour capturer le fichier sélectionné
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      console.log("Fichier sélectionné:", file); // Pour déboguer
+    }
+  }
+
+  // Méthode d'envoi du formulaire
   onSubmit() {
-    console.log('Formulaire envoyé:', this.client);  // Vérifie les données
-    this.clientService.registerClient(this.client
-    ).subscribe({
+    if (!this.selectedFile) {
+      this.message = 'Veuillez sélectionner une image de profil.';
+      return;
+    }
+
+    console.log('Formulaire envoyé:', this.client);  // Log les données
+    this.clientService.registerClient(this.client, this.selectedFile).subscribe({
       next: (response) => {
-        this.message = 'Inscription avocat réussie !';
+        this.message = 'Inscription client  réussie !';
         console.log("✅ Réponse du serveur:", response);
       },
       error: (error) => {
-        this.message = 'Erreur lors de l\'inscription d\'avocat';
+        this.message = 'Erreur lors de l\'inscription';
         console.error("🔥 Erreur API:", error);
       }
     });

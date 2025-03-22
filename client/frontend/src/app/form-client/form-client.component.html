@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
       <label for="imageprofile">Image de profil :</label>
-      <input id="imageprofile" name="imageprofile" [(ngModel)]="client.imageprofile" type="file" required />
+      <input id="imageprofile" name="imageprofile" type="file" (change)="onFileSelected($event)" required />
     </div>
   </div>
 

@@ -6,12 +6,33 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AvocatService {
-  private apiUrl = 'http://localhost:7501/avocat/register_Avocat'; // URL de ton backend
+  private apiUrl = 'http://localhost:7501/avocat/register_Avocat'; // URL du backend
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  registerAvocat(avocatData: any): Observable<any> {
-    console.log('Données envoyées au backend:', avocatData);  // Pour debugger
-    return this.http.post(this.apiUrl, avocatData);
+  // Méthode pour enregistrer l'avocat avec l'image
+  registerAvocat(avocatData: any, file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    
+    // Ajoute les autres données de l'avocat
+    formData.append('nom', avocatData.nom);
+    formData.append('prenom', avocatData.prenom);
+    formData.append('email', avocatData.email);
+    formData.append('password', avocatData.password);
+    formData.append('phone', avocatData.phone);
+    formData.append('adresse', avocatData.adresse);
+    formData.append('honoraires', avocatData.honoraires);
+    formData.append('region', avocatData.region);
+    formData.append('referenceConvention', avocatData.referenceConvention);
+    formData.append('dateDebutConvention', avocatData.dateDebutConvention);
+    formData.append('dateFinConvention', avocatData.dateFinConvention);
+
+    // Ajoute l'image de profil au FormData
+    if (file) {
+      formData.append('imageprofile', file, file.name);  // Le fichier est ajouté sous la clé 'imageprofile'
+    }
+
+    // Envoie la requête POST avec FormData
+    return this.http.post(this.apiUrl, formData);
   }
 }
