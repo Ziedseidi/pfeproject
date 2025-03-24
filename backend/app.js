@@ -5,6 +5,7 @@ const avocatRoutes = require('./routes/avocatRoutes');
 const expertRoutes = require('./routes/expertRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const roleRoutes = require('./routes/roleRoutes');
+const passwordRoutes= require('./routes/passwordRoutes');
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.use('/avocat', avocatRoutes);
 app.use('/expert', expertRoutes);
 app.use('/client', clientRoutes);
 app.use('/role', roleRoutes);
+app.use('/password', passwordRoutes);
 
 module.exports = app;
