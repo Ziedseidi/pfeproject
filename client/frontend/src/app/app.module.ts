@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; // Utilisé pour les formulaires basés sur template-driven
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
@@ -26,6 +26,11 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RegisterComponent } from './components/register/register.component';
 
+// Importation de ReactiveFormsModule pour utiliser les formulaires réactifs
+import { ReactiveFormsModule } from '@angular/forms';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { NewPasswordComponent } from './new-password/new-password.component'; 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,13 +50,16 @@ import { RegisterComponent } from './components/register/register.component';
     FooterComponent,
     NavComponent,
     SidebarComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent,
+    NewPasswordComponent // Assurez-vous que ce composant existe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    FormsModule,
+    FormsModule,  // Si vous utilisez des formulaires basés sur template-driven
+    ReactiveFormsModule,  // Ajoutez ReactiveFormsModule ici
     HttpClientModule,
     RecaptchaModule
   ],
