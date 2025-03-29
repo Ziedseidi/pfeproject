@@ -16,20 +16,22 @@ import { AvocatDashboardComponent } from './avocat-dashboard/avocat-dashboard.co
 import { ExpertDashboardComponent } from './expert-dashboard/expert-dashboard.component';
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
 import { DatePipe } from '@angular/common';  // Assurez-vous que DatePipe est importé
+import { MatIconModule } from '@angular/material/icon';
+
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { CardComponent } from './card/card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavComponent } from './nav/nav.component';
-import { RecaptchaModule } from 'ng-recaptcha';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { RegisterComponent } from './components/register/register.component';
 
 // Importation de ReactiveFormsModule pour utiliser les formulaires réactifs
 import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { NewPasswordComponent } from './new-password/new-password.component'; 
+import { NewPasswordComponent } from './new-password/new-password.component';
+import { SidbarGeneralComponent } from './sidbar-general/sidbar-general.component'; 
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import { NewPasswordComponent } from './new-password/new-password.component';
     SidebarComponent,
     RegisterComponent,
     ForgotPasswordComponent,
-    NewPasswordComponent // Assurez-vous que ce composant existe
+    NewPasswordComponent,
+    SidbarGeneralComponent // Assurez-vous que ce composant existe
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,7 @@ import { NewPasswordComponent } from './new-password/new-password.component';
     FormsModule,  // Si vous utilisez des formulaires basés sur template-driven
     ReactiveFormsModule,  // Ajoutez ReactiveFormsModule ici
     HttpClientModule,
-    RecaptchaModule
+    MatIconModule,  
   ],
   providers: [DatePipe],  // Ajoute DatePipe ici pour qu'il soit disponible dans le composant
   bootstrap: [AppComponent]

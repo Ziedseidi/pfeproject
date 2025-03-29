@@ -13,6 +13,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { NewPasswordComponent } from './new-password/new-password.component'; // Importation du composant pour réinitialisation du mot de passe
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'admin-dashboard', component: AdminDashboardComponent },

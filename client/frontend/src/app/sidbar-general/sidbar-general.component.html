@@ -1,0 +1,42 @@
+<div class="sidebar" [class.dark-mode]="isDarkMode">
+    <div class="sidebar-header">
+      <img src="assets/images/tunisair.png" alt="Logo" class="logo">
+     
+    </div>
+  
+    <div class="search-bar">
+      <input type="text" placeholder="Search...">
+    </div>
+  
+    <div class="nav-links">
+      <a routerLink="/dashboard">
+        <mat-icon>home</mat-icon> Dashboard
+      </a>
+      <a routerLink="/revenue">
+        <i class="fas fa-chart-bar"></i> Revenue
+      </a>
+      <a routerLink="/notifications">
+        <i class="fas fa-bell"></i> Notifications
+      </a>
+      <a routerLink="/analytics">
+        <i class="fas fa-chart-pie"></i> Analytics
+      </a>
+      <a routerLink="/likes">
+        <i class="fas fa-heart"></i> Likes
+      </a>
+      <a routerLink="/wallets">
+        <i class="fas fa-wallet"></i> Wallets
+      </a>
+    </div>
+  
+    <div class="sidebar-footer">
+      <button (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon> Logout
+      </button>
+      <button (click)="toggleTheme()">
+        <mat-icon>{{isDarkMode ? 'brightness_7' : 'brightness_4'}}</mat-icon>
+        {{isDarkMode ? 'Light Mode' : 'Dark Mode'}}
+      </button>
+    </div>
+  </div>
+  
