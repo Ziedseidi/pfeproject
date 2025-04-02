@@ -23,16 +23,15 @@ export class LoginComponent {
       return;
     }
 
-    this.isLoading = true;  // Afficher le spinner immédiatement
-    timer(2000).subscribe(() => {  // Ajouter un délai de 2 secondes
+    this.isLoading = true;
+    this.message = ''; // Réinitialiser le message d'erreur
+
+    timer(2000).subscribe(() => {
       this.authService.login(this.email, this.password).subscribe({
         next: (response: any) => {
-          this.isLoading = false;  // Cacher le spinner après la réponse
-          console.log(response);
-
+          this.isLoading = false;
           const role = response.user.role;
-          
-          // Rediriger en fonction du rôle
+          // Redirection en fonction du rôle
           if (role === 'Admin') {
             this.router.navigate(['/admin-dashboard']);
           } else if (role === 'Avocat') {
@@ -44,16 +43,18 @@ export class LoginComponent {
           }
         },
         error: (error: HttpErrorResponse) => {
-          this.isLoading = false;  // Cacher le spinner en cas d'erreur
-          this.message = error.error.message || 'Erreur de connexion.';
-          console.error(error);
+          this.isLoading = false;
+          if (error.status === 403 && error.error.message === "Votre compte n'est pas encore activé.") {
+            this.message = "Votre compte n'est pas encore activé.";
+          } else {
+            this.message = error.error.message || 'Erreur de connexion.';
+          }
         }
       });
     });
   }
 
-  goToRegister(){
-  
+  goToRegister() {
     this.router.navigate(['/register']);
   }
 }

@@ -1,7 +1,8 @@
+/* Style du formulaire */
 .form-container {
   max-width: 800px;
   margin: auto;
-  padding: 40px;
+  padding: 80px;
   background: #f8fbff;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -15,8 +16,10 @@
 }
 
 .form-group {
-  flex: 1; /* Chaque input prend la moitié de la ligne */
-  margin-bottom: 15px;
+  flex: 1 1 calc(50% - 20px); /* Ajuste la largeur des champs */
+  margin-bottom: 25px; /* Augmente l'espacement vertical entre les champs */
+  display: flex;
+  flex-direction: column; /* Aligne le label, l'input et le message d'erreur verticalement */
 }
 
 label {
@@ -41,11 +44,13 @@ input:focus {
   border-color: #007bff;
 }
 
+/* Style des indices pour les mots de passe */
 .password-hint {
-  font-size: 12px;
-  color: #888;
+  font-size: 14px;
+  color: #1717d4;
 }
 
+/* Style du bouton de soumission */
 .submit-btn {
   width: 22%;
   padding: 12px;
@@ -62,6 +67,12 @@ input:focus {
   background: #0056b3;
 }
 
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Message de succès ou d'erreur */
 .message {
   margin-top: 10px;
   font-size: 14px;
@@ -79,32 +90,33 @@ input:focus {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère pour donner de la profondeur */
 }
 
-/* Style des messages d'erreur pour les champs invalides */
+/* Style pour les messages d'erreur */
 .error-message {
   font-size: 12px;
   color: #fff;
-  background-color: #ff4d4d; /* Rouge pour l'erreur */
+  background-color: #ff4d4d; /* Rouge vif pour l'erreur */
   padding: 5px;
   border-radius: 5px;
-  margin-top: 5px;
   font-weight: 600;
+  margin-top: 5px;
 }
 
-/* Styles supplémentaires pour les champs en erreur */
+/* Style pour les messages de succès */
+.success-message {
+  font-size: 12px;
+  color: #fff;
+  background-color: #2ecc71; /* Vert pour les messages de succès */
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* Style pour les champs invalides */
 input.ng-touched.ng-invalid {
   border-color: #ff4d4d; /* Bordure rouge pour les champs invalides */
 }
 
 input.ng-touched.ng-valid {
   border-color: #28a745; /* Bordure verte pour les champs valides */
-}
-
-.error-message {
-  margin-top: 5px;
-  font-size: 12px;
-  color: #fff;
-  background-color: #f44336; /* Rouge vif pour l'erreur */
-  padding: 5px;
-  border-radius: 5px;
-  font-weight: 600;
 }

@@ -6,22 +6,35 @@
     <div class="form-row">
       <div class="form-group">
         <label for="nom">Nom *</label>
-        <input id="nom" name="nom" [(ngModel)]="avocat.nom" required />
+        <input id="nom" name="nom" [(ngModel)]="avocat.nom" #nom="ngModel" required />
+        <div *ngIf="nom.invalid && (nom.dirty || nom.touched)" class="error-message">
+          Le nom est requis.
+        </div>
       </div>
       <div class="form-group">
         <label for="prenom">Prénom *</label>
-        <input id="prenom" name="prenom" [(ngModel)]="avocat.prenom" required />
+        <input id="prenom" name="prenom" [(ngModel)]="avocat.prenom" #prenom="ngModel" required />
+        <div *ngIf="prenom.invalid && (prenom.dirty || prenom.touched)" class="error-message">
+          Le prénom est requis.
+        </div>
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label for="email">Email *</label>
-        <input id="email" name="email" [(ngModel)]="avocat.email" type="email" required />
+        <input id="email" name="email" [(ngModel)]="avocat.email" #email="ngModel" type="email" required />
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+          L'email est requis et doit être valide.
+        </div>
       </div>
       <div class="form-group">
         <label for="password">Mot de passe *</label>
-        <input id="password" name="password" [(ngModel)]="avocat.password" type="password" required />
+        <input id="password" name="password" [(ngModel)]="avocat.password" #password="ngModel" type="password" required minlength="8" />
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
+          Le mot de passe est requis et doit comporter au moins 8 caractères.
+        </div>
+        <!-- Ajout de l'indication pour le mot de passe -->
         <small class="password-hint">Un mot de passe doit contenir au moins 8 caractères, avec une majuscule, un chiffre et un caractère spécial.</small>
       </div>
     </div>
@@ -29,22 +42,34 @@
     <div class="form-row">
       <div class="form-group">
         <label for="phone">Téléphone *</label>
-        <input id="phone" name="phone" [(ngModel)]="avocat.phone" type="tel" required />
+        <input id="phone" name="phone" [(ngModel)]="avocat.phone" #phone="ngModel" type="tel" required />
+        <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="error-message">
+          Le numéro de téléphone est requis.
+        </div>
       </div>
       <div class="form-group">
         <label for="imageprofile">Image de profil *</label>
         <input id="imageprofile" name="imageprofile" type="file" (change)="onFileSelected($event)" required />
+        <div *ngIf="!avocat.imageprofile && (avocatForm.touched || avocatForm.dirty)" class="error-message">
+          Veuillez sélectionner une image de profil.
+        </div>
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
         <label for="adresse">Adresse *</label>
-        <input id="adresse" name="adresse" [(ngModel)]="avocat.adresse" required />
+        <input id="adresse" name="adresse" [(ngModel)]="avocat.adresse" #adresse="ngModel" required />
+        <div *ngIf="adresse.invalid && (adresse.dirty || adresse.touched)" class="error-message">
+          L'adresse est requise.
+        </div>
       </div>
       <div class="form-group">
         <label for="region">Région *</label>
-        <input id="region" name="region" [(ngModel)]="avocat.region" required />
+        <input id="region" name="region" [(ngModel)]="avocat.region" #region="ngModel" required />
+        <div *ngIf="region.invalid && (region.dirty || region.touched)" class="error-message">
+          La région est requise.
+        </div>
       </div>
     </div>
 
@@ -66,13 +91,16 @@
       </div>
       <div class="form-group">
         <label for="honoraires">Honoraires *</label>
-        <input id="honoraires" name="honoraires" [(ngModel)]="avocat.honoraires" type="number" required />
+        <input id="honoraires" name="honoraires" [(ngModel)]="avocat.honoraires" #honoraires="ngModel" type="number" required />
+        <div *ngIf="honoraires.invalid && (honoraires.dirty || honoraires.touched)" class="error-message">
+          Les honoraires sont requis.
+        </div>
       </div>
     </div>
 
     <!-- Footer contenant le bouton d'inscription -->
     <div class="form-footer">
-      <button type="submit" class="submit-btn">S'inscrire →</button>
+      <button type="submit" class="submit-btn" [disabled]="avocatForm.invalid">S'inscrire →</button>
     </div>
   </form>
 

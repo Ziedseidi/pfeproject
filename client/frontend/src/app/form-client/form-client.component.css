@@ -16,8 +16,10 @@
 }
 
 .form-group {
-  flex: 1; /* Chaque input prend la moitié de la ligne */
-  margin-bottom: 15px;
+  flex: 1 1 calc(50% - 20px); /* Ajuste la largeur des champs */
+  margin-bottom: 25px; /* Augmente l'espacement vertical entre les champs */
+  display: flex;
+  flex-direction: column; /* Aligne le label, l'input et le message d'erreur verticalement */
 }
 
 label {
@@ -44,8 +46,8 @@ input:focus {
 
 /* Style des indices pour les mots de passe */
 .password-hint {
-  font-size: 12px;
-  color: #888;
+  font-size: 14px;
+  color: #1717d4;
 }
 
 /* Style du bouton de soumission */
@@ -63,6 +65,11 @@ input:focus {
 
 .submit-btn:hover {
   background: #0056b3;
+}
+
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 /* Message de succès ou d'erreur */

@@ -87,3 +87,12 @@
     cursor: pointer;
     border-radius: 5px;
   }
+  .error-message {
+    color: #D8000C;
+    background-color: #FFD2D2;
+    border: 1px solid #D8000C;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+  }

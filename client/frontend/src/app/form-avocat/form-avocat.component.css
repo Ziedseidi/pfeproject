@@ -1,23 +1,25 @@
-/* Style pour le container du formulaire */
+/* Style du formulaire */
 .form-container {
   max-width: 800px;
   margin: auto;
-  padding: 40px;
+  padding: 80px;
   background: #f8fbff;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
-  margin-top: -520px;
+  margin-top: -520px; /* Ajuste pour plus de séparation si nécessaire */
 }
 
 .form-row {
   display: flex;
-  gap: 20px;
+  gap: 20px; /* Espacement entre les deux colonnes */
 }
 
 .form-group {
-  flex: 1;
-  margin-bottom: 15px;
+  flex: 1 1 calc(50% - 20px); /* Ajuste la largeur des champs */
+  margin-bottom: 25px; /* Augmente l'espacement vertical entre les champs */
+  display: flex;
+  flex-direction: column; /* Aligne le label, l'input et le message d'erreur verticalement */
 }
 
 label {
@@ -42,19 +44,21 @@ input:focus {
   border-color: #007bff;
 }
 
+/* Style des indices pour les mots de passe */
 .password-hint {
-  font-size: 12px;
-  color: #888;
+  font-size: 14px;
+  color: #1717d4;
 }
 
+/* Style du bouton de soumission */
 .submit-btn {
-  width: 100%;
+  width: 22%;
   padding: 12px;
-  background: #007bff;
+  background: #2868a7;
   color: #fff;
   font-size: 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor: pointer;
   transition: background 0.3s;
 }
@@ -63,7 +67,30 @@ input:focus {
   background: #0056b3;
 }
 
-/* Style des messages d'erreur */
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Message de succès ou d'erreur */
+.message {
+  margin-top: 10px;
+  font-size: 14px;
+  color: green;
+  text-align: center;
+}
+
+/* Style du footer */
+.form-footer {
+  margin-top: 30px; /* Espace au-dessus du footer */
+  text-align: center;
+  padding: 20px 0; /* Ajoute un padding pour donner plus d'espace autour du bouton */
+  background: #f0f0f0; /* Fond gris clair pour le footer */
+  border-radius: 5px 5px 10px 10px; /* Bords arrondis */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère pour donner de la profondeur */
+}
+
+/* Style pour les messages d'erreur */
 .error-message {
   font-size: 12px;
   color: #fff;
@@ -74,7 +101,7 @@ input:focus {
   margin-top: 5px;
 }
 
-/* Style des messages de succès */
+/* Style pour les messages de succès */
 .success-message {
   font-size: 12px;
   color: #fff;
@@ -85,29 +112,7 @@ input:focus {
   margin-top: 5px;
 }
 
-/* Style du footer */
-.form-footer {
-  margin-top: 30px;
-  text-align: center;
-  padding: 20px 0;
-  background: #f0f0f0;
-  border-radius: 5px 5px 10px 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Bouton de soumission avec un style arrondi */
-.submit-btn {
-  width: 200px;
-  margin: 0 auto;
-  background: #2868a7;
-  border-radius: 60px;
-}
-
-.submit-btn:hover {
-  background: #2d3a9b;
-}
-
-/* Styles supplémentaires pour les champs en erreur */
+/* Style pour les champs invalides */
 input.ng-touched.ng-invalid {
   border-color: #ff4d4d; /* Bordure rouge pour les champs invalides */
 }

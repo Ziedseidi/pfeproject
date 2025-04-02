@@ -26,12 +26,10 @@ export class FormAvocatComponent {
 
   constructor(private avocatService: AvocatService) {}
 
-  // Méthode pour récupérer l'image sélectionnée et l'ajouter au formData
   onFileSelected(event: any) {
     this.avocat.imageprofile = event.target.files[0];  // Récupère le fichier image
   }
 
-  // Méthode pour envoyer les données du formulaire et l'image
   onSubmit() {
     if (this.avocat.imageprofile) {
       // Si l'image est sélectionnée, on envoie le formulaire

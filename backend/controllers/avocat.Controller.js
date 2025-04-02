@@ -32,7 +32,8 @@ avocatController.registerAvocat = async (req, res) => {
             email,
             password: hashedPassword,
             phone,
-            imageprofile  // Ajout de l'image de profil dans l'utilisateur
+            imageprofile,  // Ajout de l'image 
+            isActive: false  // Par défaut
         });
 
         // Enregistrer l'utilisateur

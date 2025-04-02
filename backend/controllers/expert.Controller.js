@@ -31,7 +31,8 @@ expertController.registerexpert = async (req, res) => {
             email,
             password: hashedPassword,
             phone,
-            imageprofile  // Ajout de l'image de profil ici
+            imageprofile ,
+            isActive: false  // Ajout de l'image de profil ici
         });
 
         // Enregistrer l'utilisateur

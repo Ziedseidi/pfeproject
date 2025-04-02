@@ -10,9 +10,8 @@ import { ExpertDashboardComponent } from './expert-dashboard/expert-dashboard.co
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { NewPasswordComponent } from './new-password/new-password.component'; // Importation du composant pour réinitialisation du mot de passe
+import { NewPasswordComponent } from './new-password/new-password.component'; // Composant pour réinitialisation du mot de passe
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,10 +20,23 @@ const routes: Routes = [
   { path: 'expert-dashboard', component: ExpertDashboardComponent },
   { path: 'client-dashboard', component: ClientDashboardComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'reset-password/:token', component: NewPasswordComponent },  // Route modifiée
+
+  // Route `register` avec ses enfants
+  { 
+    path: 'register', component: RegisterComponent, 
+    children: [
+      { path: 'form-avocat', component: FormAvocatComponent },
+      { path: 'form-expert', component: FormExpertComponent },
+      { path: 'form-client', component: FormClientComponent }
+    ]
+  },
+
+  // Routes pour la réinitialisation du mot de passe
+  { path: 'reset-password/:token', component: NewPasswordComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: '**', redirectTo: '' }  // Route par défaut, à mettre en dernier
+
+  // Route par défaut (redirection vers la page d'accueil)
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

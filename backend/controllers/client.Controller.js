@@ -38,7 +38,8 @@ clientController.registerClient = async (req, res) => {
             email,
             password: hashedPassword,
             phone,
-            imageprofile  // Enregistrer l'image de profil dans User
+            imageprofile ,
+            isActive: false  // Enregistrer l'image de profil dans User
         });
 
         console.log('Nouvel utilisateur créé:', newUser); // Log pour vérifier l'objet utilisateur avant sauvegarde

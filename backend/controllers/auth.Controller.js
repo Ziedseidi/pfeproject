@@ -8,15 +8,17 @@ authController.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Vérifier si l'email et le mot de passe sont fournis
         if (!email || !password) {
             return res.status(400).json({ message: "Email et mot de passe requis." });
         }
 
-        // Vérifier si l'utilisateur existe
         const user = await User.findOne({ email }).populate('role'); // On récupère aussi le rôle
         if (!user) {
             return res.status(401).json({ message: "Email ou mot de passe incorrect." });
+        }
+
+        if(!user.isActive){
+            return res.status(403).json({message:"Votre compte n'est pas encore activé."})
         }
 
         // Vérifier le mot de passe
