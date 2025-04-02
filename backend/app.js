@@ -6,6 +6,7 @@ const expertRoutes = require('./routes/expertRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const roleRoutes = require('./routes/roleRoutes');
 const passwordRoutes= require('./routes/passwordRoutes');
+const userRoutes=require('./routes/userRoutes');
 
 const app = express();
 
@@ -22,5 +23,6 @@ app.use('/expert', expertRoutes);
 app.use('/client', clientRoutes);
 app.use('/role', roleRoutes);
 app.use('/password', passwordRoutes);
+app.use('/user',userRoutes);
 
 module.exports = app;
