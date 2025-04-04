@@ -1,42 +1,28 @@
-<div class="sidebar" [class.dark-mode]="isDarkMode">
-    <div class="sidebar-header">
-      <img src="assets/images/tunisair.png" alt="Logo" class="logo">
-     
-    </div>
-  
-    <div class="search-bar">
-      <input type="text" placeholder="Search...">
-    </div>
-  
-    <div class="nav-links">
-      <a routerLink="/dashboard">
-        <mat-icon>home</mat-icon> Dashboard
-      </a>
-      <a routerLink="/revenue">
-        <i class="fas fa-chart-bar"></i> Revenue
-      </a>
-      <a routerLink="/notifications">
-        <i class="fas fa-bell"></i> Notifications
-      </a>
-      <a routerLink="/analytics">
-        <i class="fas fa-chart-pie"></i> Analytics
-      </a>
-      <a routerLink="/likes">
-        <i class="fas fa-heart"></i> Likes
-      </a>
-      <a routerLink="/wallets">
-        <i class="fas fa-wallet"></i> Wallets
-      </a>
-    </div>
-  
-    <div class="sidebar-footer">
-      <button (click)="logout()">
-        <mat-icon>exit_to_app</mat-icon> Logout
-      </button>
-      <button (click)="toggleTheme()">
-        <mat-icon>{{isDarkMode ? 'brightness_7' : 'brightness_4'}}</mat-icon>
-        {{isDarkMode ? 'Light Mode' : 'Dark Mode'}}
-      </button>
+<aside class="sidebar">
+  <!-- User Info Section -->
+  <div class="navbar-center">
+    <div class="user-info">
+      <img src="assets/images/user-profile.jpg" alt="User Profile" class="user-image">
+      <span class="user-name">John Doe</span>
     </div>
   </div>
-  
+
+  <!-- Search Bar Section -->
+  <div class="search-container">
+    <input type="text" placeholder="Rechercher..." class="search-input">
+    <i class="fas fa-search"></i>
+  </div>
+
+  <!-- Menu Section -->
+  <ul class="menu">
+    <li class="active"><i class="fas fa-user"></i> Profile</li>
+    <li><i class="fas fa-users"></i> Gestion des utilisateurs</li>
+    <li><i class="fas fa-users-cog"></i> Gestion des rôles</li>
+    <li><i class="fas fa-gavel"></i> Gestion des avocats</li>
+    <li><i class="fas fa-user-tie"></i> Gestion des clients</li>
+    <li><i class="fas fa-user-md"></i> Gestion des experts</li>
+    <li><i class="fas fa-file-contract"></i> Gestion des contrats</li>
+    <li><i class="fas fa-folder"></i> Gestion des dossiers</li>
+    <li><i class="fas fa-balance-scale"></i> Gestion des affaires juridiques</li>
+  </ul>
+</aside>

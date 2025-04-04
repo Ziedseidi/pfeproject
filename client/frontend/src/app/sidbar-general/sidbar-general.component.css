@@ -1,123 +1,101 @@
-/* Sidebar container */
+/* Sidebar Styles */
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s ease;
-  }
-  
-  .sidebar.dark-mode {
-    background-color: #212121;  /* Plus foncé pour le mode sombre */
-  }
-  
-  /* Sidebar header */
-  .sidebar-header {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .sidebar-header .logo {
-    width: 100px;
-    height: auto;
-  }
-  
-  .sidebar-header .title {
-    font-size: 22px;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  .sidebar-header .subtitle {
-    font-size: 14px;
-    color: #bbb;
-  }
-  
-  /* Search bar */
-  .search-bar input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #444;
-    color: white;
-    font-size: 14px;
-  }
-  
-  .search-bar input::placeholder {
-    color: #bbb;
-  }
-  
-  /* Navigation links */
-  .nav-links {
-    flex-grow: 1;
-    margin-top: 30px;
-  }
-  
-  .nav-links a {
-    display: flex;
-    align-items: center;
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
-    padding: 12px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .nav-links a:hover {
-    background-color: #4CAF50;  /* Couleur au survol */
-  }
-  
-  .nav-links mat-icon {
-    margin-right: 15px;
-    font-size: 20px; /* Pour ajuster la taille des icônes */
-  }
-  
-  /* Sidebar footer */
-  .sidebar-footer {
-    text-align: center;
-    padding: 10px;
-    margin-top: 20px;
-  }
-  
-  .sidebar-footer button {
-    background-color: transparent;
-    color: #fff;
-    border: none;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .sidebar-footer button:hover {
-    background-color: #4CAF50;  /* Couleur au survol */
-  }
-  
-  .sidebar-footer button mat-icon {
-    margin-right: 8px;
-  }
-  
-  /* Animation pour la sidebar */
-  .sidebar {
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .sidebar.open {
-    transform: translateX(0);
-  }
-  
-  .sidebar.closed {
-    transform: translateX(-100%);
-  }
-  
+  width: 150px;  /* Largeur de la sidebar */
+  background: #2f4050;
+  color: white;
+  height: calc(100vh - 50px);  /* Prend toute la hauteur de la fenêtre mais sans recouvrir la navbar */
+  padding: 15px;
+  position: fixed;
+  left: 0;
+  top: 57px; /* Ajout d'une marge pour éviter que la navbar ne recouvre la sidebar */
+  z-index: 1; /* Assurez-vous que la sidebar soit au-dessus du contenu principal */
+  overflow-y: auto;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #2f4050;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  top: 20;
+  left: 0;
+  right: 0;
+  z-index: 10;  /* Assurez-vous que le navbar est au-dessus de la sidebar */
+}
+
+/* User Info Section */
+.navbar-center {
+  margin-bottom: 8px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.user-image {
+  width: 55px;
+  height: 90px;
+  border-radius: 60%;
+  margin-right: 10px;
+}
+
+.user-name {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Search Bar Section */
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: #34495e;
+  border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.search-container .search-input {
+  border: none;
+  background-color: transparent;
+  color: white;
+  padding: 5px;
+  margin-right: 5px;
+  width: 100%;
+}
+
+.search-container .search-input:focus {
+  outline: none;
+}
+
+.search-container i {
+  color: white;
+  font-size: 16px;
+}
+
+/* Menu Section */
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.menu li i {
+  margin-right: 6px;
+}
+
+.menu li:hover, .menu li.active {
+  background: #1ab394;
+}

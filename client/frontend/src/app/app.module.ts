@@ -31,7 +31,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
-import { SidbarGeneralComponent } from './sidbar-general/sidbar-general.component'; 
+import { SidbarGeneralComponent } from './sidbar-general/sidbar-general.component';
+import { NavClassicComponent } from './nav-classic/nav-classic.component'; 
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { SidbarGeneralComponent } from './sidbar-general/sidbar-general.componen
     RegisterComponent,
     ForgotPasswordComponent,
     NewPasswordComponent,
-    SidbarGeneralComponent // Assurez-vous que ce composant existe
+    SidbarGeneralComponent,
+    NavClassicComponent // Assurez-vous que ce composant existe
   ],
   imports: [
     BrowserModule,
