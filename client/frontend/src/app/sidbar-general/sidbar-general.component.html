@@ -16,8 +16,12 @@
   <!-- Menu Section -->
   <ul class="menu">
     <li class="active"><i class="fas fa-user"></i> Profile</li>
+
     <li><i class="fas fa-users"></i> Gestion des utilisateurs</li>
-    <li><i class="fas fa-users-cog"></i> Gestion des rôles</li>
+
+    <li [routerLink]="['/admin-dashboard/add-role']" style="cursor: pointer;">
+      <i class="fas fa-users-cog"></i> Gestion des rôles
+    </li>
     <li><i class="fas fa-gavel"></i> Gestion des avocats</li>
     <li><i class="fas fa-user-tie"></i> Gestion des clients</li>
     <li><i class="fas fa-user-md"></i> Gestion des experts</li>

@@ -1,0 +1,118 @@
+/* Conteneur du formulaire */
+.add-role-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Titre du formulaire */
+.add-role-form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Style des groupes de champs */
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Champs de saisie (input, textarea) */
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    resize: vertical;
+    height: 150px;
+}
+
+/* Bouton de soumission */
+button.submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #2f4050;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Effet au survol du bouton */
+button.submit-btn:hover {
+    background-color: #1ab394;
+}
+
+/* Message de succès ou erreur */
+.message {
+    margin-top: 10px;
+    text-align: center;
+    color: green;
+    font-weight: bold;
+}
+
+/* Responsiveness */
+@media (max-width: 600px) {
+    .add-role-form {
+        padding: 20px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 14px;
+    }
+
+    button.submit-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+/* Conteneur du lien */
+.link-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Style du lien simple */
+.simple-link {
+    color: #1ab394;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.simple-link:hover {
+    color: #117964;
+    text-decoration: underline;
+}

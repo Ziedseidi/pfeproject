@@ -71,4 +71,14 @@ roleController.assignRoleToUser = async (req, res) => {
     }
 };
 
+roleController.getAllRoles=async(req,res)=>{
+    try{
+        const roles= await Role.find();
+        res.status(200).json(roles);
+    }catch(error){
+        console.log('erreur lors de la récupuration des roles:',error.message);
+        res.status(500).json({message:'Erreur serveur lors de la récupuration des roles'});
+    }
+};
+
 module.exports=roleController;

@@ -30,8 +30,14 @@ export class LoginComponent {
       this.authService.login(this.email, this.password).subscribe({
         next: (response: any) => {
           this.isLoading = false;
-          const role = response.user.role;
+
+          // Enregistrer le token dans localStorage après une connexion réussie
+          if (response.token) {
+            this.authService.saveToken(response.token); // Utiliser la méthode saveToken
+          }
+
           // Redirection en fonction du rôle
+          const role = response.user.role;
           if (role === 'Admin') {
             this.router.navigate(['/admin-dashboard']);
           } else if (role === 'Avocat') {

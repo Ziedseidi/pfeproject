@@ -10,18 +10,29 @@ import { ExpertDashboardComponent } from './expert-dashboard/expert-dashboard.co
 import { ClientDashboardComponent } from './client-dashboard/client-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { NewPasswordComponent } from './new-password/new-password.component'; // Composant pour réinitialisation du mot de passe
+import { NewPasswordComponent } from './new-password/new-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+
+// 👇 Import du composant AddRole
+import { AjouterRoleComponent } from './ajouter-role/ajouter-role.component';
+import { ListeRolesComponent } from './liste-roles/liste-roles.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'admin-dashboard', component: AdminDashboardComponent },
+  { 
+    path: 'admin-dashboard', 
+    component: AdminDashboardComponent,
+    children: [
+      { path: 'add-role', component: AjouterRoleComponent },
+      { path: 'liste-roles', component: ListeRolesComponent }, // Ajouter cette route
+    ]
+  },
   { path: 'avocat-dashboard', component: AvocatDashboardComponent },
   { path: 'expert-dashboard', component: ExpertDashboardComponent },
   { path: 'client-dashboard', component: ClientDashboardComponent },
   { path: 'login', component: LoginComponent },
 
-  // Route `register` avec ses enfants
+  // Routes d'enregistrement
   { 
     path: 'register', component: RegisterComponent, 
     children: [
@@ -31,16 +42,16 @@ const routes: Routes = [
     ]
   },
 
-  // Routes pour la réinitialisation du mot de passe
+  // Routes de réinitialisation du mot de passe
   { path: 'reset-password/:token', component: NewPasswordComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
 
-  // Route par défaut (redirection vers la page d'accueil)
+  // Redirection par défaut
   { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],  // Importation des routes dans le module
-  exports: [RouterModule]  // Exportation du module Router
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

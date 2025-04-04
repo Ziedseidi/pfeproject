@@ -1,0 +1,20 @@
+<div class="add-role-form">
+  <h2>Ajouter un Rôle</h2>
+  <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nom">Nom du rôle</label>
+      <input type="text" formControlName="nom" id="nom" />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea formControlName="description" id="description"></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn" [disabled]="roleForm.invalid">Créer</button>
+  </form>
+  <p *ngIf="message" class="message">{{ message }}</p>
+
+  <!-- Lien vers la liste des rôles -->
+  <a routerLink="/admin-dashboard/liste-roles" class="go-to-list">Voir la liste des rôles</a>
+</div>

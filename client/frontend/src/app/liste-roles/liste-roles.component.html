@@ -1,0 +1,27 @@
+<div class="roles-container">
+    <h2>Liste des Rôles</h2>
+    
+    <table class="roles-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Boucle sur les rôles pour les afficher -->
+        <tr *ngFor="let role of roles">
+          <td>{{ role.nom }}</td>
+          <td>{{ role.description }}</td>
+          <td>
+            <button class="edit-btn" (click)="onEdit(role._id)">Modifier</button>
+            <button class="delete-btn" (click)="onDelete(role._id)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <p *ngIf="message" class="message">{{ message }}</p>
+  </div>
+  

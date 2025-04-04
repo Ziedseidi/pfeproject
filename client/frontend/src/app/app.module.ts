@@ -32,7 +32,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
 import { SidbarGeneralComponent } from './sidbar-general/sidbar-general.component';
-import { NavClassicComponent } from './nav-classic/nav-classic.component'; 
+import { NavClassicComponent } from './nav-classic/nav-classic.component';
+import { AjouterRoleComponent } from './ajouter-role/ajouter-role.component';
+import { ListeRolesComponent } from './liste-roles/liste-roles.component'; 
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { NavClassicComponent } from './nav-classic/nav-classic.component';
     ForgotPasswordComponent,
     NewPasswordComponent,
     SidbarGeneralComponent,
-    NavClassicComponent // Assurez-vous que ce composant existe
+    NavClassicComponent,
+    AjouterRoleComponent,
+    ListeRolesComponent // Assurez-vous que ce composant existe
   ],
   imports: [
     BrowserModule,
