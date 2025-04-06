@@ -1,6 +1,7 @@
-<div class="roles-container">
+<div class="container liste-roles">
     <h2>Liste des Rôles</h2>
-    
+    <p class="message" *ngIf="message">{{ message }}</p>
+  
     <table class="roles-table">
       <thead>
         <tr>
@@ -10,18 +11,60 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Boucle sur les rôles pour les afficher -->
         <tr *ngFor="let role of roles">
-          <td>{{ role.nom }}</td>
-          <td>{{ role.description }}</td>
           <td>
-            <button class="edit-btn" (click)="onEdit(role._id)">Modifier</button>
-            <button class="delete-btn" (click)="onDelete(role._id)">Supprimer</button>
+            <!-- Affichage des icônes selon le rôle -->
+            <span *ngIf="role.nom === 'Admin'">
+              <i class="fas fa-user-shield"></i> {{ role.nom }}
+            </span>
+            <span *ngIf="role.nom === 'Avocat'">
+              <i class="fas fa-gavel"></i> {{ role.nom }}
+            </span>
+            <span *ngIf="role.nom === 'Client'">
+              <i class="fas fa-user"></i> {{ role.nom }}
+            </span>
+            <span *ngIf="role.nom === 'Expert'">
+              <i class="fas fa-users"></i> {{ role.nom }}
+            </span>
+          </td>
+          <td>{{ role.description }}</td>
+          <td class="action-buttons">
+            <button class="edit-btn" (click)="onEdit(role)">
+              <i class="fas fa-edit"></i> Modifier
+            </button>
+            <button class="delete-btn" (click)="onDelete(role._id)">
+              <i class="fas fa-trash-alt"></i> Supprimer
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
   
-    <p *ngIf="message" class="message">{{ message }}</p>
+    <!-- Popup Modal -->
+<div class="modal" *ngIf="isPopupOpen">
+    <div class="modal-content">
+      <h3>Modifier le rôle</h3>
+      <form (ngSubmit)="updateRole()">
+        <div class="form-group">
+          <label for="roleNom"><i class="fas fa-user"></i> Nom du rôle</label>
+          <input id="roleNom" [(ngModel)]="selectedRole.nom" name="nom" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="roleDescription"><i class="fas fa-align-left"></i> Description</label>
+          <textarea id="roleDescription" [(ngModel)]="selectedRole.description" name="description" required></textarea>
+        </div>
+  
+        <div class="modal-footer">
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-check"></i> Enregistrer
+          </button>
+          <button type="button" class="cancel-btn" (click)="closePopup()">
+            <i class="fas fa-times"></i> Annuler
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
+  
   

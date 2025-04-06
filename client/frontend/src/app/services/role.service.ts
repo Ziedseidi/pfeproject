@@ -57,4 +57,16 @@ export class RoleService {
       })
     );
   }
+
+  // Mise à jour d'un rôle
+  updateRole(roleId: string, roleData: { nom: string; description: string }): Observable<any> {
+    return this.http.put(`${this.baseUrl}/update_Role/${roleId}`, roleData, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError((error) => {
+        console.error('Erreur lors de la mise à jour du rôle:', error);
+        return throwError(() => new Error('Erreur lors de la mise à jour du rôle.'));
+      })
+    );
+  }
 }

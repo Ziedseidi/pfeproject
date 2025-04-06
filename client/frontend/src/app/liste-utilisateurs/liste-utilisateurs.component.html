@@ -1,0 +1,43 @@
+<div *ngIf="utilisateurs.length > 0; else noUsers" class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Type</th>
+          <th>Informations supplémentaires</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let utilisateur of utilisateurs">
+          <td>{{ utilisateur.nom }}</td>
+          <td>{{ utilisateur.prenom }}</td>
+          <td>{{ utilisateur.additionalInfo?.type || 'Non défini' }}</td>
+          <td>
+            <div *ngIf="utilisateur.additionalInfo?.data">
+              <div *ngIf="utilisateur.additionalInfo?.type === 'Avocat'">
+                <p><strong>Adresse:</strong> {{ utilisateur.additionalInfo?.data?.adresse || 'Non disponible' }}</p>
+                <p><strong>Honoraires:</strong> {{ utilisateur.additionalInfo?.data?.honoraires || 'Non disponible' }}</p>
+                <p><strong>Référence convention:</strong> {{ utilisateur.additionalInfo?.data?.referenceConvention || 'Non disponible' }}</p>
+              </div>
+              <div *ngIf="utilisateur.additionalInfo?.type === 'Expert'">
+                <p><strong>Adresse:</strong> {{ utilisateur.additionalInfo?.data?.adresse || 'Non disponible' }}</p>
+                <p><strong>Frais expertise:</strong> {{ utilisateur.additionalInfo?.data?.fraisExpertise || 'Non disponible' }}</p>
+                <p><strong>Date expertise:</strong> {{ utilisateur.additionalInfo?.data?.dateExpertise | date: 'dd/MM/yyyy' || 'Non disponible' }}</p>
+              </div>
+              <div *ngIf="utilisateur.additionalInfo?.type === 'Client'">
+                <p><strong>Informations client:</strong> Non disponibles pour le moment</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <ng-template #noUsers>
+    <div class="no-users">
+      <p>Aucun utilisateur trouvé.</p>
+    </div>
+  </ng-template>
+  

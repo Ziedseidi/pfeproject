@@ -80,5 +80,35 @@ roleController.getAllRoles=async(req,res)=>{
         res.status(500).json({message:'Erreur serveur lors de la récupuration des roles'});
     }
 };
+roleController.deleteRole=async(req,res)=>{
+    try{
+        const roleId= req.params.id;
+        const deleteRole= await Role.findByIdAndDelete(roleId);
+        if(!deleteRole){
+            return res.status(404).json({message:'Role non trouvé'});
+        }
+        res.status(200).json({message:'role supprimé aver succes'});
+
+        }catch (error){
+            console.log('erreur lors de la suppresiion de role',error);
+            res.status(500).json({message:'erreur serveur'});
+
+        }
+    };
+    roleController.updateRole=async(req,res)=>{
+        try{
+            const roleId= req.params.id;
+            const {nom , description}= req.body;
+            const updateRole= await Role.findByIdAndUpdate(roleId,{nom, description},{new: true});
+            if(!updateRole){
+                return res.status(404).json({message:'Role non trouver'});
+            }
+            res.status(200).json({message:'updateRole'});
+        }catch (error){
+            cosnole.log('Erreur lors de la modification de role',error);
+            res.status(500).json({message:'erreur serveur'});
+        }
+    }
+
 
 module.exports=roleController;

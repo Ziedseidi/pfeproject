@@ -10,6 +10,13 @@ export class ListeRolesComponent implements OnInit {
   roles: any[] = [];
   message: string = '';
 
+  isPopupOpen: boolean = false;
+  selectedRole: any = {
+    _id: '',
+    nom: '',
+    description: ''
+  };
+
   constructor(private roleService: RoleService) {}
 
   ngOnInit(): void {
@@ -33,9 +40,9 @@ export class ListeRolesComponent implements OnInit {
       this.roleService.deleteRole(roleId).subscribe({
         next: () => {
           this.message = 'Rôle supprimé avec succès';
-          this.fetchRoles(); // Recharge la liste après suppression
+          this.fetchRoles();
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Erreur lors de la suppression', err);
           this.message = 'Erreur lors de la suppression du rôle';
         }
@@ -43,8 +50,36 @@ export class ListeRolesComponent implements OnInit {
     }
   }
 
-  onEdit(roleId: string): void {
-    // Tu peux rediriger ou ouvrir un formulaire ici
-    console.log('Modifier le rôle avec ID :', roleId);
+  onEdit(role: any): void {
+    this.selectedRole = { ...role };
+    this.isPopupOpen = true;
+  }
+
+  updateRole(): void {
+    if (this.selectedRole._id) {
+      this.roleService.updateRole(this.selectedRole._id, {
+        nom: this.selectedRole.nom,
+        description: this.selectedRole.description
+      }).subscribe({
+        next: () => {
+          this.message = 'Rôle mis à jour avec succès';
+          this.fetchRoles();
+          this.closePopup();
+        },
+        error: (err: any) => {
+          console.error('Erreur lors de la mise à jour du rôle', err);
+          this.message = 'Erreur lors de la mise à jour du rôle';
+        }
+      });
+    }
+  }
+
+  closePopup(): void {
+    this.isPopupOpen = false;
+    this.selectedRole = {
+      _id: '',
+      nom: '',
+      description: ''
+    };
   }
 }

@@ -34,7 +34,8 @@ import { NewPasswordComponent } from './new-password/new-password.component';
 import { SidbarGeneralComponent } from './sidbar-general/sidbar-general.component';
 import { NavClassicComponent } from './nav-classic/nav-classic.component';
 import { AjouterRoleComponent } from './ajouter-role/ajouter-role.component';
-import { ListeRolesComponent } from './liste-roles/liste-roles.component'; 
+import { ListeRolesComponent } from './liste-roles/liste-roles.component';
+import { ListeUtilisateursComponent } from './liste-utilisateurs/liste-utilisateurs.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,9 @@ import { ListeRolesComponent } from './liste-roles/liste-roles.component';
     SidbarGeneralComponent,
     NavClassicComponent,
     AjouterRoleComponent,
-    ListeRolesComponent // Assurez-vous que ce composant existe
+    ListeRolesComponent,
+    ListeUtilisateursComponent
+     // Assurez-vous que ce composant existe
   ],
   imports: [
     BrowserModule,

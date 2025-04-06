@@ -16,6 +16,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 // 👇 Import du composant AddRole
 import { AjouterRoleComponent } from './ajouter-role/ajouter-role.component';
 import { ListeRolesComponent } from './liste-roles/liste-roles.component';
+import { ListeUtilisateursComponent } from './liste-utilisateurs/liste-utilisateurs.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,6 +24,8 @@ const routes: Routes = [
     path: 'admin-dashboard', 
     component: AdminDashboardComponent,
     children: [
+      { path: 'liste-utilisateurs', component: ListeUtilisateursComponent },
+
       { path: 'add-role', component: AjouterRoleComponent },
       { path: 'liste-roles', component: ListeRolesComponent }, // Ajouter cette route
     ]
