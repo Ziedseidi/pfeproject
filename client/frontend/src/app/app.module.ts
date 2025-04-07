@@ -36,6 +36,7 @@ import { NavClassicComponent } from './nav-classic/nav-classic.component';
 import { AjouterRoleComponent } from './ajouter-role/ajouter-role.component';
 import { ListeRolesComponent } from './liste-roles/liste-roles.component';
 import { ListeUtilisateursComponent } from './liste-utilisateurs/liste-utilisateurs.component';
+import { SendEmailComponent } from './send-email/send-email.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { ListeUtilisateursComponent } from './liste-utilisateurs/liste-utilisate
     NavClassicComponent,
     AjouterRoleComponent,
     ListeRolesComponent,
-    ListeUtilisateursComponent
+    ListeUtilisateursComponent,
+    SendEmailComponent
      // Assurez-vous que ce composant existe
   ],
   imports: [

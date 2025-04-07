@@ -110,7 +110,7 @@ passwordController.showResetPasswordForm = async (req, res) => {
     // Retourner une réponse indiquant que le token est valide
     res.status(200).json({ message: "Token valide", isTokenValid: true });
   } catch (error) {
-    console.error("🚨 Erreur lors de la vérification du token :", error);
+    console.error("Erreur lors de la vérification du token :", error);
     res.status(500).json({ message: "Erreur serveur" });
   }
 };

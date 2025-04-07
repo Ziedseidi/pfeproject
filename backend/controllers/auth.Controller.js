@@ -50,7 +50,7 @@ authController.login = async (req, res) => {
 
         console.log(token);
     } catch (error) {
-        console.error("❌ Erreur lors de la connexion:", error);
+        console.error(" Erreur lors de la connexion:", error);
         res.status(500).json({ message: "Erreur serveur. Veuillez réessayer plus tard." });
     }
 };

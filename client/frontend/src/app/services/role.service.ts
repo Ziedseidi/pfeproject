@@ -69,4 +69,17 @@ export class RoleService {
       })
     );
   }
+
+  // Assigner un rôle à un utilisateur
+  assignRoleToUser(userId: string, roleId: string): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http
+      .post(`${this.baseUrl}/assignRole`, { userId, roleId }, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error('Erreur lors de l\'assignation du rôle:', error);
+          return throwError(() => new Error('Erreur lors de l\'assignation du rôle.'));
+        })
+      );
+  }
 }

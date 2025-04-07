@@ -7,5 +7,6 @@ const adminController=require('../controllers/admin.Controller');
 router.delete('/deleteUser/:userId', authenticateToken, roleMiddleware('Admin'), adminController.deleteUser);
 router.patch('/toggleUserActivation/:userId', authenticateToken, roleMiddleware('Admin'), adminController.toggleUserActivation);
 router.get('/All-users', authenticateToken, roleMiddleware('Admin'),adminController.getAllUsersWithInfo);
+router.post('/send-email-to-user', authenticateToken, roleMiddleware('Admin'), adminController.sendEmailToUser);
 
 module.exports = router;

@@ -2,6 +2,9 @@ const User = require('../models/User.model');
 const Avocat = require('../models/Avocat.model');
 const Expert = require('../models/Expert.model');
 const Client = require('../models/Client.model');
+const { sendMail } = require("../utils/sendEmail");
+const mongoose = require('mongoose');  // Ajoute cette ligne
+
 
 const adminController={};
 
@@ -106,5 +109,31 @@ adminController.toggleUserActivation = async (req, res) => {
       res.status(500).json({ message: 'Erreur lors de la récupération des utilisateurs', error });
     }
   };
+
   
+adminController.sendEmailToUser = async (req, res) => {
+    const { userId, subject, emailContent } = req.body;
+
+    try {
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: 'ID utilisateur invalide' });
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'Utilisateur non trouvé' });
+        }
+
+        // Envoi de l'email
+        await sendMail(user.email, subject, emailContent, true);  // assuming isHtml = true for HTML content
+
+        res.status(200).json({ message: 'Email envoyé avec succès' });
+    } catch (error) {
+        console.error("Erreur lors de l'envoi de l'email", error);
+        res.status(500).json({ message: 'Erreur serveur lors de l\'envoi de l\'email' });
+    }
+};
+
+  
+
 module.exports=adminController;

@@ -14,5 +14,6 @@ export interface User {
       type: string;  // Le type de l'utilisateur (Avocat, Expert, Client)
       data: any;  // Contient les données supplémentaires en fonction du type
     };
+    showRoleDropdown?: boolean; // Ajouter cette ligne
   }
   
