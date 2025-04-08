@@ -41,7 +41,7 @@ const routes: Routes = [
     children: [
       { path: 'form-avocat', component: FormAvocatComponent },
       { path: 'form-expert', component: FormExpertComponent },
-      { path: 'form-client', component: FormClientComponent }
+      { path: 'form-demandeur', component: FormClientComponent }
     ]
   },
 

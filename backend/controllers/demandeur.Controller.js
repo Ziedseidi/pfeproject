@@ -1,14 +1,13 @@
-const Client = require('../models/Client.model');
+const Demandeur=require('../models/Demandeur.model');
 const User = require('../models/User.model');
 const bcrypt = require('bcryptjs');
 const uploadImage = require('../midelware/multer'); // Importer le middleware Multer
 
-const clientController = {};
+const demandeurController = {};
 
-// Route pour l'inscription du client avec l'image de profil
-clientController.registerClient = async (req, res) => {
+demandeurController.registerDemandeur = async (req, res) => {
     try {
-        const { nom, prenom, email, password, phone } = req.body;
+        const { nom, prenom, email, password, phone,cin, matricule,ficheCarriere,contratTravail,decisionsPromotions } = req.body;
 
         // Vérification si l'utilisateur existe déjà
         const existingUser = await User.findOne({ email });
@@ -22,7 +21,6 @@ clientController.registerClient = async (req, res) => {
         // Gestion de l'image de profil pour le client
         let imageprofile = '';
         if (req.file) {
-            // Vérification de la réception de l'image
             console.log('Image reçue:', req.file); // Vérifie le contenu du fichier
 
             // L'image est envoyée dans le dossier 'uploads', donc on peut générer l'URL correctement
@@ -48,20 +46,26 @@ clientController.registerClient = async (req, res) => {
         await newUser.save();
 
         // Créer un client en associant l'utilisateur créé
-        const newClient = new Client({
-            utilisateur: newUser._id, // Référence à l'utilisateur créé
+        const newDemandeur = new Demandeur({
+            utilisateur: newUser._id,
+            cin,
+            matricule,
+            ficheCarriere,
+            contratTravail,
+            decisionsPromotions
+
         });
 
-        console.log('Nouveau client créé:', newClient); // Log pour vérifier l'objet client avant sauvegarde
+        console.log('Nouveau Demandeur créé:', newDemandeur); // Log pour vérifier l'objet client avant sauvegarde
 
         // Enregistrer le client
-        await newClient.save();
+        await newDemandeur.save();
 
-        res.status(201).json({ message: "Client inscrit avec succès !", user: newUser });
+        res.status(201).json({ message: "Demandeur inscrit avec succès !", user: newUser });
     } catch (error) {
-        console.error("Erreur lors de l'inscription du client:", error);
-        res.status(500).json({ message: "Erreur lors de l'inscription du client.", error });
+        console.error("Erreur lors de l'inscription du demandeur:", error);
+        res.status(500).json({ message: "Erreur lors de l'inscription du demandeur.", error });
     }
 };
 
-module.exports = clientController;
+module.exports = demandeurController;

@@ -3,10 +3,11 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const avocatRoutes = require('./routes/avocatRoutes');
 const expertRoutes = require('./routes/expertRoutes');
-const clientRoutes = require('./routes/clientRoutes');
+const demabdeurRoutes= require('./routes/demanseurRoutes');
 const roleRoutes = require('./routes/roleRoutes');
 const passwordRoutes= require('./routes/passwordRoutes');
 const userRoutes=require('./routes/userRoutes');
+const affaireRoutes=require('./routes/affaireRoutes');
 
 const app = express();
 
@@ -20,9 +21,10 @@ app.use('/uploads', express.static('uploads'));
 app.use('/auth', authRoutes);
 app.use('/avocat', avocatRoutes);  
 app.use('/expert', expertRoutes);
-app.use('/client', clientRoutes);
+app.use('/demandeur', demabdeurRoutes);
 app.use('/role', roleRoutes);
 app.use('/password', passwordRoutes);
 app.use('/user',userRoutes);
+app.use('/affaire',affaireRoutes);
 
 module.exports = app;

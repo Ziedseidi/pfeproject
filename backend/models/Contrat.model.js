@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
 
 const contratSchema = new mongoose.Schema({
-    objetContrat: { type: String, required: true },
+    objet: { type: String, required: true },
     partieContractante: { type: String, required: true },
-    montant: { type: Number, required: true },
+    montant: { type: Number },
     direction: { type: String },
-    dateSignature: { type: Date, required: true },
+    dateSignature: { type: Date },
     dateEffet: { type: Date },
-    duree: { type: Number },
+    duree: { type: String },
     dateFin: { type: Date },
-    preavis: { type: Number }
+    datePreavis: { type: Date },
+    fichier: { type: String } // PDF upload
 }, { timestamps: true });
 
 module.exports = mongoose.model('Contrat', contratSchema);

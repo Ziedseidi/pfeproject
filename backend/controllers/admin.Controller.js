@@ -1,7 +1,7 @@
 const User = require('../models/User.model');
 const Avocat = require('../models/Avocat.model');
 const Expert = require('../models/Expert.model');
-const Client = require('../models/Client.model');
+const Demandeur = require('../models/Demandeur.model')
 const { sendMail } = require("../utils/sendEmail");
 const mongoose = require('mongoose');  // Ajoute cette ligne
 
@@ -17,7 +17,7 @@ adminController.deleteUser=async(req , res)=>{
         }
         await Avocat.findOneAndDelete({utilisateur : userId});
         await Expert.findOneAndDelete({utilisateur: userId});
-        await Client.findOneAndDelete({utilisateur: userId});
+        await Demandeur.findOneAndDelete({utilisateur: userId});
         await User.findByIdAndDelete(userId);
 
         res.status(200).json({message: 'Utilisateur et ses données associées supprimés'})
@@ -86,12 +86,12 @@ adminController.toggleUserActivation = async (req, res) => {
         }
   
         // Vérifier si cet utilisateur est un Client
-        const client = await Client.findOne({ utilisateur: user._id }).exec();
-        if (client) {
+        const demandeur = await Demandeur.findOne({ utilisateur: user._id }).exec();
+        if (demandeur) {
           additionalInfo = { 
-            type: 'Client', 
+            type: 'Demandeur', 
             data: {
-              // Ajoutez des informations spécifiques au client ici
+
             }
           };
         }

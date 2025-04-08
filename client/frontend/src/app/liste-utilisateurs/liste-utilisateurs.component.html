@@ -53,17 +53,14 @@
     </tbody>
   </table>
   
-  <!-- 🔴 Aucun utilisateur trouvé -->
   <ng-template #noUsers>
     <div class="no-users">
       <p>Aucun utilisateur trouvé.</p>
     </div>
   </ng-template>
   
-  <!-- 📧 Modale pour l'email -->
   <app-send-email *ngIf="isEmailModalOpen" [userId]="selectedUserId" (closeModal)="closeEmailModal()"></app-send-email>
   
-  <!-- 📜 Modale pour l'assignation du rôle -->
   <div *ngIf="isRoleModalOpen" class="role-modal">
     <div class="modal-content">
       <h2>Assigner un rôle à l'utilisateur</h2>

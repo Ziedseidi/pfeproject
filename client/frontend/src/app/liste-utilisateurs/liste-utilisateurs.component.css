@@ -38,23 +38,24 @@
   .table-container {
     max-width: 1200px;
     margin: 30px auto;
-    padding: 20px;
+    padding: 25px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-left: 175px;
+    margin-left: 300px;
   }
   
-  /* 🧾 Style du tableau */
   .table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-left: 90px;
+
   }
   
   .table thead {
     background-color: #4CAF50;
-    color: #fff;
+    color: #ffffff;
   }
   
   .table th {
@@ -77,7 +78,6 @@
     margin: 5px 0;
   }
   
-  /* ❌ Utilisateurs non trouvés */
   .no-users {
     text-align: center;
     padding: 20px;
@@ -87,8 +87,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
   }
-  
-  /* 🔎 Détails supplémentaires */
+ 
   .table td div {
     background-color: #f1f1f1;
     padding: 10px;
@@ -134,7 +133,7 @@
   }
   
   .btn-primary {
-    background-color: #3498db;
+    background-color: #184462;
     color: white;
     border: none;
   }
@@ -203,7 +202,6 @@
     margin-bottom: 20px;
   }
   
-  /* 📝 Champ de sélection du rôle (conforme au style du formulaire de l'email) */
   .role-select {
     width: 100%;
     padding: 14px 16px;
@@ -217,14 +215,12 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre douce */
   }
   
-  /* 🖋 Focus sur le champ de sélection */
   .role-select:focus {
     border-color: #4CAF50;
     outline: none;
     box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
   }
   
-  /* 🔘 Actions */
   .modal-actions {
     display: flex;
     justify-content: space-between;
@@ -232,7 +228,6 @@
     margin-top: 20px;
   }
   
-  /* 🎯 Boutons - Style commun aux modales */
   .btn-primary, .btn-secondary {
     width: 48%;
     padding: 12px 20px;
@@ -342,7 +337,6 @@ h2 {
     box-shadow: 0 0 10px rgba(52, 152, 219, 0.3); /* Ombre au focus */
 }
 
-/* Actions - Boutons de la modal */
 .modal-actions {
     display: flex;
     justify-content: space-between;
@@ -394,12 +388,10 @@ h2 {
     transform: translateY(2px);
 }
 
-/* Réinitialisation du bouton focus */
 button:focus {
     outline: none;
 }
 
-/* Message d'erreur ou succès (facultatif) */
 .alert-message {
     padding: 12px 20px;
     border-radius: 8px;
@@ -439,3 +431,5 @@ button:focus {
         opacity: 1;
     }
 }
+
+

@@ -1,25 +1,30 @@
 import { Component } from '@angular/core';
-import { clientService } from '../services/client.service';
+import { DemandeurService } from '../services/demandeur.service';
 
 @Component({
-  selector: 'app-client-avocat',
+  selector: 'app-form-client',
   templateUrl: './form-client.component.html',
   styleUrls: ['./form-client.component.css']
 })
 export class FormClientComponent {
-  client = {
+  demandeur = {
     nom: '',
     prenom: '',
     email: '',
     password: '',
     phone: '',
+    cin: '',
+    matricule: '',
+    ficheCarriere: '',
+    contratTravail: '',
+    decisionsPromotions: '',
     imageprofile: '' // on n'utilise plus ngModel ici pour l'image
   };
 
   selectedFile: File | null = null; // pour stocker le fichier sélectionné
   message: string = '';
 
-  constructor(private clientService: clientService) {}
+  constructor(private demandeurService: DemandeurService) {}
 
   // Méthode pour capturer le fichier sélectionné
   onFileSelected(event: any): void {
@@ -37,10 +42,10 @@ export class FormClientComponent {
       return;
     }
 
-    console.log('Formulaire envoyé:', this.client);  // Log les données
-    this.clientService.registerClient(this.client, this.selectedFile).subscribe({
+    console.log('Formulaire envoyé:', this.demandeur);  // Log les données
+    this.demandeurService.registerDemandeur(this.demandeur, this.selectedFile).subscribe({
       next: (response) => {
-        this.message = 'Inscription client  réussie !';
+        this.message = 'Inscription demandeur réussie !';
         console.log("✅ Réponse du serveur:", response);
       },
       error: (error) => {

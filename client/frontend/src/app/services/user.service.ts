@@ -25,7 +25,6 @@ export class UserService {
     });
   }
 
-  // 📥 Récupérer tous les utilisateurs avec leurs informations spécifiques
   getUsersWithDetails(): Observable<User[]> {
     const headers = this.getAuthHeaders();
     return this.http
@@ -38,7 +37,6 @@ export class UserService {
       );
   }
 
-  // 🔁 Activer / désactiver un utilisateur
   toggleUserActivation(userId: string): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http
@@ -51,7 +49,6 @@ export class UserService {
       );
   }
 
-  // ❌ Supprimer un utilisateur (et ses données associées)
   deleteUser(userId: string): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http
@@ -64,7 +61,6 @@ export class UserService {
       );
   }
 
-  // ✉️ Envoi d'un email à un utilisateur
   sendEmail(userId: string, subject: string, emailContent: string): Observable<any> {
     const headers = this.getAuthHeaders();
     return this.http

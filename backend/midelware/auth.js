@@ -29,7 +29,7 @@ const authenticateToken = (req, res, next) => {
             next();
         });
     } catch (error) {
-        console.error('❌ Erreur inattendue lors de la vérification du token:', error.message);
+        console.error(' Erreur inattendue lors de la vérification du token:', error.message);
         return res.status(401).json({ message: 'Authentification échouée : Erreur interne' });
     }
 };
