@@ -8,6 +8,7 @@ const roleRoutes = require('./routes/roleRoutes');
 const passwordRoutes= require('./routes/passwordRoutes');
 const userRoutes=require('./routes/userRoutes');
 const affaireRoutes=require('./routes/affaireRoutes');
+const tribunalRoutes= require('./routes/tribunalRoutes');
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.use('/role', roleRoutes);
 app.use('/password', passwordRoutes);
 app.use('/user',userRoutes);
 app.use('/affaire',affaireRoutes);
+app.use('/tribunal',tribunalRoutes);
 
 module.exports = app;

@@ -3,18 +3,14 @@ const mongoose = require('mongoose');
 const affaireSchema = new mongoose.Schema({
   numeroAffaire: { type: String, required: true },
   objet: { type: String },
-  
-  avocat: { type: mongoose.Schema.Types.ObjectId, ref: 'Avocat', default: null },  // Par défaut null
-  tribunalAdresse: { type: String },
-  dateConvocation: { type: Date },
-  dateAudience: { type: Date },
-  dateJugement: { type: Date },
-  issue: { type: String },
-  degreJuridiction: { type: String },
-  dateCloture: { type: Date },
+  avocat: { type: mongoose.Schema.Types.ObjectId, ref: 'Avocat', default: null }, 
+  tribunal: { type: mongoose.Schema.Types.ObjectId, ref: 'Tribunal', default : null},
+  dateConvocation: { type: Date, default:null },
+  audiences: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Audience' }],
+  degreJuridiction: { type: String ,default : null},
+  dateCloture: { type: Date ,default : null },
   clotureApresReception: { type: Boolean },
-  montantJugement: { type: Number },
-  remarques: { type: String },
+  remarques: { type: String , default:null },
 
   reclamation: {
     type: { 
@@ -22,8 +18,8 @@ const affaireSchema = new mongoose.Schema({
       enum: ['retard', 'annulation', 'autre'],  
       required: true
     },
-    montant: { type: Number },  
-    dateReception: { type: Date }  
+    montant: { type: Number , default :null },  
+    dateReception: { type: Date, default:null }  
   },
 
   experts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Expert', default: null }],
@@ -37,12 +33,12 @@ const affaireSchema = new mongoose.Schema({
   },
   demandeur: { 
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Demandeur',  // Référence au modèle Demandeur
+    ref: 'Demandeur', 
     required: true
   },
 
-  numeroVol: { type: String, default: null },
-  dateVol: { type: Date, default: null },
+  numeroVol: { type: String},
+  dateVol: { type: Date },
 
 }, { timestamps: true });
 

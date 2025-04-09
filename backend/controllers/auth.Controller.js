@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User.model');
+const path = require('path');
 
 const authController = {};
 
@@ -52,6 +53,18 @@ authController.login = async (req, res) => {
     } catch (error) {
         console.error(" Erreur lors de la connexion:", error);
         res.status(500).json({ message: "Erreur serveur. Veuillez réessayer plus tard." });
+    }
+};
+
+authController.logout=(req,res)=>{
+    try{
+        res.clearCookie('token', {path:'/'});
+        req.user= null;
+
+        res.status(200).json({message:"Déconnexion réeussie"});
+    }catch(error){
+        console.log("Eurreur lors de la déconnexion",error);
+        res.status(500).json({message:"Erreur serveur."})
     }
 };
 
