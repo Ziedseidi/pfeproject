@@ -2,8 +2,10 @@
   <!-- User Info Section -->
   <div class="navbar-center">
     <div class="user-info">
-      <img src="assets/images/user-profile.jpg" alt="User Profile" class="user-image">
-      <span class="user-name">John Doe</span>
+      <img [src]="user.imageprofile || 'assets/images/user-profile.jpg'" alt="User Profile" class="user-image">
+      <span class="user-name">{{ user.nom }} {{ user.prenom }}</span>
+      <span class="user-role">{{ user.role || 'Rôle non défini' }}</span> <!-- Affichage du rôle -->
+
     </div>
   </div>
 

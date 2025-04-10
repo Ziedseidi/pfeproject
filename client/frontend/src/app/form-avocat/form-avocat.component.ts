@@ -16,10 +16,7 @@ export class FormAvocatComponent {
     imageprofile: null,  // L'image sera stockée ici
     adresse: '',
     honoraires: 0,
-    region: '',
-    referenceConvention: '',
-    dateDebutConvention: '',
-    dateFinConvention: ''
+    region: ''
   };
 
   message: string = '';

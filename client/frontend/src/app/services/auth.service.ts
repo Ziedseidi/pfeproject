@@ -6,21 +6,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:7501/auth/login'; // URL de ton backend
+  private apiUrl = 'http://localhost:7501/auth/login'; // URL de connexion
+  private userInfoUrl = 'http://localhost:7501/auth/user-info';  // URL de récupération des informations de l'utilisateur
 
   constructor(private http: HttpClient) {}
 
-  // Méthode de login avec email et mot de passe
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(this.apiUrl, { email, password });
   }
 
-  // Méthode pour récupérer le token depuis localStorage (utile dans d'autres services)
   getToken(): string | null {
     return localStorage.getItem('token');
   }
 
-  // Méthode pour enregistrer le token dans localStorage
   saveToken(token: string): void {
     localStorage.setItem('token', token);
   }
@@ -28,5 +26,18 @@ export class AuthService {
   // Méthode pour supprimer le token (déconnexion)
   clearToken(): void {
     localStorage.removeItem('token');
+  }
+
+  // Méthode pour récupérer les informations de l'utilisateur connecté
+  getUserInfo(): Observable<any> {
+    const token = this.getToken();
+    if (token) {
+      // Ajout du token dans les en-têtes pour l'authentification
+      return this.http.get<any>(this.userInfoUrl, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+    } else {
+      throw new Error('Token manquant');
+    }
   }
 }

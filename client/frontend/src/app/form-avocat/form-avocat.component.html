@@ -75,21 +75,6 @@
 
     <div class="form-row">
       <div class="form-group">
-        <label for="referenceConvention">Référence Convention</label>
-        <input id="referenceConvention" name="referenceConvention" [(ngModel)]="avocat.referenceConvention" />
-      </div>
-      <div class="form-group">
-        <label for="dateDebutConvention">Date Début Convention</label>
-        <input id="dateDebutConvention" name="dateDebutConvention" [(ngModel)]="avocat.dateDebutConvention" type="date" />
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label for="dateFinConvention">Date Fin Convention</label>
-        <input id="dateFinConvention" name="dateFinConvention" [(ngModel)]="avocat.dateFinConvention" type="date" />
-      </div>
-      <div class="form-group">
         <label for="honoraires">Honoraires *</label>
         <input id="honoraires" name="honoraires" [(ngModel)]="avocat.honoraires" #honoraires="ngModel" type="number" required />
         <div *ngIf="honoraires.invalid && (honoraires.dirty || honoraires.touched)" class="error-message">

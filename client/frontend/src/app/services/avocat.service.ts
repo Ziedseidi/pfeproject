@@ -21,11 +21,8 @@ export class AvocatService {
     formData.append('password', avocatData.password);
     formData.append('phone', avocatData.phone);
     formData.append('adresse', avocatData.adresse);
-    formData.append('honoraires', avocatData.honoraires);
+    formData.append('honoraires', avocatData.honoraires.toString());  // Convertir en chaîne si nécessaire
     formData.append('region', avocatData.region);
-    formData.append('referenceConvention', avocatData.referenceConvention);
-    formData.append('dateDebutConvention', avocatData.dateDebutConvention);
-    formData.append('dateFinConvention', avocatData.dateFinConvention);
 
     // Ajoute l'image de profil au FormData
     if (file) {

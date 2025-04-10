@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User.model');
+const Role = require('../models/Role.model'); 
 const path = require('path');
 
 const authController = {};
@@ -68,4 +69,31 @@ authController.logout=(req,res)=>{
     }
 };
 
+authController.getUserInfo = async (req, res) => {
+    try {
+        const userId = req.user.userId; // Assurez-vous que l'utilisateur est authentifié et que son ID est dans `req.user.userId`
+        console.log("ID de l'utilisateur:", userId); // Log pour vérifier l'ID utilisateur
+
+        // Récupérer l'utilisateur avec le rôle peuplé
+        const user = await User.findById(userId)
+            .populate('role', 'nom description')  // Peupler le champ 'role' avec les champs 'nom' et 'description'
+            .select('nom prenom imageprofile role');  // Sélectionner les champs 'nom', 'prenom', 'imageprofile', et 'role'
+
+        console.log("Utilisateur trouvé:", user); // Log pour afficher l'utilisateur trouvé
+
+        if (!user) {
+            return res.status(404).json({ message: "Utilisateur non trouvé." });
+        }
+
+        res.json({
+            nom: user.nom,
+            prenom: user.prenom,
+            imageprofile: user.imageprofile || 'assets/images/default-user.jpg',
+            role: user.role ? user.role.nom : null // Si un rôle est trouvé, afficher le nom du rôle
+        });
+    } catch (error) {
+        console.error('Erreur lors de la récupération de l\'utilisateur:', error);
+        res.status(500).json({ message: "Erreur serveur." });
+    }
+};
 module.exports = authController;

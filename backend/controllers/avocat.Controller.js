@@ -8,7 +8,7 @@ const avocatController = {};
 // Route pour l'inscription de l'avocat
 avocatController.registerAvocat = async (req, res) => {
     try {
-        const { nom, prenom, email, password, phone, adresse, honoraires, region, referenceConvention, dateDebutConvention, dateFinConvention } = req.body;
+        const { nom, prenom, email, password, phone, adresse, honoraires, region } = req.body;
 
         // Vérification si l'utilisateur existe déjà
         const existingUser = await User.findOne({ email });
@@ -45,9 +45,8 @@ avocatController.registerAvocat = async (req, res) => {
             adresse,
             honoraires,
             region,
-            referenceConvention,
-            dateDebutConvention,
-            dateFinConvention
+            dateDebutConvention: null, // Initialisé à null lors de l'inscription
+            dateFinConvention: null   // Initialisé à null
         });
 
         // Enregistrer l'avocat
@@ -58,5 +57,6 @@ avocatController.registerAvocat = async (req, res) => {
         res.status(500).json({ message: "Erreur lors de l'inscription.", error });
     }
 };
+
 
 module.exports = avocatController;

@@ -4,7 +4,7 @@
   background: #2f4050;
   color: white;
   height: calc(100vh - 50px);  /* Prend toute la hauteur de la fenêtre mais sans recouvrir la navbar */
-  padding: 15px;
+  padding: 40px;
   position: fixed;
   left: 0;
   top: 57px; /* Ajout d'une marge pour éviter que la navbar ne recouvre la sidebar */
