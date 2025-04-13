@@ -1,63 +1,158 @@
-.tribunal-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Conteneur de la modal */
+.modal {
+    position: fixed;
+    top: 150px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    z-index: 1000;
   }
   
-  h2 {
+  /* Contenu de la modal */
+  .modal-content {
+    width: 60%;
+    max-width: 400px; /* Limite la largeur du formulaire */
+    background-color: #eeeeee;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Bouton de fermeture de la modal */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #a72f2f;
+
+  }
+  
+  /* Style global du container */
+  .tribunal-form-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Titre */
+  .title {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 22px; /* Taille réduite */
+    margin-bottom: 10px; /* Moins d'espace sous le titre */
     color: #333;
   }
   
-  .tribunal-form .form-group {
-    margin-bottom: 15px;
+  /* Style pour chaque groupe de champs */
+  .form-group {
+    margin-bottom: 12px; /* Réduit l'espacement entre les champs */
   }
   
-  .tribunal-form label {
-    font-size: 16px;
-    color: #555;
+  label {
+    font-size: 14px; /* Taille réduite */
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
   
-  .tribunal-form .form-control {
+  input[type="text"],
+  input[type="email"],
+  input[type="file"],
+  select {
     width: 100%;
-    padding: 10px;
+    padding: 8px; /* Réduit le padding */
+    border: 1px solid #ddd;
+    border-radius: 6px;
     font-size: 14px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    color: #333;
+    margin-top: 4px; /* Moins d'espace sous le label */
   }
   
-  .tribunal-form .form-control:focus {
-    border-color: #4e73df;
+  /* Style pour les éléments focus */
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  select:focus {
+    border-color: #007bff;
     outline: none;
   }
   
-  .tribunal-form .form-control-file {
-    padding: 5px;
-  }
-  
-  .tribunal-form button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4e73df;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
+  /* Style du champ select */
+  select {
+    background-color: #f8f9fa;
     cursor: pointer;
   }
   
-  .tribunal-form button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  /* Bouton de soumission */
+  button.submit-btn {
+    width: 100%;
+    padding: 8px; /* Réduit le padding du bouton */
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px; /* Réduit la taille de la police */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
   
-  .tribunal-form button:hover:enabled {
-    background-color: #2e59d9;
+  button.submit-btn:hover {
+    background-color: #218838;
+  }
+  
+  button.submit-btn i {
+    font-size: 16px; /* Taille de l'icône réduite */
+  }
+  
+  /* Messages de succès et d'erreur */
+  .success-message {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    margin-top: 10px; /* Moins d'espace entre le message et le formulaire */
+    border-radius: 6px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .error-message {
+    padding: 10px;
+    background-color: #dc3545;
+    color: white;
+    margin-top: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* Icônes dans les champs de saisie */
+  input[type="file"] {
+    padding: 6px; /* Réduit le padding de l'input de fichier */
+    background-color: #f8f9fa;
+  }
+  
+  label i {
+    font-size: 16px; /* Taille de l'icône réduite */
+    color: #007bff;
   }
   

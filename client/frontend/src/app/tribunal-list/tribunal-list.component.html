@@ -1,0 +1,80 @@
+<!-- CONTENU PRINCIPAL -->
+<div class="page-container">
+    <div class="tribunal-list-container">
+        <!-- Bouton pour ajouter un tribunal -->
+        <div class="add-tribunal-button">
+            <button class="btn-add-tribunal" (click)="openModal()">
+                <i class="fas fa-plus"></i> Ajouter un Tribunal
+            </button>
+        </div>
+        <div *ngIf="loading" class="loading">Chargement...</div>
+        <div *ngIf="error" class="error">{{ error }}</div>
+
+        <div *ngIf="!loading && !error" class="tribunal-columns">
+            <!-- COUR D’APPEL -->
+            <div class="tribunal-column">
+                <h3>Cour d'Appel</h3>
+                <ng-container *ngIf="pagedCoursAppel.length; else noCourAppel">
+                    <div *ngFor="let tribunal of pagedCoursAppel" class="tribunal-card">
+                        <img *ngIf="tribunal.imagetribunal" class="tribunal-img" [src]="tribunal.imagetribunal" alt="Tribunal" />
+                        <div class="tribunal-info">
+                            <h4>{{ tribunal.nom }}</h4>
+                            <p><strong>Adresse:</strong> {{ tribunal.adresse }}</p>
+                            <p><strong>Ville:</strong> {{ tribunal.ville }}</p>
+                            <p><strong>Téléphone:</strong> {{ tribunal.telephone }}</p>
+                            <p><strong>Email:</strong> {{ tribunal.email }}</p>
+                            <p><strong>Type:</strong> {{ tribunal.typeTribunal }}</p>
+                            <p>
+                                <strong>État:</strong>
+                                <span [ngClass]="tribunal.etatTribunal ? 'actif' : 'inactif'">
+                                    {{ tribunal.etatTribunal ? 'Actif' : 'Inactif' }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #noCourAppel>
+                    <p class="empty">Aucun tribunal de type Cour d'Appel trouvé.</p>
+                </ng-template>
+            </div>
+
+            <!-- PREMIÈRE INSTANCE -->
+            <div class="tribunal-column">
+                <h3>Première Instance</h3>
+                <ng-container *ngIf="pagedPremieresInstance.length; else noPremiereInstance">
+                    <div *ngFor="let tribunal of pagedPremieresInstance" class="tribunal-card">
+                        <img *ngIf="tribunal.imagetribunal" class="tribunal-img" [src]="tribunal.imagetribunal" alt="Tribunal" />
+                        <div class="tribunal-info">
+                            <h4>{{ tribunal.nom }}</h4>
+                            <p><strong>Adresse:</strong> {{ tribunal.adresse }}</p>
+                            <p><strong>Ville:</strong> {{ tribunal.ville }}</p>
+                            <p><strong>Téléphone:</strong> {{ tribunal.telephone }}</p>
+                            <p><strong>Email:</strong> {{ tribunal.email }}</p>
+                            <p><strong>Type:</strong> {{ tribunal.typeTribunal }}</p>
+                            <p>
+                                <strong>État:</strong>
+                                <span [ngClass]="tribunal.etatTribunal ? 'actif' : 'inactif'">
+                                    {{ tribunal.etatTribunal ? 'Actif' : 'Inactif' }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #noPremiereInstance>
+                    <p class="empty">Aucun tribunal de Première Instance trouvé.</p>
+                </ng-template>
+            </div>
+        </div>
+        <div class="pagination">
+            <button (click)="prevPage()" [disabled]="currentPageCour === 1 && currentPagePrem === 1" class="prev-btn">
+              <i class="fas fa-chevron-left"></i> Précédent
+            </button>
+            <button (click)="nextPage()" [disabled]="currentPageCour === totalPagesCour && currentPagePrem === totalPagesPrem" class="next-btn">
+              Suivant <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+    </div>
+</div>
+
+<!-- MODAL -->
+<app-tribunal *ngIf="isModalOpen" (closeModal)="closeModal()"></app-tribunal>

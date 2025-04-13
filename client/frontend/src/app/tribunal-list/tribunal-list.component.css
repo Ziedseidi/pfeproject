@@ -1,0 +1,145 @@
+/* Container principal */
+.page-container {
+    padding: 29px;
+    margin-top: 5cm; /* Décale le contenu vers le bas de 5cm */
+    margin-left: 180px; 
+}
+
+/* Bouton pour ajouter un tribunal */
+.add-tribunal-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+.btn-add-tribunal {
+    padding: 10px 20px;
+    background-color: #626f7c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center; /* Centrer le texte et l'icône */
+    gap: 10px; /* Espacement entre l'icône et le texte */
+    transition: background-color 0.3s ease;
+}
+
+.btn-add-tribunal:hover {
+    background-color: #00b327; /* Bleu foncé au survol */
+}
+
+/* Liste des tribunaux */
+.tribunal-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Colonnes des tribunaux */
+.tribunal-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+/* Carte du tribunal */
+.tribunal-card {
+    display: flex;
+    flex-direction: row;
+    background: #f3f1f1;
+    border: 1px solid #716161;
+    margin: 15px 2;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 1 3px 8px rgba(0, 0, 0, 0.1); /* Ajout d'une ombre légère */
+}
+
+.tribunal-info {
+    margin-left: 15px;
+    font-size: 14px;
+}
+
+.tribunal-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 1px; /* Bord arrondi pour l'image */
+}
+
+/* Message "Aucun tribunal" */
+.empty {
+    text-align: center;
+    color: #aa7171;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 8px 20px;
+    margin: 0 10px;
+    border: 1px solid #4b5f74;
+    background-color: #f3f1f1;
+    color: #363d44;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+    background-color: #e0e0e0; /* Changer la couleur au survol */
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+    background-color: #dcdcdc; /* Couleur gris clair pour le bouton désactivé */
+}
+
+.pagination .active {
+    background-color: #265d98; /* Actif - bleu */
+    color: white;
+}
+
+/* Design des boutons "Précédent" et "Suivant" avec icônes */
+.prev-btn i, .next-btn i {
+    margin: 0 5px;
+}
+
+.prev-btn {
+    justify-content: flex-start;
+}
+
+.next-btn {
+    justify-content: flex-end;
+    background-color: #265d98;
+}
+
+/* Spécial pour les icônes */
+.pagination button i {
+    font-size: 18px;
+    vertical-align: middle; /* Pour aligner l'icône avec le texte */
+}
+
+/* Colonnes des tribunaux */
+.tribunal-column {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+/* Style des états des tribunaux */
+.actif {
+    color: rgb(26, 0, 128);
+}
+
+.inactif {
+    color: red;
+}

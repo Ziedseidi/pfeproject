@@ -37,11 +37,11 @@
 .user-info {
   display: flex;
   align-items: center;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
 .user-image {
-  width: 55px;
+  width: 75px;
   height: 90px;
   border-radius: 60%;
   margin-right: 10px;
@@ -49,7 +49,7 @@
 }
 
 .user-name {
-  font-size: 12px;
+  font-size: 20px;
   font-weight: 600;
 }
 
@@ -93,14 +93,14 @@
   align-items: center;
   gap: 8px;
   padding: 10px;
-  font-size: 14px;
+  font-size: 16px;
   color: white;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.4s;
 }
 
 .menu li i {
-  flex-shrink: 0; /* empêche l’icône de se réduire */
+  flex-shrink: 10; /* empêche l’icône de se réduire */
 }
 
 .menu li:hover,

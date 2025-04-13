@@ -31,5 +31,20 @@ tribunalController.addTribunal = async (req, res) => {
       res.status(500).json({ message: "Erreur serveur" });
     }
   };
+  tribunalController.getTribunauxClassifies =async(req,res)=>{
+    try {
+        const tribunaux = await Tribunal.find();
+    
+        const tribunauxClasse = {
+          "Cour d'Appel": tribunaux.filter(tribunal => tribunal.typeTribunal === "Cour d'Appel"),
+          "Première Instance": tribunaux.filter(tribunal => tribunal.typeTribunal === "Première Instance")
+        };
+    
+        return res.json(tribunauxClasse);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des tribunaux:", error);
+        return res.status(500).json({ message: 'Erreur interne du serveur' });
+      }
+    };
   
 module.exports = tribunalController;

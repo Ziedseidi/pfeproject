@@ -18,6 +18,7 @@ import { AjouterRoleComponent } from './ajouter-role/ajouter-role.component';
 import { ListeRolesComponent } from './liste-roles/liste-roles.component';
 import { ListeUtilisateursComponent } from './liste-utilisateurs/liste-utilisateurs.component';
 import { TribunalComponent } from './tribunal/tribunal.component';
+import { TribunalListComponent } from './tribunal-list/tribunal-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,7 +30,7 @@ const routes: Routes = [
 
       { path: 'add-role', component: AjouterRoleComponent },
       { path: 'liste-roles', component: ListeRolesComponent }, 
-      { path: 'tribunal', component: TribunalComponent }
+      { path: 'liste-tribunaux', component: TribunalListComponent }
     ]
   },
   { path: 'avocat-dashboard', component: AvocatDashboardComponent },

@@ -6,5 +6,5 @@ const roleMiddleware = require('../midelware/rbac');
 const tribunalController = require('../controllers/tribunal.Controller');
 
 router.post('/add_Tribunal',authenticateToken, roleMiddleware('Admin'),  uploadImage.single('imageTribunal'),tribunalController.addTribunal );
-
+router.get('/Tribunaux',authenticateToken,roleMiddleware('Admin'),tribunalController.getTribunauxClassifies);
 module.exports = router;

@@ -11,7 +11,6 @@ export class TribunalService {
 
   constructor(private http: HttpClient) {}
 
-  // Fonction pour obtenir les headers d'authentification avec le token
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -33,7 +32,6 @@ export class TribunalService {
     formData.append('typeTribunal', tribunalData.typeTribunal);
     formData.append('etatTribunal', tribunalData.etatTribunal.toString());
     
-    // Ajouter l'image uniquement si elle est présente
     if (file) {
       formData.append('imageTribunal', file, file.name);
     }
@@ -44,6 +42,16 @@ export class TribunalService {
       catchError((error) => {
         console.error('Erreur lors de l\'ajout du tribunal:', error);
         return throwError(() => new Error('Erreur lors de l\'ajout du tribunal.'));
+      })
+    );
+  }
+  getTribunauxClassifies(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/Tribunaux`, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError((error) => {
+        console.error('Erreur lors de la récupération des tribunaux:', error);
+        return throwError(() => new Error('Erreur lors de la récupération des tribunaux.'));
       })
     );
   }

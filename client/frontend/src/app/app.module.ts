@@ -38,6 +38,7 @@ import { ListeRolesComponent } from './liste-roles/liste-roles.component';
 import { ListeUtilisateursComponent } from './liste-utilisateurs/liste-utilisateurs.component';
 import { SendEmailComponent } from './send-email/send-email.component';
 import { TribunalComponent } from './tribunal/tribunal.component';
+import { TribunalListComponent } from './tribunal-list/tribunal-list.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { TribunalComponent } from './tribunal/tribunal.component';
     ListeRolesComponent,
     ListeUtilisateursComponent,
     SendEmailComponent,
-    TribunalComponent
+    TribunalComponent,
+    TribunalListComponent
      // Assurez-vous que ce composant existe
   ],
   imports: [

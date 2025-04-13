@@ -6,7 +6,7 @@ const tribunalSchema = new mongoose.Schema({
   ville: { type: String },
   telephone: { type: String },
   email: { type: String },
-  typeTribunal: { type: String },
+  typeTribunal: { type: String, enum: ['Cour d\'Appel', 'Première Instance'], required: true },
   etatTribunal: {
     type: Boolean,
     required: true, 
