@@ -22,7 +22,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/auth', authRoutes);
 app.use('/avocat', avocatRoutes);  
 app.use('/expert', expertRoutes);
-app.use('/demandeur', demabdeurRoutes);
+app.use('/personel', demabdeurRoutes);
 app.use('/role', roleRoutes);
 app.use('/password', passwordRoutes);
 app.use('/user',userRoutes);

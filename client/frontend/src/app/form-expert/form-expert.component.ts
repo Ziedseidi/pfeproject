@@ -19,12 +19,12 @@ export class FormExpertComponent {
     fraisExpertise: ''
   };
 
-  selectedFile: File | null = null; // Permet d'accepter 'null' ou 'File'
+  selectedFile: File | null = null; 
   message: string = '';
 
   constructor(private expertService: ExpertService) {}
 
-  // Fonction pour gérer la sélection de fichier
+  
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input?.files?.length) {
@@ -32,12 +32,10 @@ export class FormExpertComponent {
     }
   }
 
-  // Soumission du formulaire
   onSubmit() {
-    console.log('Formulaire envoyé:', this.expert); // Vérifie les données
+    console.log('Formulaire envoyé:', this.expert); 
 
     if (this.selectedFile) {
-      // Si un fichier est sélectionné, on envoie le formulaire avec le fichier
       this.expertService.registerExpert(this.expert, this.selectedFile).subscribe({
         next: (response) => {
           this.message = 'Inscription expert réussie !';
@@ -49,7 +47,7 @@ export class FormExpertComponent {
         }
       });
     } else {
-      // Si aucun fichier n'est sélectionné
+      
       this.message = 'Veuillez sélectionner une image de profil.';
     }
   }

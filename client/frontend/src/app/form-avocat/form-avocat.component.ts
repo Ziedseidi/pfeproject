@@ -13,10 +13,11 @@ export class FormAvocatComponent {
     email: '',
     password: '',
     phone: '',
-    imageprofile: null,  // L'image sera stockée ici
+    imageprofile: null,
     adresse: '',
     honoraires: 0,
-    region: ''
+    region: '',
+    degreJuridiction: ''  // Ajout du champ "degreJuridiction"
   };
 
   message: string = '';
@@ -24,12 +25,11 @@ export class FormAvocatComponent {
   constructor(private avocatService: AvocatService) {}
 
   onFileSelected(event: any) {
-    this.avocat.imageprofile = event.target.files[0];  // Récupère le fichier image
+    this.avocat.imageprofile = event.target.files[0];
   }
 
   onSubmit() {
     if (this.avocat.imageprofile) {
-      // Si l'image est sélectionnée, on envoie le formulaire
       console.log('Formulaire envoyé:', this.avocat);
       this.avocatService.registerAvocat(this.avocat, this.avocat.imageprofile).subscribe({
         next: (response) => {

@@ -1,14 +1,14 @@
 /* Sidebar Styles */
 .sidebar {
-  width: 150px;  /* Largeur de la sidebar */
+  width: 240px;  /* Largeur augmentée pour éviter que le texte soit tronqué */
   background: #2f4050;
   color: white;
-  height: calc(100vh - 50px);  /* Prend toute la hauteur de la fenêtre mais sans recouvrir la navbar */
-  padding: 40px;
+  height: calc(100vh - 50px);
+  padding: 20px 15px;
   position: fixed;
   left: 0;
-  top: 57px; /* Ajout d'une marge pour éviter que la navbar ne recouvre la sidebar */
-  z-index: 1; /* Assurez-vous que la sidebar soit au-dessus du contenu principal */
+  top: 57px;
+  z-index: 1;
   overflow-y: auto;
 }
 
@@ -21,10 +21,12 @@
   background-color: #2f4050;
   color: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  top: 20;
+  top: 0;
   left: 0;
   right: 0;
-  z-index: 10;  /* Assurez-vous que le navbar est au-dessus de la sidebar */
+  z-index: 10;
+  position: fixed;
+  height: 57px;
 }
 
 /* User Info Section */
@@ -43,6 +45,7 @@
   height: 90px;
   border-radius: 60%;
   margin-right: 10px;
+  object-fit: cover;
 }
 
 .user-name {
@@ -56,7 +59,7 @@
   align-items: center;
   background-color: #34495e;
   border-radius: 4px;
-  padding: 5px;
+  padding: 6px;
   margin-bottom: 10px;
 }
 
@@ -82,20 +85,26 @@
 .menu {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .menu li {
-  padding: 8px 10px;
   display: flex;
   align-items: center;
+  gap: 8px;
+  padding: 10px;
+  font-size: 14px;
+  color: white;
   cursor: pointer;
   transition: background 0.3s;
 }
 
 .menu li i {
-  margin-right: 6px;
+  flex-shrink: 0; /* empêche l’icône de se réduire */
 }
 
-.menu li:hover, .menu li.active {
+.menu li:hover,
+.menu li.active {
   background: #1ab394;
+  border-radius: 4px;
 }

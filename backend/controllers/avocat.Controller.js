@@ -8,7 +8,17 @@ const avocatController = {};
 // Route pour l'inscription de l'avocat
 avocatController.registerAvocat = async (req, res) => {
     try {
-        const { nom, prenom, email, password, phone, adresse, honoraires, region } = req.body;
+        const {
+            nom,
+            prenom,
+            email,
+            password,
+            phone,
+            adresse,
+            honoraires,
+            region,
+            degreJuridiction // 🔸 Nouveau champ récupéré depuis le body
+        } = req.body;
 
         // Vérification si l'utilisateur existe déjà
         const existingUser = await User.findOne({ email });
@@ -22,34 +32,33 @@ avocatController.registerAvocat = async (req, res) => {
         // Gestion de l'image de profil
         let imageprofile = '';
         if (req.file) {
-            imageprofile = 'http://localhost:7501/uploads/' + req.file.filename; // Le chemin vers l'image
+            imageprofile = 'http://localhost:7501/uploads/' + req.file.filename;
         }
 
-        // Créer un nouvel utilisateur avec l'image de profil
+        // Création du nouvel utilisateur
         const newUser = new User({
             nom,
             prenom,
             email,
             password: hashedPassword,
             phone,
-            imageprofile,  // Ajout de l'image 
-            isActive: false  // Par défaut
+            imageprofile,
+            isActive: false
         });
 
-        // Enregistrer l'utilisateur
         await newUser.save();
 
-        // Créer un avocat avec les informations spécifiques
+        // Création de l'avocat avec le degré de juridiction
         const newAvocat = new Avocat({
-            utilisateur: newUser._id,  // Référence à l'utilisateur créé
+            utilisateur: newUser._id,
             adresse,
             honoraires,
             region,
-            dateDebutConvention: null, // Initialisé à null lors de l'inscription
-            dateFinConvention: null   // Initialisé à null
+            dateDebutConvention: null,
+            dateFinConvention: null,
+            degreJuridiction // 🔸 Ajout ici
         });
 
-        // Enregistrer l'avocat
         await newAvocat.save();
 
         res.status(201).json({ message: "Avocat inscrit avec succès !", user: newUser });

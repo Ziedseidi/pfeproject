@@ -34,7 +34,6 @@
         <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
           Le mot de passe est requis et doit comporter au moins 8 caractères.
         </div>
-        <!-- Ajout de l'indication pour le mot de passe -->
         <small class="password-hint">Un mot de passe doit contenir au moins 8 caractères, avec une majuscule, un chiffre et un caractère spécial.</small>
       </div>
     </div>
@@ -50,7 +49,7 @@
       <div class="form-group">
         <label for="imageprofile">Image de profil *</label>
         <input id="imageprofile" name="imageprofile" type="file" (change)="onFileSelected($event)" required />
-        <div *ngIf="!avocat.imageprofile && (avocatForm.touched || avocatForm.dirty)" class="error-message">
+        <div *ngIf="!avocat.imageprofile && (avocatForm.dirty || avocatForm.touched)" class="error-message">
           Veuillez sélectionner une image de profil.
         </div>
       </div>
@@ -66,7 +65,36 @@
       </div>
       <div class="form-group">
         <label for="region">Région *</label>
-        <input id="region" name="region" [(ngModel)]="avocat.region" #region="ngModel" required />
+        <select id="region" name="region" [(ngModel)]="avocat.region" #region="ngModel" required>
+          <option value="" disabled selected>Choisissez une région</option>
+          <option value="Tunis">Tunis</option>
+          <option value="Ariana">Ariana</option>
+          <option value="Ben Arous">Ben Arous</option>
+          <option value="Manouba">Manouba</option>
+          <option value="Sfax">Sfax</option>
+          <option value="Sousse">Sousse</option>
+          <option value="Gabes">Gabes</option>
+          <option value="Gafsa">Gafsa</option>
+          <option value="Jendouba">Jendouba</option>          
+          <option value="Kairouan">Kairouan</option>
+          <option value="Kasserine">Kasserine</option>
+          <option value="Kebili">Kebili</option>
+          <option value="Kef">Kef</option>
+          <option value="Mahdia">Mahdia</option>
+          <option value="Mednine">Mednine</option>
+          <option value="Monastir">Monastir</option>
+          <option value="Nabeul">Nabeul</option>
+          <option value="Sidi Bouzid">Sidi Bouzid</option>
+          <option value="Siliana">Siliana</option>
+          <option value="Tataouine">Tataouine</option>
+          <option value="Tozeur">Tozeur</option>
+          <option value="Zaghouan">Zaghouan</option>
+          <option value="Beja">Beja</option>
+          <option value="Bizerte">Bizert</option>
+
+
+
+        </select>
         <div *ngIf="region.invalid && (region.dirty || region.touched)" class="error-message">
           La région est requise.
         </div>
@@ -81,14 +109,24 @@
           Les honoraires sont requis.
         </div>
       </div>
+      <div class="form-group">
+        <label for="degreJuridiction">Degré de juridiction *</label>
+        <select id="degreJuridiction" name="degreJuridiction" [(ngModel)]="avocat.degreJuridiction" #degreJuridiction="ngModel" required>
+          <option value="" disabled selected>Choisissez un degré</option>
+          <option value="Première Instance">Première instance</option>
+          <option value="Appel">Cour d’appel</option>
+          <option value="Cassation">Cour de cassation</option>
+        </select>
+        <div *ngIf="degreJuridiction.invalid && (degreJuridiction.dirty || degreJuridiction.touched)" class="error-message">
+          Veuillez sélectionner un degré de juridiction.
+        </div>
+      </div>
     </div>
 
-    <!-- Footer contenant le bouton d'inscription -->
     <div class="form-footer">
       <button type="submit" class="submit-btn" [disabled]="avocatForm.invalid">S'inscrire →</button>
     </div>
   </form>
 
-  <!-- Message de confirmation ou d'erreur -->
   <p>{{ message }}</p>
 </div>

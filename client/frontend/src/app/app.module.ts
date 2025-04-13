@@ -37,6 +37,7 @@ import { AjouterRoleComponent } from './ajouter-role/ajouter-role.component';
 import { ListeRolesComponent } from './liste-roles/liste-roles.component';
 import { ListeUtilisateursComponent } from './liste-utilisateurs/liste-utilisateurs.component';
 import { SendEmailComponent } from './send-email/send-email.component';
+import { TribunalComponent } from './tribunal/tribunal.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { SendEmailComponent } from './send-email/send-email.component';
     AjouterRoleComponent,
     ListeRolesComponent,
     ListeUtilisateursComponent,
-    SendEmailComponent
+    SendEmailComponent,
+    TribunalComponent
      // Assurez-vous que ce composant existe
   ],
   imports: [

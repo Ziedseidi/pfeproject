@@ -23,13 +23,12 @@ export class AvocatService {
     formData.append('adresse', avocatData.adresse);
     formData.append('honoraires', avocatData.honoraires.toString());  // Convertir en chaîne si nécessaire
     formData.append('region', avocatData.region);
+    formData.append('degreJuridiction', avocatData.degreJuridiction); // Ajout du degré de juridiction
 
-    // Ajoute l'image de profil au FormData
     if (file) {
-      formData.append('imageprofile', file, file.name);  // Le fichier est ajouté sous la clé 'imageprofile'
+      formData.append('imageprofile', file, file.name);
     }
 
-    // Envoie la requête POST avec FormData
     return this.http.post(this.apiUrl, formData);
   }
 }

@@ -120,3 +120,25 @@ input.ng-touched.ng-invalid {
 input.ng-touched.ng-valid {
   border-color: #28a745; /* Bordure verte pour les champs valides */
 }
+/* Style du champ de sélection (Degré de juridiction) */
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+select:focus {
+  border-color: #007bff; /* Change la bordure lors du focus */
+}
+
+select.ng-touched.ng-invalid {
+  border-color: #ff4d4d; /* Bordure rouge pour les sélections invalides */
+}
+
+select.ng-touched.ng-valid {
+  border-color: #28a745; /* Bordure verte pour les sélections valides */
+}

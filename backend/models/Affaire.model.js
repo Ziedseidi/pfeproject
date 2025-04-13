@@ -40,7 +40,7 @@ const affaireSchema = new mongoose.Schema({
   numeroVol: { type: String },
   dateVol: { type: Date },
 
-  referenceConvention: { type: String, default: null }  // Référence de la convention de l'avocat pour cette affaire
+  referenceConvention: { type: String, default: null }  
 }, { timestamps: true });
 
 module.exports = mongoose.model('Affaire', affaireSchema);

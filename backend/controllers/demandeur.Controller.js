@@ -1,4 +1,4 @@
-const Demandeur=require('../models/Demandeur.model');
+const Demandeur = require('../models/Demandeur.model');
 const User = require('../models/User.model');
 const bcrypt = require('bcryptjs');
 const uploadImage = require('../midelware/multer'); // Importer le middleware Multer
@@ -7,7 +7,7 @@ const demandeurController = {};
 
 demandeurController.registerDemandeur = async (req, res) => {
     try {
-        const { nom, prenom, email, password, phone,cin, matricule,ficheCarriere,contratTravail,decisionsPromotions } = req.body;
+        const { nom, prenom, email, password, phone, cin, matricule, ficheCarriere, decisionsPromotions } = req.body;
 
         // Vérification si l'utilisateur existe déjà
         const existingUser = await User.findOne({ email });
@@ -18,15 +18,18 @@ demandeurController.registerDemandeur = async (req, res) => {
         // Hachage du mot de passe
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Gestion de l'image de profil pour le client
+        // Gestion de l'image de profil
         let imageprofile = '';
-        if (req.file) {
-            console.log('Image reçue:', req.file); // Vérifie le contenu du fichier
+        if (req.files && req.files.imageprofile) {
+            console.log('Image reçue:', req.files.imageprofile); // Vérifie le contenu du fichier
+            imageprofile = 'http://localhost:7501/uploads/' + req.files.imageprofile[0].filename;
+        }
 
-            // L'image est envoyée dans le dossier 'uploads', donc on peut générer l'URL correctement
-            imageprofile = 'http://localhost:7501/uploads/' + req.file.filename; // URL vers l'image téléchargée
-        } else {
-            console.log('Aucune image reçue.');
+        // Gestion du contrat de travail
+        let contratTravail = '';
+        if (req.files && req.files.contratTravail) {
+            console.log('Contrat de travail reçu:', req.files.contratTravail);
+            contratTravail = 'http://localhost:7501/uploads/' + req.files.contratTravail[0].filename;
         }
 
         // Créer un nouvel utilisateur avec l'image de profil
@@ -36,16 +39,16 @@ demandeurController.registerDemandeur = async (req, res) => {
             email,
             password: hashedPassword,
             phone,
-            imageprofile ,
+            imageprofile,
             isActive: false  // Enregistrer l'image de profil dans User
         });
 
-        console.log('Nouvel utilisateur créé:', newUser); // Log pour vérifier l'objet utilisateur avant sauvegarde
+        console.log('Nouvel utilisateur créé:', newUser);
 
         // Enregistrer l'utilisateur
         await newUser.save();
 
-        // Créer un client en associant l'utilisateur créé
+        // Créer un demandeur en associant l'utilisateur créé
         const newDemandeur = new Demandeur({
             utilisateur: newUser._id,
             cin,
@@ -53,12 +56,11 @@ demandeurController.registerDemandeur = async (req, res) => {
             ficheCarriere,
             contratTravail,
             decisionsPromotions
-
         });
 
-        console.log('Nouveau Demandeur créé:', newDemandeur); // Log pour vérifier l'objet client avant sauvegarde
+        console.log('Nouveau Demandeur créé:', newDemandeur);
 
-        // Enregistrer le client
+        // Enregistrer le demandeur
         await newDemandeur.save();
 
         res.status(201).json({ message: "Demandeur inscrit avec succès !", user: newUser });

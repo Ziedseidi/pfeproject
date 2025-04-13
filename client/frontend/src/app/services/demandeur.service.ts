@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DemandeurService {
-  private apiUrl = 'http://localhost:7501/demandeur/register_Demandeur'; // URL de ton backend
+  private apiUrl = 'http://localhost:7501/personel/register_PersonelJuredique'; // URL de ton backend
 
   constructor(private http: HttpClient) {}
 
@@ -16,7 +16,6 @@ export class DemandeurService {
     // Créer une instance de FormData
     const formData: FormData = new FormData();
     
-    // Ajouter les données du demandeur au FormData
     formData.append('nom', demandeurData.nom);
     formData.append('prenom', demandeurData.prenom);
     formData.append('email', demandeurData.email);
@@ -33,7 +32,6 @@ export class DemandeurService {
       formData.append('imageprofile', file, file.name);
     }
 
-    // Envoi de la requête POST avec le FormData
     return this.http.post(this.apiUrl, formData);
   }
 }

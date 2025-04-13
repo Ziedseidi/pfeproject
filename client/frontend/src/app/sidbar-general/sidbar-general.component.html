@@ -5,7 +5,6 @@
       <img [src]="user.imageprofile || 'assets/images/user-profile.jpg'" alt="User Profile" class="user-image">
       <span class="user-name">{{ user.nom }} {{ user.prenom }}</span>
       <span class="user-role">{{ user.role || 'Rôle non défini' }}</span> <!-- Affichage du rôle -->
-
     </div>
   </div>
 
@@ -31,5 +30,9 @@
     <li><i class="fas fa-file-contract"></i> Gestion des contrats</li>
     <li><i class="fas fa-folder"></i> Gestion des dossiers</li>
     <li><i class="fas fa-balance-scale"></i> Gestion des affaires juridiques</li>
+    <!-- Ajout du lien pour la gestion des tribunaux -->
+    <li [routerLink]="['/admin-dashboard/tribunal']" style="cursor: pointer;">
+      <i class="fas fa-gavel"></i> Gestion des tribunaux
+    </li>
   </ul>
 </aside>
