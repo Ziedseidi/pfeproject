@@ -10,7 +10,6 @@ const avocatSchema = new Schema({
     honoraires: { type: Number },
     affairesAttribuees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Affaire' }],
     
-    // Nouveau champ pour le degré de juridiction
     degreJuridiction: {
         type: String,
         enum: ['Première Instance', 'Appel', 'Cassation'],
