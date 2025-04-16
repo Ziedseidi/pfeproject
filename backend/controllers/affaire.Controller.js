@@ -19,7 +19,7 @@ affaireController.addAffaire = async (req, res) => {
     clotureApresReception,
     remarques,
     reclamation,
-    typeDemandeur,
+    typeClient,
     numeroVol,
     dateVol
   } = req.body;
@@ -37,23 +37,22 @@ affaireController.addAffaire = async (req, res) => {
       return res.status(400).json({ message: 'Demandeur non trouvé pour cet utilisateur.' });
     }
 
-    // Création de la nouvelle affaire
     const newAffaire = new Affaire({
       numeroAffaire,
       objet,
-      avocat: null,  // Pas d'avocat affecté initialement
-      tribunal: tribunal || null,  // Tribunal facultatif
-      dateConvocation: dateConvocation || Date.now(),  // Date de convocation, par défaut la date actuelle
+      avocat: null, 
+      tribunal: tribunal || null,  
+      dateConvocation: dateConvocation || Date.now(),  
       degreJuridiction: degreJuridiction || null,
       dateCloture: dateCloture || null,
       clotureApresReception: clotureApresReception || false,
       remarques: remarques || null,
       reclamation: reclamation || null,
-      experts: [],  // Pas d'experts initialement
-      consignations: [],  // Pas de consignations initialement
+      experts: [],  
+      consignations: [], 
       saisies: [],  // Pas de saisies initialement
       audiences: [],  // Pas d'audiences initialement
-      typeDemandeur,
+      typeClient,
       demandeur: demandeur._id,  // Référence au demandeur trouvé
       numeroVol: typeDemandeur === 'passager' ? numeroVol : null,  // Si le type est 'passager', on inclut le numéro de vol
       dateVol: typeDemandeur === 'passager' ? dateVol : null,  // Date du vol, uniquement pour 'passager'

@@ -39,6 +39,7 @@ import { ListeUtilisateursComponent } from './liste-utilisateurs/liste-utilisate
 import { SendEmailComponent } from './send-email/send-email.component';
 import { TribunalComponent } from './tribunal/tribunal.component';
 import { TribunalListComponent } from './tribunal-list/tribunal-list.component';
+import { ListAvocatsComponent } from './list-avocats/list-avocats.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { TribunalListComponent } from './tribunal-list/tribunal-list.component';
     ListeUtilisateursComponent,
     SendEmailComponent,
     TribunalComponent,
-    TribunalListComponent
+    TribunalListComponent,
+    ListAvocatsComponent
      // Assurez-vous que ce composant existe
   ],
   imports: [

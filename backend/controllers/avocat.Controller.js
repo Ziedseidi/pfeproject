@@ -67,5 +67,54 @@ avocatController.registerAvocat = async (req, res) => {
     }
 };
 
+avocatController.getAllAvocatSorted=async(req,res)=>{
+    try{
+        const avocats = await Avocat.find()
+        .populate('utilisateur')
+        .exec();
+
+        const getDegreOrder = (degre)=>{
+            switch(degre){
+                case 'Appel' : return 1;
+                case 'Première Instance': return 2;
+                case 'Cassasation' : return 3 ;
+                default : return 4;
+            }
+        };
+        const sortedAvocats = avocats.sort((a,b)=>{
+            return getDegreOrder(a.degreJuridiction) - getDegreOrder(b.degreJuridiction);
+        });
+        const detailedAvocats = sortedAvocats.map(avocat => ({
+            _id: avocat._id,
+            adresse: avocat.adresse,
+            dateDebutConvention: avocat.dateDebutConvention,
+            dateFinConvention: avocat.dateFinConvention,
+            region: avocat.region,
+            honoraires: avocat.honoraires,
+            degreJuridiction: avocat.degreJuridiction,
+            affairesAttribuees: avocat.affairesAttribuees.length > 0 ? avocat.affairesAttribuees : null,
+            utilisateur: avocat.utilisateur ? {
+              _id: avocat.utilisateur._id,
+              nom: avocat.utilisateur.nom,
+              prenom: avocat.utilisateur.prenom,
+              email: avocat.utilisateur.email,
+              phone: avocat.utilisateur.phone,
+              imageprofile: avocat.utilisateur.imageprofile
+            } : null
+          }));
+      
+          res.status(200).json(detailedAvocats);
+      
+        } catch (error) {
+          console.error('Erreur lors de la récupération des avocats :', error);
+          res.status(500).json({ message: 'Erreur lors de la récupération des avocats', error });
+        }
+    }
+
+
+
+
+
+
 
 module.exports = avocatController;

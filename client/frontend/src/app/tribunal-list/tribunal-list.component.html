@@ -1,12 +1,24 @@
 <!-- CONTENU PRINCIPAL -->
 <div class="page-container">
     <div class="tribunal-list-container">
-        <!-- Bouton pour ajouter un tribunal -->
+      
+      <!-- Ligne d'action : Bouton + champ de recherche -->
+      <div class="action-bar">
         <div class="add-tribunal-button">
-            <button class="btn-add-tribunal" (click)="openModal()">
-                <i class="fas fa-plus"></i> Ajouter un Tribunal
-            </button>
+          <button class="btn-add-tribunal" (click)="openModal()">
+            <i class="fas fa-plus"></i> Ajouter un Tribunal
+          </button>
         </div>
+        <div class="search-bar">
+            <i class="fas fa-search search-icon"></i>
+            <input
+              type="text"
+              [(ngModel)]="searchVille"
+              (input)="filterTribunaux()"
+              placeholder="Rechercher par ville..."
+            />
+          </div>
+      </div>
         <div *ngIf="loading" class="loading">Chargement...</div>
         <div *ngIf="error" class="error">{{ error }}</div>
 

@@ -12,7 +12,7 @@ const tribunalSchema = new mongoose.Schema({
     required: true, 
     default: true,  
   },
-  imagetribunal: { type: String }, // Ajout du champ image pour stocker l'URL ou chemin de l'image
+  imagetribunal: { type: String }, 
 });
 
 module.exports = mongoose.model('Tribunal', tribunalSchema);

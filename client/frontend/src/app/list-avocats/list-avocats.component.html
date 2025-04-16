@@ -1,0 +1,46 @@
+<div class="container mt-5">
+    <!-- Formulaire de recherche -->
+    <div class="mb-4">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group">
+            <i class="fa fa-search"></i> <!-- Icône de recherche -->
+            <input type="text" class="form-control" [(ngModel)]="regionSearch" placeholder="Rechercher par Région" (input)="filterAvocats()">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input-group">
+            <i class="fa fa-search"></i> <!-- Icône de recherche -->
+            <input type="text" class="form-control" [(ngModel)]="degreSearch" placeholder="Rechercher par Degré de Juridiction" (input)="filterAvocats()">
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Liste des avocats -->
+    <div class="row">
+      <div class="col-md-6 mb-4" *ngFor="let avocat of filteredAvocats; let i = index">
+        <div class="avocat-card p-3 shadow rounded">
+          <div class="d-flex align-items-center mb-3">
+            <img [src]="avocat.utilisateur.imageprofile || 'assets/images/user-profile.jpg'" 
+                 alt="Profil" class="rounded-circle me-3" width="60" height="60">
+            <div>
+              <h5 class="mb-0">{{ avocat.utilisateur.nom }} {{ avocat.utilisateur.prenom }}</h5>
+              <small class="text-muted">{{ avocat.utilisateur.email }}</small>
+            </div>
+          </div>
+  
+          <p><strong>Téléphone :</strong> {{ avocat.utilisateur.phone }}</p>
+          <p><strong>Adresse :</strong> {{ avocat.adresse }}</p>
+          <p><strong>Région :</strong> {{ avocat.region }}</p>
+          <p><strong>Honoraires :</strong> {{ avocat.honoraires }} TND</p>
+  
+          <!-- Niveau en rectangle vert -->
+          <div class="niveau-rectangle mt-3">
+            {{ getNiveauLabel(avocat.degreJuridiction) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

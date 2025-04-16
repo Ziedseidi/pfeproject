@@ -9,6 +9,9 @@ import { TribunalService } from 'src/app/services/tribunal.service';
 export class TribunalListComponent implements OnInit {
   coursAppel: any[] = [];
   premieresInstance: any[] = [];
+  filteredCoursAppel: any[] = [];
+  filteredPremieresInstance: any[] = [];
+
   loading = false;
   error = '';
   isModalOpen = false;
@@ -17,6 +20,9 @@ export class TribunalListComponent implements OnInit {
   pageSize = 2;
   currentPageCour = 1;
   currentPagePrem = 1;
+
+  // Filtrage
+  searchVille: string = '';
 
   constructor(private tribunalService: TribunalService) {}
 
@@ -30,6 +36,8 @@ export class TribunalListComponent implements OnInit {
       next: resp => {
         this.coursAppel = resp["Cour d'Appel"] || [];
         this.premieresInstance = resp["Première Instance"] || [];
+        this.filteredCoursAppel = [...this.coursAppel];
+        this.filteredPremieresInstance = [...this.premieresInstance];
         this.loading = false;
       },
       error: err => {
@@ -40,25 +48,41 @@ export class TribunalListComponent implements OnInit {
     });
   }
 
-  // Nombre total de pages
-  get totalPagesCour(): number {
-    return Math.ceil(this.coursAppel.length / this.pageSize);
-  }
-  get totalPagesPrem(): number {
-    return Math.ceil(this.premieresInstance.length / this.pageSize);
+  // --- Filtrage par ville ---
+  filterTribunaux(): void {
+    const ville = this.searchVille.toLowerCase().trim();
+
+    this.filteredCoursAppel = this.coursAppel.filter(t =>
+      !ville || t.ville.toLowerCase().includes(ville)
+    );
+
+    this.filteredPremieresInstance = this.premieresInstance.filter(t =>
+      !ville || t.ville.toLowerCase().includes(ville)
+    );
+
+    this.currentPageCour = 1;
+    this.currentPagePrem = 1;
   }
 
-  // Sélection des éléments à afficher
+  // Nombre total de pages
+  get totalPagesCour(): number {
+    return Math.ceil(this.filteredCoursAppel.length / this.pageSize);
+  }
+  get totalPagesPrem(): number {
+    return Math.ceil(this.filteredPremieresInstance.length / this.pageSize);
+  }
+
+  // Éléments à afficher
   get pagedCoursAppel(): any[] {
     const start = (this.currentPageCour - 1) * this.pageSize;
-    return this.coursAppel.slice(start, start + this.pageSize);
+    return this.filteredCoursAppel.slice(start, start + this.pageSize);
   }
   get pagedPremieresInstance(): any[] {
     const start = (this.currentPagePrem - 1) * this.pageSize;
-    return this.premieresInstance.slice(start, start + this.pageSize);
+    return this.filteredPremieresInstance.slice(start, start + this.pageSize);
   }
 
-  // Navigation générale
+  // Navigation
   prevPage() {
     if (this.currentPageCour > 1) {
       this.currentPageCour--;

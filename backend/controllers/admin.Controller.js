@@ -72,7 +72,6 @@ adminController.toggleUserActivation = async (req, res) => {
           };
         }
   
-        // Vérifier si cet utilisateur est un Expert
         const expert = await Expert.findOne({ utilisateur: user._id }).exec();
         if (expert) {
           additionalInfo = { 

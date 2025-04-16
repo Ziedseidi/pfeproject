@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const jugementSchema = new mongoose.Schema({
-    affaire: { type: mongoose.Schema.Types.ObjectId, ref: 'Affaire' },
-    date: { type: Date },
-    montant: { type: Number },
-    issue: { type: String },
-    remarques: { type: String }
-  });
-  
-  module.exports = mongoose.model('Jugement', jugementSchema);
-  
+  affaire: { type: mongoose.Schema.Types.ObjectId, ref: 'Affaire', required: true },
+  date: { type: Date, required: true },
+  montant: { type: Number, required: true },
+  issue: { type: String, required: true },
+  remarques: { type: String },
+  saisiePar: { type: mongoose.Schema.Types.ObjectId, ref: 'Demandeur', required: true } // 🔥 nouveau champ
+}, { timestamps: true });
+
+module.exports = mongoose.model('Jugement', jugementSchema);

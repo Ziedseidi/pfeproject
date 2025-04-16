@@ -19,6 +19,7 @@ import { ListeRolesComponent } from './liste-roles/liste-roles.component';
 import { ListeUtilisateursComponent } from './liste-utilisateurs/liste-utilisateurs.component';
 import { TribunalComponent } from './tribunal/tribunal.component';
 import { TribunalListComponent } from './tribunal-list/tribunal-list.component';
+import { ListAvocatsComponent } from './list-avocats/list-avocats.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,7 +31,8 @@ const routes: Routes = [
 
       { path: 'add-role', component: AjouterRoleComponent },
       { path: 'liste-roles', component: ListeRolesComponent }, 
-      { path: 'liste-tribunaux', component: TribunalListComponent }
+      { path: 'liste-tribunaux', component: TribunalListComponent },
+      { path: 'list-avocats', component: ListAvocatsComponent }
     ]
   },
   { path: 'avocat-dashboard', component: AvocatDashboardComponent },
@@ -44,7 +46,7 @@ const routes: Routes = [
     children: [
       { path: 'form-avocat', component: FormAvocatComponent },
       { path: 'form-expert', component: FormExpertComponent },
-      { path: 'form-demandeur', component: FormClientComponent }
+      { path: 'form-demandeur', component: FormClientComponent },
     ]
   },
 

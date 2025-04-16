@@ -1,0 +1,91 @@
+/* Conteneur principal */
+.container {
+  max-width: 1000px;
+  margin-top: 220px;
+  padding: 10px 15px;
+  margin-left: 250px;
+}
+
+/* Alignement des cartes d'avocats */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.col-md-6 {
+  flex: 0 0 48%;
+  margin-bottom: 20px;
+}
+
+/* Carte d'avocat */
+.avocat-card {
+  background-color: #e9e5e5;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 15px;
+  height: 90%;
+}
+
+/* Effet au survol des cartes */
+.avocat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Image du profil avocat */
+.avocat-card img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Rectangle du niveau de degré juridique */
+.niveau-rectangle {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Styles de l'input avec l'icône */
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-group input {
+  padding-left: 35px; /* Espacement pour l'icône à gauche */
+  padding-right: 70px; /* Pour éviter que le texte ne chevauche le bord droit */
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #36b93f;
+  width: 100%;
+  text-align:center; /* Aligner le texte à droite dans le champ de saisie */
+}
+
+.input-group i {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #090808;
+  font-size: 18px;
+}
+
+/* Responsivité pour les petits écrans */
+@media (max-width: 768px) {
+  .col-md-6 {
+    flex: 0 0 100%;
+  }
+}
+
+/* Ajustement de l'espacement si la navbar est fixe */
+body {
+  padding-top: 60px;
+}
