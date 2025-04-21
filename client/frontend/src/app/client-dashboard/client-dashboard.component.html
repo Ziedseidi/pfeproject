@@ -1,52 +1,63 @@
 <div class="main-container">
-    <!-- Sidebar -->
-    <div class="action-bar">
-        <button class="action-btn">➕ Ajouter une affaire</button>
-        <button class="action-btn">👨‍⚖️ Affecter avocat à une affaire</button>
-        <button class="action-btn">🧑‍🔬 Affecter expert à une affaire</button>
-        <button class="action-btn">📄 Créer un contrat</button>
-        <button class="action-btn">⚖️ Créer un jugement</button>
-        <button class="action-btn">💰 Affecter consignation</button>
-        <button class="action-btn">🏛️ Affecter tribunal</button>
-      
-        <div class="user-section">
-          <img [src]="user.imageprofile || 'assets/images/user-profile.jpg'" alt="User Profile" class="user-image" />
-          <button class="logout-btn" >Déconnexion</button>
-        </div>
-      </div>
-    <!-- Tableau principal -->
-    <div class="table-wrapper">
-      <div class="table-title">{{ user.nom }} {{ user.prenom }} - PERSONNEL JURIDIQUE</div>
-  
-      <div class="table-grid">
-        <!-- En-tête -->
-        <div class="cell head black">Éléments</div>
-        <div class="cell head red">Affaires</div>
-        <div class="cell head red">Experts</div>
-        <div class="cell head red">Avocats</div>
-        <div class="cell head red">Contrats</div>
-  
-        <!-- Ligne 1 -->
-        <div class="cell black">Nombre total</div>
-        <div class="cell grey">12</div>
-        <div class="cell grey">5</div>
-        <div class="cell grey">7</div>
-        <div class="cell grey">20</div>
-  
-        <!-- Ligne 2 -->
-        <div class="cell black">Affectations possibles</div>
-        <div class="cell grey">✔</div>
-        <div class="cell grey">✔</div>
-        <div class="cell grey">✔</div>
-        <div class="cell grey">✖</div>
-  
-        <!-- Ligne 3 -->
-        <div class="cell black">Accès rapide</div>
-        <div class="cell grey"><button class="btn">Voir</button></div>
-        <div class="cell grey"><button class="btn">Voir</button></div>
-        <div class="cell grey"><button class="btn">Voir</button></div>
-        <div class="cell grey"><button class="btn">Voir</button></div>
-      </div>
+  <!-- Barre d’actions -->
+  <div class="action-bar">
+    <button class="action-btn" (click)="openAddAffaireModal()">➕ Ajouter une affaire</button>
+    <button class="action-btn">👨‍⚖️ Affecter avocat à une affaire</button>
+    <button class="action-btn">🧑‍🔬 Affecter expert à une affaire</button>
+    <button class="action-btn">📄 Créer un contrat</button>
+    <button class="action-btn">⚖️ Créer un jugement</button>
+    <button class="action-btn">💰 Affecter consignation</button>
+    <button class="action-btn">🏛️ Affecter tribunal</button>
+
+    <div class="user-section">
+      <img
+        [src]="user.imageprofile || 'assets/images/user-profile.jpg'"
+        alt="User Profile"
+        class="user-image"
+      />
+      <button class="logout-btn" (click)="logout()">Déconnexion</button>
     </div>
   </div>
-  
+
+  <!-- Tableau principal -->
+  <div class="table-wrapper">
+    <div class="table-title">
+      {{ user.nom }} {{ user.prenom }} - PERSONNEL JURIDIQUE
+    </div>
+    <div class="table-grid">
+      <!-- En-tête -->
+      <div class="cell head black">Éléments</div>
+      <div class="cell head red">Affaires</div>
+      <div class="cell head red">Experts</div>
+      <div class="cell head red">Avocats</div>
+      <div class="cell head red">Contrats</div>
+
+      <!-- Ligne 1 -->
+      <div class="cell black">Nombre total</div>
+      <div class="cell grey">12</div>
+      <div class="cell grey">5</div>
+      <div class="cell grey">7</div>
+      <div class="cell grey">20</div>
+
+      <!-- Ligne 2 -->
+      <div class="cell black">Affectations possibles</div>
+      <div class="cell grey">✔</div>
+      <div class="cell grey">✔</div>
+      <div class="cell grey">✔</div>
+      <div class="cell grey">✖</div>
+
+      <!-- Ligne 3 -->
+      <div class="cell black">Accès rapide</div>
+      <div class="cell grey"><button class="btn">Voir</button></div>
+      <div class="cell grey"><button class="btn">Voir</button></div>
+      <div class="cell grey"><button class="btn">Voir</button></div>
+      <div class="cell grey"><button class="btn">Voir</button></div>
+    </div>
+  </div>
+
+  <!-- MODALE Ajouter une Affaire -->
+  <app-add-affaire
+    *ngIf="isAddAffaireModal"
+    (closeModal)="closeAddAffaireModal()"
+  ></app-add-affaire>
+</div>

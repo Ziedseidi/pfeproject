@@ -20,6 +20,7 @@ import { ListeUtilisateursComponent } from './liste-utilisateurs/liste-utilisate
 import { TribunalComponent } from './tribunal/tribunal.component';
 import { TribunalListComponent } from './tribunal-list/tribunal-list.component';
 import { ListAvocatsComponent } from './list-avocats/list-avocats.component';
+import { AddAffaireComponent } from './add-affaire/add-affaire.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,7 +30,7 @@ const routes: Routes = [
     children: [
       { path: 'liste-utilisateurs', component: ListeUtilisateursComponent },
 
-      { path: 'add-role', component: AjouterRoleComponent },
+      { path: 'add-role', component: AjouterRoleComponent ,},
       { path: 'liste-roles', component: ListeRolesComponent }, 
       { path: 'liste-tribunaux', component: TribunalListComponent },
       { path: 'list-avocats', component: ListAvocatsComponent }
@@ -37,7 +38,11 @@ const routes: Routes = [
   },
   { path: 'avocat-dashboard', component: AvocatDashboardComponent },
   { path: 'expert-dashboard', component: ExpertDashboardComponent },
-  { path: 'client-dashboard', component: ClientDashboardComponent },
+  { path: 'client-dashboard', component: ClientDashboardComponent,
+    children:[
+      {path :'add-affaire', component:AddAffaireComponent}
+    ]
+   },
   { path: 'login', component: LoginComponent },
 
   // Routes d'enregistrement

@@ -6,7 +6,7 @@ const affaireSchema = new mongoose.Schema({
   avocat: { type: mongoose.Schema.Types.ObjectId, ref: 'Avocat', default: null },
   tribunal: { type: mongoose.Schema.Types.ObjectId, ref: 'Tribunal', default: null },
   dateConvocation: { type: Date, default: null },
-  degreJuridique: { type: String, default: null },
+  degreJuridique: { type: String},
   dateCloture: { type: Date, default: null },
   clotureApresReception: { type: Boolean },
   remarques: { type: String, default: null },

@@ -12,9 +12,9 @@ affaireController.addAffaire = async (req, res) => {
   const {
     numeroAffaire,
     objet,
-    tribunal, 
-    dateConvocation,  
-    degreJuridiction,
+    tribunal,
+    dateConvocation,
+    degreJuridique,
     dateCloture,
     clotureApresReception,
     remarques,
@@ -30,33 +30,29 @@ affaireController.addAffaire = async (req, res) => {
       return res.status(400).json({ message: 'Utilisateur non authentifié' });
     }
 
-    // Recherche du demandeur pour l'utilisateur actuel
-    const demandeur = await Demandeur.findOne({ utilisateur: req.user.userId });
-
-    if (!demandeur) {
-      return res.status(400).json({ message: 'Demandeur non trouvé pour cet utilisateur.' });
-    }
+    // Utilisation de l'utilisateur comme demandeur
+    const demandeurId = req.user.userId;
 
     const newAffaire = new Affaire({
       numeroAffaire,
       objet,
-      avocat: null, 
-      tribunal: tribunal || null,  
-      dateConvocation: dateConvocation || Date.now(),  
-      degreJuridiction: degreJuridiction || null,
+      avocat: null,
+      tribunal: tribunal || null,
+      dateConvocation: dateConvocation || Date.now(),
+      degreJuridique,
       dateCloture: dateCloture || null,
       clotureApresReception: clotureApresReception || false,
       remarques: remarques || null,
       reclamation: reclamation || null,
-      experts: [],  
-      consignations: [], 
-      saisies: [],  // Pas de saisies initialement
-      audiences: [],  // Pas d'audiences initialement
+      experts: [],
+      consignations: [],
+      saisies: [],
+      audiences: [],
       typeClient,
-      demandeur: demandeur._id,  // Référence au demandeur trouvé
-      numeroVol: typeDemandeur === 'passager' ? numeroVol : null,  // Si le type est 'passager', on inclut le numéro de vol
-      dateVol: typeDemandeur === 'passager' ? dateVol : null,  // Date du vol, uniquement pour 'passager'
-      referenceConvention: null  // Référence de la convention, initialisée à null
+      demandeur: demandeurId,  // L'ID de l'utilisateur est utilisé comme demandeur
+      numeroVol: typeClient === 'passager' ? numeroVol : null,
+      dateVol: typeClient === 'passager' ? dateVol : null,
+      referenceConvention: null
     });
 
     // Sauvegarde de l'affaire dans la base de données

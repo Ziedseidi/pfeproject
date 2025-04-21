@@ -9,17 +9,26 @@ import { AuthService } from '../services/auth.service';
 export class ClientDashboardComponent implements OnInit {
 
   user: any = {};
+  isAddAffaireModal = false;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.getUserInfo().subscribe(
-      (data) => {
-        this.user = data;
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des informations de l\'utilisateur', error);
-      }
+      (data) => this.user = data,
+      (error) => console.error('Erreur récupération user', error)
     );
+  }
+
+  openAddAffaireModal() {
+    this.isAddAffaireModal = true;
+  }
+
+  closeAddAffaireModal() {
+    this.isAddAffaireModal = false;
+  }
+
+  logout() {
+    // votre logique de déconnexion ici
   }
 }
