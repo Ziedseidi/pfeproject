@@ -1,0 +1,113 @@
+/* Conteneur principal */
+.list-container {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Titre */
+  h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Chargement & erreur */
+  .loading,
+  .error {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .error {
+    color: #d9534f;
+  }
+  
+  /* Table responsive */
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  
+  /* Table */
+  .affaires-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 14px;
+  }
+  
+  .affaires-table th,
+  .affaires-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .affaires-table th {
+    background-color: #005d8f;
+    color: white;
+    font-weight: 600;
+  }
+  
+  .affaires-table tr:hover {
+    background-color: #f1f7ff;
+  }
+  
+  .actions-col {
+    text-align: center;
+    white-space: nowrap;
+  }
+  
+  .expert-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  
+  .expert-list li {
+    margin-bottom: 4px;
+  }
+  
+  /* Boutons */
+  .btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn.edit {
+    background-color: #ffc107;
+    color: white;
+  }
+  
+  .btn.edit:hover {
+    background-color: #e0a800;
+  }
+  
+  .btn.delete {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn.delete:hover {
+    background-color: #c82333;
+  }
+  
+  .btn.assign {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn.assign:hover {
+    background-color: #218838;
+  }
+  

@@ -22,8 +22,6 @@ export class AffaireService {
       'Content-Type': 'application/json'
     });
   }
-
-  // Ajouter une affaire avec authentification
   addAffaire(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/add_Affaire`, data, {
       headers: this.getAuthHeaders()
@@ -34,4 +32,13 @@ export class AffaireService {
       })
     );
   }
-}
+  getAllAffaires(): Observable<any[]> {
+    return this.http
+      .get<any[]>(`${this.apiUrl}/allAffaires`, { headers: this.getAuthHeaders() })
+      .pipe(
+        catchError(err => {
+          console.error('Erreur lors de la récupération des affaires :', err);
+          return throwError(() => new Error('Erreur lors de la récupération des affaires.'));
+        })
+      );
+  }}

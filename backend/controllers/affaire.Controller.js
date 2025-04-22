@@ -1,10 +1,13 @@
+// controllers/affaire.Controller.js
 const mongoose = require('mongoose');
 const Affaire = require('../models/Affaire.model');
-const Demandeur = require('../models/Demandeur.model');
 const User = require('../models/User.model');
-const Avocat=require('../models/Avocat.model');
+const Avocat = require('../models/Avocat.model');
+const Expert = require('../models/Expert.model');
+const Demandeur = require('../models/Demandeur.model');
+const Saisie = require('../models/Saisie.model');
+const Consignation = require('../models/Consignation.model');
 const { v4: uuidv4 } = require('uuid');
-
 
 const affaireController = {};
 
@@ -25,14 +28,10 @@ affaireController.addAffaire = async (req, res) => {
   } = req.body;
 
   try {
-    // Vérification de l'utilisateur authentifié
-    if (!req.user || !req.user.userId) {
+    if (!req.user?.userId) {
       return res.status(400).json({ message: 'Utilisateur non authentifié' });
     }
-
-    // Utilisation de l'utilisateur comme demandeur
     const demandeurId = req.user.userId;
-
     const newAffaire = new Affaire({
       numeroAffaire,
       objet,
@@ -41,31 +40,26 @@ affaireController.addAffaire = async (req, res) => {
       dateConvocation: dateConvocation || Date.now(),
       degreJuridique,
       dateCloture: dateCloture || null,
-      clotureApresReception: clotureApresReception || false,
+      clotureApresReception: !!clotureApresReception,
       remarques: remarques || null,
       reclamation: reclamation || null,
       experts: [],
       consignations: [],
       saisies: [],
-      audiences: [],
       typeClient,
-      demandeur: demandeurId,  // L'ID de l'utilisateur est utilisé comme demandeur
+      demandeur: demandeurId,
       numeroVol: typeClient === 'passager' ? numeroVol : null,
       dateVol: typeClient === 'passager' ? dateVol : null,
       referenceConvention: null
     });
-
-    // Sauvegarde de l'affaire dans la base de données
     await newAffaire.save();
-
-    // Retour de la réponse avec l'affaire nouvellement créée
-    res.status(201).json({
+    return res.status(201).json({
       message: 'Affaire ajoutée avec succès',
       affaire: newAffaire
     });
   } catch (error) {
     console.error('Erreur lors de l\'ajout de l\'affaire:', error);
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Erreur lors de l\'ajout de l\'affaire.',
       error: error.message || error
     });
@@ -75,53 +69,92 @@ affaireController.addAffaire = async (req, res) => {
 affaireController.assignAvocatToAffaire = async (req, res) => {
   try {
     const { utilisateurId, affaireId } = req.body;
-
-    // Vérification des paramètres requis
     if (!utilisateurId || !affaireId) {
-      return res.status(400).json({ message: "L'ID de l'utilisateur et de l'affaire sont requis." });
+      return res.status(400).json({ message: "L'ID utilisateur et l'ID affaire sont requis." });
     }
-
-    // Recherche de l'utilisateur
     const user = await User.findById(utilisateurId);
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
-
-    // Recherche de l'avocat associé à cet utilisateur
     const avocat = await Avocat.findOne({ utilisateur: utilisateurId }).populate('affairesAttribuees');
     if (!avocat) {
-      return res.status(404).json({ message: "Aucun avocat associé à cet utilisateur." });
+      return res.status(404).json({ message: "Aucun avocat pour cet utilisateur." });
     }
-
-    // Vérification du nombre d'affaires attribuées à l'avocat (limité à 10)
     if (avocat.affairesAttribuees.length >= 10) {
-      return res.status(403).json({ message: "Impossible d'assigner. Cet avocat est déjà affecté à 10 affaires." });
+      return res.status(403).json({ message: "Cet avocat a déjà 10 affaires." });
     }
-
-    // Recherche de l'affaire
     const affaire = await Affaire.findById(affaireId);
     if (!affaire) {
       return res.status(404).json({ message: "Affaire non trouvée." });
     }
 
-    // Assignation de l'avocat à l'affaire et mise à jour de la référence de la convention
+    const degreAffaire = affaire.degreJuridique.toLowerCase();
+    const degreAvocat = avocat.degreJuridiction;
+
+    const valid =
+      (degreAffaire === '1er degré' && degreAvocat === 'Appel') ||
+      (degreAffaire === '2ème degré' && (degreAvocat === 'Appel' || degreAvocat === 'Première Instance')) ||
+      (degreAffaire === '3ème degré' && degreAvocat === 'Cassation');
+
+    if (!valid) {
+      return res.status(403).json({ message: "Avocat inadapté pour ce degré juridique." });
+    }
+
     affaire.avocat = avocat._id;
-    affaire.referenceConvention = uuidv4();  // Génération de la référence de la convention
+    affaire.referenceConvention = uuidv4();
     await affaire.save();
 
-    // Mise à jour de la date de début de la convention dans le modèle avocat
-    avocat.dateDebutConvention = Date.now();  // Date actuelle comme début de la convention
-    await avocat.save();
-
-    // Ajout de l'affaire à la liste des affaires attribuées de l'avocat
+    avocat.dateDebutConvention = new Date();
     avocat.affairesAttribuees.push(affaire._id);
     await avocat.save();
 
-    // Retourner une réponse indiquant le succès
-    return res.status(200).json({ message: "Affaire assignée à l'avocat avec succès." });
+    return res.status(200).json({ message: "Affaire assignée avec succès." });
   } catch (error) {
-    console.error("Erreur lors de l'assignation :", error);
+    console.error("Erreur assignation :", error);
     return res.status(500).json({ message: "Erreur serveur." });
   }
 };
+
+affaireController.getAllAffaires = async (req, res) => {
+  try {
+    // On récupère en lean + populate
+    let affaires = await Affaire.find()
+      .populate({
+        path: 'avocat',
+        select: 'utilisateur -_id',
+        populate: { path: 'utilisateur', select: 'nom prenom -_id' }
+      })
+      .populate({
+        path: 'experts',
+        select: 'utilisateur -_id',
+        populate: { path: 'utilisateur', select: 'nom prenom -_id' }
+      })
+      .populate({
+        path: 'demandeur',
+        select: 'utilisateur -_id',
+        populate: { path: 'utilisateur', select: 'nom prenom -_id' }
+      })
+      .populate({ path: 'tribunal', select: 'nom -_id' })
+      .populate({ path: 'saisies', select: '-__v' })
+      .populate({ path: 'consignations', select: '-__v' })
+      .sort({ createdAt: -1 })
+      .lean();
+
+    // Aplatir les sous‑objets
+    affaires = affaires.map(a => {
+      if (a.avocat?.utilisateur) a.avocat = a.avocat.utilisateur;
+      if (Array.isArray(a.experts)) {
+        a.experts = a.experts.map(e => e.utilisateur || e);
+      }
+      if (a.demandeur?.utilisateur) a.demandeur = a.demandeur.utilisateur;
+      return a;
+    });
+
+    return res.status(200).json(affaires);
+  } catch (error) {
+    console.error('Erreur récupération affaires :', error);
+    return res.status(500).json({ message: 'Erreur serveur.' });
+  }
+};
+
 module.exports = affaireController;

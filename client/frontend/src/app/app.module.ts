@@ -41,6 +41,7 @@ import { TribunalComponent } from './tribunal/tribunal.component';
 import { TribunalListComponent } from './tribunal-list/tribunal-list.component';
 import { ListAvocatsComponent } from './list-avocats/list-avocats.component';
 import { AddAffaireComponent } from './add-affaire/add-affaire.component';
+import { ListAffairesComponent } from './list-affaires/list-affaires.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { AddAffaireComponent } from './add-affaire/add-affaire.component';
     TribunalComponent,
     TribunalListComponent,
     ListAvocatsComponent,
-    AddAffaireComponent
+    AddAffaireComponent,
+    ListAffairesComponent
      // Assurez-vous que ce composant existe
   ],
   imports: [

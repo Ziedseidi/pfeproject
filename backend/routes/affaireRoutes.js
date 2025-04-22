@@ -7,8 +7,8 @@ const authenticateToken=require('../midelware/auth');
 
 
 router.post('/add_Affaire',authenticateToken, roleMiddleware('PersonelJurédique'), affaireController.addAffaire);
-router.post('/assign_avocat',authenticateToken,roleMiddleware('Admin'),affaireController.assignAvocatToAffaire);
-
+router.post('/assign_avocat',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.assignAvocatToAffaire);
+router.get('/allAffaires',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.getAllAffaires);
 module.exports = router;
 
 

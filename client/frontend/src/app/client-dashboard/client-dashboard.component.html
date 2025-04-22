@@ -2,7 +2,9 @@
   <!-- Barre d’actions -->
   <div class="action-bar">
     <button class="action-btn" (click)="openAddAffaireModal()">➕ Ajouter une affaire</button>
-    <button class="action-btn">👨‍⚖️ Affecter avocat à une affaire</button>
+    <button class="action-btn" [routerLink]="['/list-affaires']">
+      👨‍⚖️ Affecter avocat à une affaire
+    </button>
     <button class="action-btn">🧑‍🔬 Affecter expert à une affaire</button>
     <button class="action-btn">📄 Créer un contrat</button>
     <button class="action-btn">⚖️ Créer un jugement</button>
@@ -60,4 +62,6 @@
     *ngIf="isAddAffaireModal"
     (closeModal)="closeAddAffaireModal()"
   ></app-add-affaire>
+  <router-outlet></router-outlet>
+
 </div>

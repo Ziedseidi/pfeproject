@@ -1,0 +1,73 @@
+<div class="list-container">
+
+    <h2>Liste des Affaires</h2>
+  
+    <div *ngIf="loading" class="loading">Chargement…</div>
+    <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+  
+    <div class="table-wrapper" *ngIf="!loading && !errorMsg">
+      <table class="affaires-table">
+        <thead>
+          <tr>
+            <th>Numéro</th>
+            <th>Objet</th>
+            <th>Degré</th>
+            <th>Convocation</th>
+            <th>Clôture</th>
+            <th>Réception</th>
+            <th>Remarques</th>
+            <th>Réclamation</th>
+            <th>Client</th>
+            <th>Vol</th>
+            <th>Demandeur</th>
+            <th>Avocat</th>
+            <th>Experts</th>
+            <th>Tribunal</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of affaires">
+            <td>{{ a.numeroAffaire }}</td>
+            <td>{{ a.objet || '—' }}</td>
+            <td>{{ a.degreJuridique }}</td>
+            <td>{{ a.dateConvocation | date:'shortDate' }}</td>
+            <td>
+              {{ a.dateCloture 
+                  ? (a.dateCloture | date:'shortDate') 
+                  : '—' }}
+            </td>
+            <td>{{ a.clotureApresReception ? 'Oui' : 'Non' }}</td>
+            <td>{{ a.remarques || '—' }}</td>
+            <td>{{ a.reclamation?.type }}</td>
+            <td>{{ a.typeClient }}</td>
+            <td>{{ a.numeroVol || '—' }}</td>
+            <td>
+              {{ a.demandeur?.nom || '—' }}
+              {{ a.demandeur?.prenom || '' }}
+            </td>
+            <td>
+              {{ a.avocat?.nom || '—' }}
+              {{ a.avocat?.prenom || '' }}
+            </td>
+            <td>
+              <ul class="expert-list">
+                <li *ngFor="let e of a.experts">
+                  {{ e.nom }} {{ e.prenom }}
+                </li>
+                <li *ngIf="a.experts.length===0">—</li>
+              </ul>
+            </td>
+            <td>{{ a.tribunal?.nom || '—' }}</td>
+            <td class="actions">
+              <button class="btn edit"   (click)="onEdit(a._id)">Modifier</button>
+              <button class="btn delete" (click)="onDelete(a._id)">Supprimer</button>
+              <button class="btn assign" (click)="onAssign(a._id)">Assigner</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+  </div>
+  

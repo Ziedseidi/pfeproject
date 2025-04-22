@@ -1,15 +1,23 @@
+// models/Affaire.model.js
 const mongoose = require('mongoose');
 
 const affaireSchema = new mongoose.Schema({
   numeroAffaire: { type: String, required: true },
-  objet: { type: String },
-  avocat: { type: mongoose.Schema.Types.ObjectId, ref: 'Avocat', default: null },
-  tribunal: { type: mongoose.Schema.Types.ObjectId, ref: 'Tribunal', default: null },
-  dateConvocation: { type: Date, default: null },
-  degreJuridique: { type: String},
-  dateCloture: { type: Date, default: null },
-  clotureApresReception: { type: Boolean },
-  remarques: { type: String, default: null },
+  objet: { type: String, default: null },
+
+  // Répartition facultative, par défaut null
+  avocat:    { type: mongoose.Schema.Types.ObjectId, ref: 'Avocat',    default: null },
+  tribunal:  { type: mongoose.Schema.Types.ObjectId, ref: 'Tribunal',  default: null },
+
+  dateConvocation:    { type: Date, default: null },
+  degreJuridique: {
+    type: String,
+    enum: ['1er degré', '2ème degré', '3ème degré'],
+    required: true
+  },
+  dateCloture:        { type: Date, default: null },
+  clotureApresReception: { type: Boolean, default: false },
+  remarques:          { type: String, default: null },
 
   reclamation: {
     type: {
@@ -17,27 +25,29 @@ const affaireSchema = new mongoose.Schema({
       enum: ['retard', 'annulation', 'autre'],
       required: true
     },
+    // Note : vous pouvez ajouter des champs supplémentaires ici si besoin
   },
 
-  experts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Expert', default: null }],
-  consignations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Consignation', default: null }],
-  saisies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Saisie', default: null }],
+  // Tableaux de références : initialisés à [] par défaut
+  experts:      [{ type: mongoose.Schema.Types.ObjectId, ref: 'Expert'      }],
+  consignations:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Consignation'}],
+  saisies:      [{ type: mongoose.Schema.Types.ObjectId, ref: 'Saisie'      }],
 
   typeClient: {
     type: String,
     enum: ['fournisseur', 'assurance', 'passager', 'employe'],
     required: true
   },
-  demandeur: {
-    type: mongoose.Schema.Types.ObjectId,
+  demandeur: { 
+    type: mongoose.Schema.Types.ObjectId, 
     ref: 'Demandeur',
-    required: true
+    required: true 
   },
 
-  numeroVol: { type: String },
-  dateVol: { type: Date },
+  numeroVol: { type: String, default: null },
+  dateVol:   { type: Date,   default: null },
 
-  referenceConvention: { type: String, default: null }  
+  referenceConvention: { type: String, default: null }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Affaire', affaireSchema);
