@@ -6,7 +6,6 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   }
   
-  /* Titre */
   h2 {
     text-align: center;
     font-size: 24px;
@@ -14,7 +13,6 @@
     margin-bottom: 20px;
   }
   
-  /* Chargement & erreur */
   .loading,
   .error {
     text-align: center;
@@ -26,12 +24,10 @@
     color: #d9534f;
   }
   
-  /* Table responsive */
   .table-wrapper {
     overflow-x: auto;
   }
   
-  /* Table */
   .affaires-table {
     width: 100%;
     border-collapse: collapse;
@@ -73,7 +69,7 @@
     margin-bottom: 4px;
   }
   
-  /* Boutons */
+  /*  */
   .btn {
     padding: 6px 12px;
     border: none;

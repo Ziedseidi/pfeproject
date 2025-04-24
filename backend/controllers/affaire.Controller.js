@@ -157,4 +157,40 @@ affaireController.getAllAffaires = async (req, res) => {
   }
 };
 
+
+affaireController.getAvocatsEligibles= async(req,res)=>{
+  try {
+    const { affaireId } = req.params;
+    const affaire = await Affaire.findById(affaireId);
+    if (!affaire) {
+      return res.status(404).json({ message: "Affaire non trouvée" });
+    }
+
+    const degreAffaire = affaire.degreJuridique.toLowerCase();
+
+    let condition;
+    if (degreAffaire === '1er degré') {
+      condition = { degreJuridiction: 'Appel' };
+    } else if (degreAffaire === '2ème degré') {
+      condition = { degreJuridiction: { $in: ['Appel', 'Première Instance'] } };
+    } else if (degreAffaire === '3ème degré') {
+      condition = { degreJuridiction: 'Cassation' };
+    } else {
+      return res.status(400).json({ message: "Degré juridique invalide." });
+    }
+
+    const avocats = await Avocat.find(condition)
+      .populate('utilisateur', 'nom prenom email')
+      .lean();
+
+    const disponibles = avocats.filter(a => (a.affairesAttribuees?.length || 0) < 10);
+
+    return res.status(200).json(disponibles);
+  } catch (error) {
+    console.error("Erreur getAvocatsEligibles :", error);
+    return res.status(500).json({ message: "Erreur serveur." });
+  }
+};
+
+
 module.exports = affaireController;
