@@ -7,7 +7,6 @@ tribunalController.addTribunal = async (req, res) => {
       const { nom, adresse, ville, telephone, email, typeTribunal, etatTribunal } = req.body;
       let imagetribunal = '';
   
-      // Vérifie si un fichier a été envoyé
       if (req.file) {
         imagetribunal = 'http://localhost:7501/uploads/' + req.file.filename;
       }
@@ -46,5 +45,7 @@ tribunalController.addTribunal = async (req, res) => {
         return res.status(500).json({ message: 'Erreur interne du serveur' });
       }
     };
+
+    
   
 module.exports = tribunalController;

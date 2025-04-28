@@ -1,73 +1,98 @@
 <div class="list-container">
 
-    <h2>Liste des Affaires</h2>
+  <h2>Liste des Affaires</h2>
+
+  <div *ngIf="loading" class="loading">Chargement…</div>
+  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+  <div class="table-wrapper" *ngIf="!loading && !errorMsg">
+    <table class="affaires-table">
+      <thead>
+        <tr>
+          <th>Numéro</th>
+          <th>Objet</th>
+          <th>Degré</th>
+          <th>Convocation</th>
+          <th>Clôture</th>
+          <th>Réception</th>
+          <th>Remarques</th>
+          <th>Réclamation</th>
+          <th>Client</th>
+          <th>Vol</th>
+          <th>Demandeur</th>
+          <th>Avocat</th>
+          <th>Experts</th>
+          <th>Tribunal</th>
+          <th class="actions-col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of affaires">
+          <td>{{ a.numeroAffaire }}</td>
+          <td>{{ a.objet || '—' }}</td>
+          <td>{{ a.degreJuridique }}</td>
+          <td>{{ a.dateConvocation | date:'shortDate' }}</td>
+          <td>{{ a.dateCloture ? (a.dateCloture | date:'shortDate') : '—' }}</td>
+          <td>{{ a.clotureApresReception ? 'Oui' : 'Non' }}</td>
+          <td>{{ a.remarques || '—' }}</td>
+          <td>{{ a.reclamation?.type }}</td>
+          <td>{{ a.typeClient }}</td>
+          <td>{{ a.numeroVol || '—' }}</td>
+          <td>
+            {{ a.demandeur?.nom || '—' }}
+            {{ a.demandeur?.prenom || '' }}
+          </td>
+          <td>
+            {{ a.avocat?.nom || '—' }}
+            {{ a.avocat?.prenom || '' }}
+          </td>
+          <td>
+            <ul class="expert-list">
+              <li *ngFor="let e of a.experts">{{ e.nom }} {{ e.prenom }}</li>
+              <li *ngIf="a.experts.length === 0">—</li>
+            </ul>
+          </td>
+          <td>{{ a.tribunal?.nom || '—' }}</td>
+          <td class="actions">
+            <button class="btn edit" (click)="onEdit(a._id)">
+              <i class="fas fa-pen"></i> Modifier
+            </button>
+            <button class="btn delete" (click)="onDelete(a._id)">
+              <i class="fas fa-trash-alt"></i> Supprimer
+            </button>
+            <button class="btn assign" (click)="onAssign(a._id)">
+              <i class="fas fa-user-check"></i> Assigner Avocat
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="overlay" *ngIf="showModal"></div>
+
+  <div *ngIf="showModal" class="modal">
+    <div class="modal-content">
+      <h3>Avocats Éligibles</h3>
+      
+      <div *ngIf="modalError" class="modal-error">
+        {{ modalError }}
+      </div>
+      
+      <!-- Affichage de l'état de chargement -->
+      <div *ngIf="modalLoading" class="loading-message">
+        <p>Chargement...</p>
+      </div>
   
-    <div *ngIf="loading" class="loading">Chargement…</div>
-    <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
-  
-    <div class="table-wrapper" *ngIf="!loading && !errorMsg">
-      <table class="affaires-table">
-        <thead>
-          <tr>
-            <th>Numéro</th>
-            <th>Objet</th>
-            <th>Degré</th>
-            <th>Convocation</th>
-            <th>Clôture</th>
-            <th>Réception</th>
-            <th>Remarques</th>
-            <th>Réclamation</th>
-            <th>Client</th>
-            <th>Vol</th>
-            <th>Demandeur</th>
-            <th>Avocat</th>
-            <th>Experts</th>
-            <th>Tribunal</th>
-            <th class="actions-col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let a of affaires">
-            <td>{{ a.numeroAffaire }}</td>
-            <td>{{ a.objet || '—' }}</td>
-            <td>{{ a.degreJuridique }}</td>
-            <td>{{ a.dateConvocation | date:'shortDate' }}</td>
-            <td>
-              {{ a.dateCloture 
-                  ? (a.dateCloture | date:'shortDate') 
-                  : '—' }}
-            </td>
-            <td>{{ a.clotureApresReception ? 'Oui' : 'Non' }}</td>
-            <td>{{ a.remarques || '—' }}</td>
-            <td>{{ a.reclamation?.type }}</td>
-            <td>{{ a.typeClient }}</td>
-            <td>{{ a.numeroVol || '—' }}</td>
-            <td>
-              {{ a.demandeur?.nom || '—' }}
-              {{ a.demandeur?.prenom || '' }}
-            </td>
-            <td>
-              {{ a.avocat?.nom || '—' }}
-              {{ a.avocat?.prenom || '' }}
-            </td>
-            <td>
-              <ul class="expert-list">
-                <li *ngFor="let e of a.experts">
-                  {{ e.nom }} {{ e.prenom }}
-                </li>
-                <li *ngIf="a.experts.length===0">—</li>
-              </ul>
-            </td>
-            <td>{{ a.tribunal?.nom || '—' }}</td>
-            <td class="actions">
-              <button class="btn edit"   (click)="onEdit(a._id)">Modifier</button>
-              <button class="btn delete" (click)="onDelete(a._id)">Supprimer</button>
-              <button class="btn assign" (click)="onAssign(a._id)">Assigner Avocat</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <ul *ngIf="!modalLoading">
+        <li *ngFor="let avocat of avocatsEligibles">
+          <span>{{ avocat.utilisateur.nom }} {{ avocat.utilisateur.prenom }} - {{ avocat.degreJuridiction }}</span>
+          <button class="btn assign-btn" (click)="assignerAvocat(avocat.utilisateur._id)">Assigner</button>
+        </li>
+      </ul>
+    
+      <button class="btn modal-close-btn" (click)="fermerModal()">Fermer</button>
     </div>
-  
   </div>
   
+</div>

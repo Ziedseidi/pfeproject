@@ -7,6 +7,7 @@ const Expert = require('../models/Expert.model');
 const Demandeur = require('../models/Demandeur.model');
 const Saisie = require('../models/Saisie.model');
 const Consignation = require('../models/Consignation.model');
+const Tribunal=require('../models/Tribunal.model');
 const { v4: uuidv4 } = require('uuid');
 
 const affaireController = {};
@@ -72,20 +73,25 @@ affaireController.assignAvocatToAffaire = async (req, res) => {
     if (!utilisateurId || !affaireId) {
       return res.status(400).json({ message: "L'ID utilisateur et l'ID affaire sont requis." });
     }
+
     const user = await User.findById(utilisateurId);
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé." });
     }
+
     const avocat = await Avocat.findOne({ utilisateur: utilisateurId }).populate('affairesAttribuees');
     if (!avocat) {
       return res.status(404).json({ message: "Aucun avocat pour cet utilisateur." });
     }
-    if (avocat.affairesAttribuees.length >= 10) {
-      return res.status(403).json({ message: "Cet avocat a déjà 10 affaires." });
-    }
+
+    // Vérification si l'affaire a déjà un avocat assigné
     const affaire = await Affaire.findById(affaireId);
     if (!affaire) {
       return res.status(404).json({ message: "Affaire non trouvée." });
+    }
+
+    if (affaire.avocat) {
+      return res.status(403).json({ message: "Cette affaire est déjà occupée par un autre avocat." });
     }
 
     const degreAffaire = affaire.degreJuridique.toLowerCase();
@@ -114,6 +120,7 @@ affaireController.assignAvocatToAffaire = async (req, res) => {
     return res.status(500).json({ message: "Erreur serveur." });
   }
 };
+
 
 affaireController.getAllAffaires = async (req, res) => {
   try {
@@ -191,6 +198,51 @@ affaireController.getAvocatsEligibles= async(req,res)=>{
     return res.status(500).json({ message: "Erreur serveur." });
   }
 };
+
+affaireController.assignTribunalToAffaire = async (req, res) => {
+  try {
+    const { avocatId, affaireId, tribunalId } = req.body;
+
+    // 1. Vérifier si l'avocat a bien une région
+    const avocat = await Avocat.findById(avocatId);
+    if (!avocat || !avocat.region) {
+      return res.status(400).json({ message: "L'avocat n'a pas de région définie." });
+    }
+
+    // 2. Vérifier que l'affaire n'a pas déjà un avocat assigné
+    const affaire = await Affaire.findById(affaireId);
+    if (!affaire) {
+      return res.status(404).json({ message: "Affaire non trouvée." });
+    }
+
+    if (affaire.avocat) {
+      return res.status(400).json({ message: "Cette affaire a déjà un avocat assigné." });
+    }
+
+    affaire.avocat = avocatId;
+    await affaire.save();
+
+    const tribunal = await Tribunal.findById(tribunalId);
+    if (!tribunal) {
+      return res.status(404).json({ message: "Tribunal non trouvé." });
+    }
+
+    if (tribunal.ville !== avocat.region) {
+      return res.status(400).json({ message: "Le tribunal n'est pas dans la même région que l'avocat." });
+    }
+
+    affaire.tribunal = tribunalId;
+    await affaire.save();
+
+    return res.status(200).json({ message: "Tribunal affecté à l'affaire avec succès." });
+
+  } catch (error) {
+    console.error("Erreur dans l'affectation du tribunal :", error);
+    return res.status(500).json({ message: "Erreur serveur." });
+  }
+};
+
+
 
 
 module.exports = affaireController;

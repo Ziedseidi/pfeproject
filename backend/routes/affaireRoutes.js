@@ -9,7 +9,8 @@ const authenticateToken=require('../midelware/auth');
 router.post('/add_Affaire',authenticateToken, roleMiddleware('PersonelJurédique'), affaireController.addAffaire);
 router.post('/assign_avocat',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.assignAvocatToAffaire);
 router.get('/allAffaires',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.getAllAffaires);
-router.get('/eligibles/:affaireId', authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.getAvocatsEligibles);
+router.get('/avocats-eligibles/:affaireId', authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.getAvocatsEligibles);
+router.post('/assign-tribunal',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.assignTribunalToAffaire);
 module.exports = router;
 
 

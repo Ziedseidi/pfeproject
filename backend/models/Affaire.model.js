@@ -5,7 +5,6 @@ const affaireSchema = new mongoose.Schema({
   numeroAffaire: { type: String, required: true },
   objet: { type: String, default: null },
 
-  // Répartition facultative, par défaut null
   avocat:    { type: mongoose.Schema.Types.ObjectId, ref: 'Avocat',    default: null },
   tribunal:  { type: mongoose.Schema.Types.ObjectId, ref: 'Tribunal',  default: null },
 
@@ -25,10 +24,8 @@ const affaireSchema = new mongoose.Schema({
       enum: ['retard', 'annulation', 'autre'],
       required: true
     },
-    // Note : vous pouvez ajouter des champs supplémentaires ici si besoin
   },
 
-  // Tableaux de références : initialisés à [] par défaut
   experts:      [{ type: mongoose.Schema.Types.ObjectId, ref: 'Expert'      }],
   consignations:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Consignation'}],
   saisies:      [{ type: mongoose.Schema.Types.ObjectId, ref: 'Saisie'      }],

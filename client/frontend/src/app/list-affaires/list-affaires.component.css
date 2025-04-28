@@ -1,109 +1,171 @@
-/* Conteneur principal */
 .list-container {
-    padding: 2rem;
-    background-color: #f9f9f9;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  }
-  
-  h2 {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .loading,
-  .error {
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-  
-  .error {
-    color: #d9534f;
-  }
-  
-  .table-wrapper {
-    overflow-x: auto;
-  }
-  
-  .affaires-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-    font-size: 14px;
-  }
-  
-  .affaires-table th,
-  .affaires-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .affaires-table th {
-    background-color: #005d8f;
-    color: white;
-    font-weight: 600;
-  }
-  
-  .affaires-table tr:hover {
-    background-color: #f1f7ff;
-  }
-  
-  .actions-col {
-    text-align: center;
-    white-space: nowrap;
-  }
-  
-  .expert-list {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-  }
-  
-  .expert-list li {
-    margin-bottom: 4px;
-  }
-  
-  /*  */
-  .btn {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-right: 5px;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .btn.edit {
-    background-color: #ffc107;
-    color: white;
-  }
-  
-  .btn.edit:hover {
-    background-color: #e0a800;
-  }
-  
-  .btn.delete {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .btn.delete:hover {
-    background-color: #c82333;
-  }
-  
-  .btn.assign {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .btn.assign:hover {
-    background-color: #218838;
-  }
-  
+  padding: 20px;
+  background-color: #f5f7fa;
+  border-radius: 10px;
+}
+
+h2 {
+  color: #005d8f;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.loading, .error {
+  text-align: center;
+  font-weight: bold;
+  color: #d9534f;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.affaires-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.affaires-table th,
+.affaires-table td {
+  padding: 12px 10px;
+  border: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.affaires-table th {
+  background-color: #e8f1f8;
+  color: #005d8f;
+  font-weight: bold;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn.edit {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn.edit:hover {
+  background-color: #0056b3;
+}
+
+.btn.delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn.delete:hover {
+  background-color: #a71d2a;
+}
+
+.btn.assign {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn.assign:hover {
+  background-color: #1e7e34;
+}
+
+/* Expert list */
+.expert-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Modale */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 500px;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.modal h3 {
+  font-size: 20px;
+  margin-bottom: 1rem;
+  color: #005d8f;
+  text-align: center;
+}
+
+.modal ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.modal li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.modal li:last-child {
+  border-bottom: none;
+}
+
+.assign-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.assign-btn:hover {
+  background-color: #218838;
+}
+
+.modal-close-btn {
+  display: block;
+  margin: 20px auto 0;
+  background-color: #db0c0c;
+  color: white;
+}
+
+.modal-close-btn:hover {
+  background-color: #d50606;
+}
+
+/* Overlay pour l’arrière-plan de la modale */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}
+.modal-error {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}

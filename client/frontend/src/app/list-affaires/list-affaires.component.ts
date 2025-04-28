@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AffaireService } from '../services/affaire.service';  // Importation du service
+import { AffaireService } from '../services/affaire.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-affaires',
@@ -7,47 +8,89 @@ import { AffaireService } from '../services/affaire.service';  // Importation du
   styleUrls: ['./list-affaires.component.css']
 })
 export class ListAffairesComponent implements OnInit {
-  affaires: any[] = [];  // Tableau pour stocker les affaires récupérées
-  loading: boolean = false;  // Variable pour indiquer si les données sont en cours de chargement
-  errorMsg: string = '';  // Message d'erreur en cas de problème
+  affaires: any[] = [];
+  loading: boolean = false;
+  errorMsg: string = '';
+
+  // Variables pour la modale d'assignation
+  showModal: boolean = false;
+  avocatsEligibles: any[] = [];
+  selectedAffaireId: string = '';
+  modalLoading: boolean = false;
+  modalError: string = '';
 
   constructor(private affaireService: AffaireService) {}
 
-  // Méthode pour récupérer les affaires au chargement du composant
   ngOnInit(): void {
     this.loadAffaires();
   }
 
-  // Fonction pour charger les affaires
   loadAffaires(): void {
-    this.loading = true;  // On commence à charger les affaires
-    this.affaireService.getAllAffaires().subscribe({
-      next: (data) => {
-        this.affaires = data;  // On assigne les données récupérées à la variable affaires
-        this.loading = false;  // On arrête le chargement
-      },
-      error: (err) => {
-        this.errorMsg = 'Erreur lors de la récupération des affaires';  // En cas d'erreur
-        this.loading = false;  // On arrête le chargement
-      }
-    });
+    this.loading = true;
+    this.errorMsg = '';
+    this.affaireService.getAllAffaires()
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: data => this.affaires = data,
+        error: _ => this.errorMsg = 'Erreur lors de la récupération des affaires'
+      });
   }
 
-  // Méthode pour modifier une affaire
   onEdit(affaireId: string): void {
     console.log('Modifier l\'affaire avec ID:', affaireId);
-    // Vous pouvez rediriger vers une page de modification ou ouvrir un formulaire
+    // → À compléter selon ta navigation ou ton UI
   }
 
-  // Méthode pour supprimer une affaire
   onDelete(affaireId: string): void {
     console.log('Supprimer l\'affaire avec ID:', affaireId);
-    // Vous pouvez appeler une méthode pour supprimer l'affaire via le service
+    // → À compléter selon ta logique de suppression
   }
 
-  // Méthode pour assigner une affaire
+  // Méthode pour afficher la modale d'assignation d'un avocat
   onAssign(affaireId: string): void {
-    console.log('Assigner l\'affaire avec ID:', affaireId);
-    // Vous pouvez ouvrir une modale pour assigner un avocat ou un expert à l'affaire
+    this.selectedAffaireId = affaireId;
+    this.modalError = '';
+    this.modalLoading = true;
+    this.avocatsEligibles = [];
+
+    // Récupération des avocats éligibles pour l'affaire
+    this.affaireService.getAvocatsEligibles(affaireId)
+      .pipe(finalize(() => this.modalLoading = false))
+      .subscribe({
+        next: (list) => {
+          this.avocatsEligibles = list;
+          this.showModal = true;
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération des avocats éligibles :', err);
+          this.modalError = 'Impossible de charger les avocats';
+        }
+      });
+  }
+
+  // Méthode pour assigner un avocat à l'affaire
+  assignerAvocat(utilisateurId: string): void {
+    this.modalError = '';  // Réinitialiser l'erreur avant de commencer l'assignation
+    this.modalLoading = true;
+  
+    this.affaireService.assignAvocatToAffaire(utilisateurId, this.selectedAffaireId)
+      .pipe(finalize(() => this.modalLoading = false))
+      .subscribe({
+        next: () => {
+          alert('Avocat assigné avec succès 🎉');
+          this.fermerModal();
+          this.loadAffaires();
+        },
+        error: err => {
+          console.error('Erreur lors de l\'assignation:', err);
+          this.modalError = err.message || 'Erreur serveur';  // Afficher le message d'erreur
+        }
+      });
+  }
+  
+
+  // Méthode pour fermer la modale
+  fermerModal(): void {
+    this.showModal = false;
   }
 }
