@@ -71,4 +71,27 @@ export class AffaireService {
       })
     );
   }
+  rechercherAffaireParNumero(numeroAffaire: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/rechercheAffaire/${numeroAffaire}`, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError((error) => {
+        console.error('Erreur lors de la recherche de l\'affaire :', error);
+        return throwError(() => new Error('Erreur lors de la recherche de l\'affaire.'));
+      })
+    );
+  }
+
+  assignTribunalToAffaire(avocatId: string, affaireId: string, tribunalId: string): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}/assignTribunalToAffaire`,
+      { avocatId, affaireId, tribunalId },
+      { headers: this.getAuthHeaders() }
+    ).pipe(
+      catchError(err => {
+        console.error('Erreur lors de l\'assignation du tribunal à l\'affaire:', err);
+        return throwError(() => new Error(err.error?.message || 'Erreur inconnue lors de l\'assignation du tribunal.'));
+      })
+    );
+  }
 }

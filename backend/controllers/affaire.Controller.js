@@ -201,26 +201,24 @@ affaireController.getAvocatsEligibles= async(req,res)=>{
 
 affaireController.assignTribunalToAffaire = async (req, res) => {
   try {
-    const { avocatId, affaireId, tribunalId } = req.body;
+    const { affaireId, tribunalId } = req.body;
 
-    // 1. Vérifier si l'avocat a bien une région
-    const avocat = await Avocat.findById(avocatId);
-    if (!avocat || !avocat.region) {
-      return res.status(400).json({ message: "L'avocat n'a pas de région définie." });
-    }
-
-    // 2. Vérifier que l'affaire n'a pas déjà un avocat assigné
+    // Trouver l'affaire avec l'ID fourni
     const affaire = await Affaire.findById(affaireId);
     if (!affaire) {
       return res.status(404).json({ message: "Affaire non trouvée." });
     }
 
-    if (affaire.avocat) {
-      return res.status(400).json({ message: "Cette affaire a déjà un avocat assigné." });
+    // Vérifier si l'affaire a déjà un avocat assigné
+    if (!affaire.avocat) {
+      return res.status(400).json({ message: "Aucun avocat assigné à cette affaire." });
     }
 
-    affaire.avocat = avocatId;
-    await affaire.save();
+    // Récupérer l'avocat déjà assigné à l'affaire
+    const avocat = await Avocat.findById(affaire.avocat);
+    if (!avocat || !avocat.region) {
+      return res.status(400).json({ message: "L'avocat n'a pas de région définie." });
+    }
 
     const tribunal = await Tribunal.findById(tribunalId);
     if (!tribunal) {
@@ -242,6 +240,19 @@ affaireController.assignTribunalToAffaire = async (req, res) => {
   }
 };
 
+affaireController.searchAffaire=async(req,res)=>{
+  try {
+    const numeroAffaire= req.params.numeroAffaire;
+    const affaire= await Affaire.findOne({numeroAffaire});
+    if(!affaire){
+      return res.status(404).json({message:"Aucune affaire trouvéé pour ce numero "});
+    }
+    res.status(200).json(affaire);
+  }catch(error){
+    console.error("Erreur lors de la recherche de l\'affaire",error);
+    res.status(500).json({message:"Erreur serveur"});
+  }
+}
 
 
 

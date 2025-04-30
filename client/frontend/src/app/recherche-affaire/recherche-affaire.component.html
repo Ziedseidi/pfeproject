@@ -1,0 +1,33 @@
+<!-- recherche-affaire.component.html -->
+<div class="recherche-affaire">
+    <h2>Recherche d'Affaire</h2>
+  
+    <div class="search-form">
+      <label for="numeroAffaire">Numéro d'Affaire:</label>
+      <input type="text" id="numeroAffaire" [(ngModel)]="numeroAffaire" placeholder="Entrez le numéro de l'affaire" />
+  
+      <button (click)="rechercherAffaire()" [disabled]="loading">Rechercher</button>
+    </div>
+  
+    <!-- Affichage du message d'erreur -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Affichage des détails de l'affaire si trouvée -->
+    <div *ngIf="affaire" class="affaire-details">
+      <h3>Détails de l'Affaire</h3>
+      <p><strong>Numéro d'Affaire:</strong> {{ affaire.numeroAffaire }}</p>
+      <p><strong>Objet:</strong> {{ affaire.objet }}</p>
+      <p><strong>Tribunal:</strong> {{ affaire.tribunal ? affaire.tribunal.nom : 'Non assigné' }}</p>
+      <p><strong>Avocat:</strong> {{ affaire.avocat ? affaire.avocat.nom : 'Non assigné' }}</p>
+      <p><strong>Demandeur:</strong> {{ affaire.demandeur.nom }}</p>
+      <p><strong>Remarques:</strong> {{ affaire.remarques }}</p>
+    </div>
+  
+    <!-- Affichage de l'animation de chargement -->
+    <div *ngIf="loading" class="loading">
+      Chargement...
+    </div>
+  </div>
+  

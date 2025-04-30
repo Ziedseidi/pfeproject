@@ -21,6 +21,7 @@ import { TribunalListComponent } from './tribunal-list/tribunal-list.component';
 import { ListAvocatsComponent } from './list-avocats/list-avocats.component';
 import { AddAffaireComponent } from './add-affaire/add-affaire.component';
 import { ListAffairesComponent } from './list-affaires/list-affaires.component';
+import { RechercheAffaireComponent } from './recherche-affaire/recherche-affaire.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'expert-dashboard', component: ExpertDashboardComponent },
   { path: 'client-dashboard', component: ClientDashboardComponent },
   { path: 'list-affaires', component: ListAffairesComponent },  
+  {path:'recherche-affaire', component: RechercheAffaireComponent},
   { path: 'login', component: LoginComponent },
 
 

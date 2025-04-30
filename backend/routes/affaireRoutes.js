@@ -11,6 +11,7 @@ router.post('/assign_avocat',authenticateToken,roleMiddleware('PersonelJurédiqu
 router.get('/allAffaires',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.getAllAffaires);
 router.get('/avocats-eligibles/:affaireId', authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.getAvocatsEligibles);
 router.post('/assign-tribunal',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.assignTribunalToAffaire);
+router.get('/rechercheAffaire/:numeroAffaire',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.searchAffaire);
 module.exports = router;
 
 
