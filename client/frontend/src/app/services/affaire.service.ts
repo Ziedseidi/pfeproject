@@ -84,7 +84,7 @@ export class AffaireService {
 
   assignTribunalToAffaire(avocatId: string, affaireId: string, tribunalId: string): Observable<any> {
     return this.http.post(
-      `${this.apiUrl}/assignTribunalToAffaire`,
+      `${this.apiUrl}/assign-tribunal`,
       { avocatId, affaireId, tribunalId },
       { headers: this.getAuthHeaders() }
     ).pipe(
@@ -94,4 +94,15 @@ export class AffaireService {
       })
     );
   }
+  getTribunauxCompatibles(affaireId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/compatibles/${affaireId}`, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError((error) => {
+        console.error("Erreur lors de la récupération des tribunaux compatibles :", error);
+        return throwError(() => new Error("Erreur lors de la récupération des tribunaux compatibles."));
+      })
+    );
+  }
+  
 }

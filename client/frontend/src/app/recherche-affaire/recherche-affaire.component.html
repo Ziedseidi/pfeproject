@@ -1,33 +1,70 @@
-<!-- recherche-affaire.component.html -->
 <div class="recherche-affaire">
-    <h2>Recherche d'Affaire</h2>
-  
-    <div class="search-form">
-      <label for="numeroAffaire">Numéro d'Affaire:</label>
-      <input type="text" id="numeroAffaire" [(ngModel)]="numeroAffaire" placeholder="Entrez le numéro de l'affaire" />
-  
-      <button (click)="rechercherAffaire()" [disabled]="loading">Rechercher</button>
-    </div>
-  
-    <!-- Affichage du message d'erreur -->
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-  
-    <!-- Affichage des détails de l'affaire si trouvée -->
-    <div *ngIf="affaire" class="affaire-details">
-      <h3>Détails de l'Affaire</h3>
-      <p><strong>Numéro d'Affaire:</strong> {{ affaire.numeroAffaire }}</p>
-      <p><strong>Objet:</strong> {{ affaire.objet }}</p>
-      <p><strong>Tribunal:</strong> {{ affaire.tribunal ? affaire.tribunal.nom : 'Non assigné' }}</p>
-      <p><strong>Avocat:</strong> {{ affaire.avocat ? affaire.avocat.nom : 'Non assigné' }}</p>
-      <p><strong>Demandeur:</strong> {{ affaire.demandeur.nom }}</p>
-      <p><strong>Remarques:</strong> {{ affaire.remarques }}</p>
-    </div>
-  
-    <!-- Affichage de l'animation de chargement -->
-    <div *ngIf="loading" class="loading">
-      Chargement...
-    </div>
+  <h2>Recherche d'Affaire</h2>
+
+  <div class="search-form">
+    <label for="numeroAffaire">Numéro d'Affaire:</label>
+    <input type="text" id="numeroAffaire" [(ngModel)]="numeroAffaire" placeholder="Entrez le numéro de l'affaire" />
+    <button (click)="rechercherAffaire()" [disabled]="loading">Rechercher</button>
   </div>
-  
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="affaire" class="affaire-details">
+    <h3>Détails de l'Affaire</h3>
+
+    <!-- Numéro d'affaire -->
+    <p><strong>Numéro d'Affaire:</strong> {{ affaire.numeroAffaire }}</p>
+
+    <!-- Objet de l'affaire -->
+    <p><strong>Objet:</strong> {{ affaire.objet }}</p>
+
+    <!-- Degré Juridique -->
+    <p><strong>Degré Juridique:</strong> {{ affaire.degreJuridique }}</p>
+
+    <!-- Tribunal et Image du Tribunal à côté -->
+    <div class="tribunal-info">
+      <p><strong>Tribunal:</strong> 
+        <span>{{ affaire.tribunal?.nom || 'Non assigné' }}</span> - 
+        <span>{{ affaire.tribunal?.ville || 'Non assigné' }}</span>
+        <span *ngIf="affaire.tribunal?.typeTribunal">({{ affaire.tribunal.typeTribunal }})</span>
+      </p>
+      <div *ngIf="affaire.tribunal?.imagetribunal" class="tribunal-image-container">
+        <img [src]="affaire.tribunal.imagetribunal" alt="Image du tribunal" class="tribunal-image" />
+      </div>
+    </div>
+
+    <!-- Avocat -->
+    <p><strong>Avocat:</strong>
+      {{ affaire.avocat?.utilisateur?.nom || 'Non assigné' }}
+      {{ affaire.avocat?.utilisateur?.prenom || '' }}
+    </p>
+
+    <!-- Remarques -->
+    <p><strong>Remarques:</strong> {{ affaire.remarques }}</p>
+  </div>
+
+  <div *ngIf="tribunalDejaAssigne" class="info-message">
+    ✅ <strong>Un tribunal est déjà assigné à cette affaire.</strong> 
+    ➡️ <strong>Pour toute demande de modification, merci de contacter l'administration.</strong>
+  </div>
+
+  <div *ngIf="!tribunalDejaAssigne && tribunauxCompatibles.length > 0" class="tribunal-select">
+    <label for="tribunalCompatible">Tribunaux compatibles :</label>
+    <select id="tribunalCompatible" [(ngModel)]="selectedTribunalId">
+      <option *ngFor="let tribunal of tribunauxCompatibles" [value]="tribunal._id">
+        {{ tribunal.nom }} - {{ tribunal.ville }} - {{ tribunal.typeTribunal }}
+      </option>
+    </select>
+    <button (click)="assignTribunal()">Assigner ce tribunal</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Chargement...
+  </div>
+</div>

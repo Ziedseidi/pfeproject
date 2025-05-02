@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:7501/auth/login'; // URL de connexion
+  private logoutUrl = 'http://localhost:7501/auth/logout'; // URL de déconnexion
   private userInfoUrl = 'http://localhost:7501/auth/user-info';  // URL de récupération des informations de l'utilisateur
 
   constructor(private http: HttpClient) {}
@@ -39,5 +40,10 @@ export class AuthService {
     } else {
       throw new Error('Token manquant');
     }
+  }
+
+  // Méthode pour déconnecter l'utilisateur
+  logout(): Observable<any> {
+    return this.http.post<any>(this.logoutUrl, {});
   }
 }

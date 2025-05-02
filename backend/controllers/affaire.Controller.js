@@ -141,7 +141,10 @@ affaireController.getAllAffaires = async (req, res) => {
         select: 'utilisateur -_id',
         populate: { path: 'utilisateur', select: 'nom prenom -_id' }
       })
-      .populate({ path: 'tribunal', select: 'nom -_id' })
+      .populate({
+        path: 'tribunal',
+        select: 'nom ville -_id' // Vous pouvez ajouter d'autres informations si nécessaire
+      })
       .populate({ path: 'saisies', select: '-__v' })
       .populate({ path: 'consignations', select: '-__v' })
       .sort({ createdAt: -1 })
@@ -203,29 +206,36 @@ affaireController.assignTribunalToAffaire = async (req, res) => {
   try {
     const { affaireId, tribunalId } = req.body;
 
-    // Trouver l'affaire avec l'ID fourni
+    // Trouver l'affaire
     const affaire = await Affaire.findById(affaireId);
     if (!affaire) {
       return res.status(404).json({ message: "Affaire non trouvée." });
     }
 
-    // Vérifier si l'affaire a déjà un avocat assigné
+    // Vérifier si un tribunal est déjà assigné à l'affaire
+    if (affaire.tribunal) {
+      return res.status(400).json({ message: "Un tribunal est déjà assigné à cette affaire." });
+    }
+
+    // Vérifier que l'affaire a un avocat assigné
     if (!affaire.avocat) {
       return res.status(400).json({ message: "Aucun avocat assigné à cette affaire." });
     }
 
-    // Récupérer l'avocat déjà assigné à l'affaire
+    // Récupérer l'avocat
     const avocat = await Avocat.findById(affaire.avocat);
     if (!avocat || !avocat.region) {
       return res.status(400).json({ message: "L'avocat n'a pas de région définie." });
     }
 
+    // Récupérer le tribunal
     const tribunal = await Tribunal.findById(tribunalId);
     if (!tribunal) {
       return res.status(404).json({ message: "Tribunal non trouvé." });
     }
 
-    if (tribunal.ville !== avocat.region) {
+    // Vérifier la compatibilité régionale
+    if (tribunal.ville.toLowerCase() !== avocat.region.toLowerCase()) {
       return res.status(400).json({ message: "Le tribunal n'est pas dans la même région que l'avocat." });
     }
 
@@ -240,20 +250,51 @@ affaireController.assignTribunalToAffaire = async (req, res) => {
   }
 };
 
-affaireController.searchAffaire=async(req,res)=>{
-  try {
-    const numeroAffaire= req.params.numeroAffaire;
-    const affaire= await Affaire.findOne({numeroAffaire});
-    if(!affaire){
-      return res.status(404).json({message:"Aucune affaire trouvéé pour ce numero "});
-    }
-    res.status(200).json(affaire);
-  }catch(error){
-    console.error("Erreur lors de la recherche de l\'affaire",error);
-    res.status(500).json({message:"Erreur serveur"});
-  }
-}
 
+affaireController.searchAffaire = async (req, res) => {
+  try {
+    const numeroAffaire = req.params.numeroAffaire;
+
+    const affaire = await Affaire.findOne({ numeroAffaire })
+      .populate({
+        path: 'avocat',
+        populate: {
+          path: 'utilisateur',
+          select: 'nom prenom'
+        }
+      })
+      .populate({
+        path: 'tribunal',
+        select: 'nom ville typeTribunal imagetribunal -_id' // Ajoute imagetribunal pour l'image du tribunal
+      });
+
+    if (!affaire) {
+      return res.status(404).json({ message: "Aucune affaire trouvée pour ce numéro." });
+    }
+
+    res.status(200).json(affaire);
+  } catch (error) {
+    console.error("Erreur lors de la recherche de l'affaire :", error);
+    res.status(500).json({ message: "Erreur serveur." });
+  }
+};
+
+
+affaireController.getTribunauxCompatible = async (req,res)=>{
+  try{
+    const {affaireId }= req.params;
+    const affaire=await Affaire.findById(affaireId).populate('avocat');
+    if (!affaire || !affaire.avocat || !affaire.avocat.region) {
+      return res.status(400).json({ message: "Affaire invalide ou avocat sans région" });
+  }
+  const tribunauxCompatibles = await Tribunal.find({ ville: affaire.avocat.region });
+  res.status(200).json(tribunauxCompatibles);
+
+} catch (error) {
+  console.error("Erreur dans getTribunauxCompatibles", error);
+  res.status(500).json({ message: "Erreur serveur" });
+};
+}
 
 
 module.exports = affaireController;

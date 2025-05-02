@@ -62,6 +62,10 @@
     *ngIf="isAddAffaireModal"
     (closeModal)="closeAddAffaireModal()"
   ></app-add-affaire>
+
+  <!-- Appeler ton composant spinner ici -->
+  <app-spinner *ngIf="isLoading"></app-spinner>
+
   <router-outlet></router-outlet>
 
 </div>
