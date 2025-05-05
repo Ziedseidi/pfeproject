@@ -5,8 +5,7 @@ const saisieSchema = new mongoose.Schema({
     objetsSaisis: { type: String },
     dateAudience: { type: Date },
     numeroSaisie: { type: String },
-    nomPrenomAdverse: { type: String },
-    avocat: { type: mongoose.Schema.Types.ObjectId, ref: 'Avocat' },
+    nomAdverse: { type: String },
     numeroPV: { type: String },
     montantSaisi: { type: Number }
 }, { timestamps: true });

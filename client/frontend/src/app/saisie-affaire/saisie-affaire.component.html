@@ -1,0 +1,138 @@
+<div class="recherche-affaire">
+    <h2>Affectation d'une Saisie</h2>
+  
+    <!-- Formulaire de recherche -->
+    <form (ngSubmit)="onSearch()" #rechercheForm="ngForm" class="search-form">
+      <div class="form-group">
+        <label for="numeroAffaire">Numéro de l'Affaire</label>
+        <input
+          type="text"
+          id="numeroAffaire"
+          [(ngModel)]="numeroAffaire"
+          name="numeroAffaire"
+          class="form-control"
+          required
+          #numeroAffaireInput="ngModel"
+        />
+        <div *ngIf="numeroAffaireInput.invalid && numeroAffaireInput.touched" class="error-message">
+          Le numéro de l'affaire est requis.
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="rechercheForm.invalid">
+        Rechercher
+      </button>
+    </form>
+  
+    <!-- Affichage du message de succès -->
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+  
+    <!-- Affichage des détails de l'affaire -->
+    <div *ngIf="affaire" class="affaire-details">
+      <h3>Détails de l'Affaire</h3>
+      <p><strong>Numéro :</strong> {{ affaire.numeroAffaire }}</p>
+      <p><strong>Objet :</strong> {{ affaire.objet }}</p>
+      <p><strong>Avocat :</strong> {{ affaire.avocat ? affaire.avocat.nom : 'Non assigné' }}</p>
+      <p><strong>Tribunal :</strong> {{ affaire.tribunal ? affaire.tribunal.nom : 'Non assigné' }}</p>
+  
+      <!-- Affichage des saisies -->
+      <div *ngIf="affaire.saisies && affaire.saisies.length > 0">
+        <h4>Saisies</h4>
+        <ul>
+          <li *ngFor="let saisie of affaire.saisies">
+            <strong>Numéro de saisie :</strong> {{ saisie.numeroSaisie }} |
+            <strong> Date de saisie :</strong> {{ saisie.dateAudience | date: 'dd/MM/yyyy' }} |
+            <strong> Objets saisies :</strong> {{ saisie.objetsSaisis }}
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Formulaire de saisie -->
+      <h3>Assigner une Saisie</h3>
+      <form (ngSubmit)="assignSaisie()" #saisieForm="ngForm" class="search-form">
+        <div class="form-group">
+          <label for="numeroSaisie">Numéro de Saisie</label>
+          <input
+            type="text"
+            id="numeroSaisie"
+            [(ngModel)]="numeroSaisie"
+            name="numeroSaisie"
+            class="form-control"
+            required
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="dateAudience">Date de l'Audience</label>
+          <input
+            type="date"
+            id="dateAudience"
+            [(ngModel)]="dateAudience"
+            name="dateAudience"
+            class="form-control"
+            required
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="objetsSaisis">Objets Saisis</label>
+          <input
+            type="text"
+            id="objetsSaisis"
+            [(ngModel)]="objetsSaisis"
+            name="objetsSaisis"
+            class="form-control"
+            required
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="nomAdverse">Nom de l'Adverse</label>
+          <input
+            type="text"
+            id="nomAdverse"
+            [(ngModel)]="nomAdverse"
+            name="nomAdverse"
+            class="form-control"
+            required
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="numeroPV">Numéro du PV</label>
+          <input
+            type="text"
+            id="numeroPV"
+            [(ngModel)]="numeroPV"
+            name="numeroPV"
+            class="form-control"
+            required
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="montantSaisi">Montant Saisi</label>
+          <input
+            type="number"
+            id="montantSaisi"
+            [(ngModel)]="montantSaisi"
+            name="montantSaisi"
+            class="form-control"
+            required
+          />
+        </div>
+  
+        <button type="submit" class="btn btn-success" [disabled]="saisieForm.invalid">
+          Assigner Saisie
+        </button>
+      </form>
+    </div>
+  
+    <!-- Affichage des erreurs -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </div>
+  

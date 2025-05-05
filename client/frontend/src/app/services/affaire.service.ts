@@ -116,5 +116,19 @@ export class AffaireService {
       })
     );
   }
+  assignSaisieToAffaire(affaireId: string,  objetsSaisis: string ,dateAudience:string,numeroSaisie:number,
+    nomAdverse: string,numeroPV:number ,montantSaisi: number): Observable<any>{
+      return this.http.post(
+        `${this.apiUrl}/assign-saisie`,
+        {affaireId, objetsSaisis,dateAudience,numeroSaisie,nomAdverse,numeroPV,montantSaisi},
+        {headers:this.getAuthHeaders()}
+      ).pipe(
+        catchError(err => {
+          console.error('Erreur lors de l\'assignation de saisie à l\'affaire:', err);
+          return throwError(()=> new Error(err.error?.message || 'Erreur inconnue lors de l\'assignation de saisie.')
+        )
+        })
+      )
+    }
   
 }

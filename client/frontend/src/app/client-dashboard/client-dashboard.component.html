@@ -3,13 +3,14 @@
   <div class="action-bar">
     <button class="action-btn" (click)="openAddAffaireModal()">➕ Ajouter une affaire</button>
     <button class="action-btn" [routerLink]="['/list-affaires']">
-      👨‍⚖️ Affecter avocat à une affaire
+      👨‍⚖️ Affecter avocat
     </button>
-    <button class="action-btn">🧑‍🔬 Affecter expert à une affaire</button>
-    <button class="action-btn">📄 Créer un contrat</button>
-    <button class="action-btn">⚖️ Créer un jugement</button>
+    <button class="action-btn">🧑‍🔬 Affecter expert</button>
+    <button class="action-btn">📄 Créer  contrat</button>
+    <button class="action-btn">⚖️ Créer jugement</button>
     <button class="action-btn" [routerLink]="['/consignation-affaire']">💰 Affecter consignation</button>
     <button class="action-btn" [routerLink]="['/recherche-affaire']">🏛️ Affecter tribunal</button>
+    <button class="action-btn" [routerLink]="['/saisie-affaire']">⚖️ Affecter saisie</button>
 
     <div class="user-section">
       <img

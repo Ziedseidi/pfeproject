@@ -157,7 +157,6 @@ affaireController.getAllAffaires = async (req, res) => {
       .lean();
 
     affaires = affaires.map(a => {
-      // Modification de l'objet avocat pour obtenir seulement les informations utilisateur
       if (a.avocat?.utilisateur) a.avocat = a.avocat.utilisateur;
 
       // Modification de la liste d'experts
@@ -165,10 +164,8 @@ affaireController.getAllAffaires = async (req, res) => {
         a.experts = a.experts.map(e => e.utilisateur || e);
       }
 
-      // Modification de la demandeur pour obtenir seulement les informations utilisateur
       if (a.demandeur?.utilisateur) a.demandeur = a.demandeur.utilisateur;
 
-      // Traitement des consignations et ajout de la consignment dans l'affaire
       if (Array.isArray(a.consignations) && a.consignations.length > 0) {
         const consignation = a.consignations[0];  // Assumer qu'il y a au moins une consignation
         a.consignment = {
@@ -357,6 +354,44 @@ affaireController.assigneConsignation = async (req, res) => {
     res.status(500).json({ message: "Erreur serveur", error: error.message });
   }
 };
+
+affaireController.assigneSaisie = async (req, res) => {
+  const { affaireId, objetsSaisis, dateAudience, numeroSaisie, nomAdverse, numeroPV, montantSaisi } = req.body;
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(affaireId)) {
+      return res.status(400).json({ message: "ID d'affaire invalide" });
+    }
+
+    const affaire = await Affaire.findById(affaireId);
+
+    if (!affaire) {
+      return res.status(404).json({ message: "Affaire non trouvée" });
+    }
+
+    const saisie = await Saisie.create({
+      affaire: affaire._id, 
+      objetsSaisis,
+      dateAudience,
+      numeroSaisie,
+      nomAdverse,
+      numeroPV,
+      montantSaisi, 
+    });
+
+    affaire.saisies.push(saisie._id);
+    await affaire.save();
+
+    res.status(201).json({
+      message: "Saisie créée et assignée avec succès",
+      saisie,
+    });
+  } catch (error) {
+    console.error("Erreur saisie :", error);
+    res.status(500).json({ message: "Erreur serveur", error: error.message });
+  }
+};
+
 
 
 module.exports = affaireController;

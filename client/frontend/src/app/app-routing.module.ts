@@ -23,6 +23,7 @@ import { AddAffaireComponent } from './add-affaire/add-affaire.component';
 import { ListAffairesComponent } from './list-affaires/list-affaires.component';
 import { RechercheAffaireComponent } from './recherche-affaire/recherche-affaire.component';
 import { ConsignationAffaireComponent } from './consignation-affaire/consignation-affaire.component';
+import { SaisieAffaireComponent } from './saisie-affaire/saisie-affaire.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'list-affaires', component: ListAffairesComponent },  
   {path:'recherche-affaire', component: RechercheAffaireComponent},
   {path:'consignation-affaire', component:ConsignationAffaireComponent},
+  {path:'saisie-affaire', component:SaisieAffaireComponent},
   { path: 'login', component: LoginComponent },
 
 

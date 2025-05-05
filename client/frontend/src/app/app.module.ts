@@ -44,6 +44,7 @@ import { AddAffaireComponent } from './add-affaire/add-affaire.component';
 import { ListAffairesComponent } from './list-affaires/list-affaires.component';
 import { RechercheAffaireComponent } from './recherche-affaire/recherche-affaire.component';
 import { ConsignationAffaireComponent } from './consignation-affaire/consignation-affaire.component';
+import { SaisieAffaireComponent } from './saisie-affaire/saisie-affaire.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { ConsignationAffaireComponent } from './consignation-affaire/consignatio
     ListAffairesComponent,
     RechercheAffaireComponent,
     ConsignationAffaireComponent,
+    SaisieAffaireComponent,
   ],
   imports: [
     BrowserModule,
