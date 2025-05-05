@@ -43,6 +43,7 @@ import { ListAvocatsComponent } from './list-avocats/list-avocats.component';
 import { AddAffaireComponent } from './add-affaire/add-affaire.component';
 import { ListAffairesComponent } from './list-affaires/list-affaires.component';
 import { RechercheAffaireComponent } from './recherche-affaire/recherche-affaire.component';
+import { ConsignationAffaireComponent } from './consignation-affaire/consignation-affaire.component';
 
 @NgModule({
   declarations: [
@@ -77,8 +78,8 @@ import { RechercheAffaireComponent } from './recherche-affaire/recherche-affaire
     ListAvocatsComponent,
     AddAffaireComponent,
     ListAffairesComponent,
-    RechercheAffaireComponent
-     // Assurez-vous que ce composant existe
+    RechercheAffaireComponent,
+    ConsignationAffaireComponent,
   ],
   imports: [
     BrowserModule,

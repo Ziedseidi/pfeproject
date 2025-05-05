@@ -38,12 +38,10 @@ export class ListAffairesComponent implements OnInit {
 
   onEdit(affaireId: string): void {
     console.log('Modifier l\'affaire avec ID:', affaireId);
-    // → À compléter selon ta navigation ou ton UI
   }
 
   onDelete(affaireId: string): void {
     console.log('Supprimer l\'affaire avec ID:', affaireId);
-    // → À compléter selon ta logique de suppression
   }
 
   // Méthode pour afficher la modale d'assignation d'un avocat
@@ -53,7 +51,6 @@ export class ListAffairesComponent implements OnInit {
     this.modalLoading = true;
     this.avocatsEligibles = [];
 
-    // Récupération des avocats éligibles pour l'affaire
     this.affaireService.getAvocatsEligibles(affaireId)
       .pipe(finalize(() => this.modalLoading = false))
       .subscribe({
@@ -68,7 +65,7 @@ export class ListAffairesComponent implements OnInit {
       });
   }
 
-  // Méthode pour assigner un avocat à l'affaire
+  // Méthode pour assigner un avocat à une affaire
   assignerAvocat(utilisateurId: string): void {
     this.modalError = '';  // Réinitialiser l'erreur avant de commencer l'assignation
     this.modalLoading = true;
@@ -87,9 +84,13 @@ export class ListAffairesComponent implements OnInit {
         }
       });
   }
-  
 
-  // Méthode pour fermer la modale
+  // Méthode pour formater la date
+  formatDate(date: string): string {
+    const parsedDate = new Date(date);
+    return !isNaN(parsedDate.getTime()) ? parsedDate.toLocaleDateString() : '—';
+  }
+
   fermerModal(): void {
     this.showModal = false;
   }

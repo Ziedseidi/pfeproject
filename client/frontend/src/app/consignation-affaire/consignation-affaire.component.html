@@ -1,0 +1,89 @@
+<div class="recherche-affaire">
+    <h2>Affectation d'une Consignation</h2>
+  
+    <!-- Formulaire de recherche -->
+    <form (ngSubmit)="onSearch()" #rechercheForm="ngForm" class="search-form">
+      <div class="form-group">
+        <label for="numeroAffaire">Numéro de l'Affaire</label>
+        <input
+          type="text"
+          id="numeroAffaire"
+          [(ngModel)]="numeroAffaire"
+          name="numeroAffaire"
+          class="form-control"
+          required
+          #numeroAffaireInput="ngModel"
+        />
+        <div *ngIf="numeroAffaireInput.invalid && numeroAffaireInput.touched" class="error-message">
+          Le numéro de l'affaire est requis.
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="rechercheForm.invalid">
+        Rechercher
+      </button>
+    </form>
+  
+    <!-- Affichage du message de succès -->
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+  
+    <!-- Affichage des détails de l'affaire -->
+    <div *ngIf="affaire" class="affaire-details">
+      <h3>Détails de l'Affaire</h3>
+      <p><strong>Numéro :</strong> {{ affaire.numeroAffaire }}</p>
+      <p><strong>Objet :</strong> {{ affaire.objet }}</p>
+      <p><strong>Avocat :</strong> {{ affaire.avocat ? affaire.avocat.nom : 'Non assigné' }}</p>
+      <p><strong>Tribunal :</strong> {{ affaire.tribunal ? affaire.tribunal.nom : 'Non assigné' }}</p>
+  
+      <!-- Affichage des consignations -->
+      <div *ngIf="affaire.consignations && affaire.consignations.length > 0">
+        <h4>Consignations</h4>
+        <ul>
+          <li *ngFor="let consignation of affaire.consignations">
+            <strong>Montant :</strong> {{ consignation.montant }} TND |
+            <strong> Date de Consignation :</strong> {{ consignation.dateConsignation | date: 'dd/MM/yyyy' }}
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Formulaire de consignation -->
+      <h3>Assigner une Consignation</h3>
+      <form (ngSubmit)="onAssignConsignation()" #consignationForm="ngForm" class="search-form">
+        <div class="form-group">
+          <label for="montant">Montant de la Consignation</label>
+          <input
+            type="number"
+            id="montant"
+            [(ngModel)]="montantConsignation"
+            name="montant"
+            class="form-control"
+            required
+          />
+        </div>
+  
+        <div class="form-group">
+          <label for="dateConsignation">Date de Consignation</label>
+          <input
+            type="date"
+            id="dateConsignation"
+            [(ngModel)]="dateConsignation"
+            name="dateConsignation"
+            class="form-control"
+            required
+          />
+        </div>
+  
+        <button type="submit" class="btn btn-success" [disabled]="consignationForm.invalid">
+          Assigner Consignation
+        </button>
+      </form>
+    </div>
+  
+    <!-- Affichage des erreurs -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </div>
+  

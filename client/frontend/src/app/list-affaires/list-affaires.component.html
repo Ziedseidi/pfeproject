@@ -1,10 +1,11 @@
 <div class="list-container">
-
   <h2>Liste des Affaires</h2>
 
+  <!-- Chargement et erreurs -->
   <div *ngIf="loading" class="loading">Chargement…</div>
   <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
 
+  <!-- Table des affaires -->
   <div class="table-wrapper" *ngIf="!loading && !errorMsg">
     <table class="affaires-table">
       <thead>
@@ -21,8 +22,11 @@
           <th>Vol</th>
           <th>Demandeur</th>
           <th>Avocat</th>
-          <th>Experts</th>
           <th>Tribunal</th>
+          <th>Montant Consignation</th>
+          <th>Date Consignation</th>
+          <th>Date Recuperation</th>
+
           <th class="actions-col">Actions</th>
         </tr>
       </thead>
@@ -46,14 +50,16 @@
             {{ a.avocat?.nom || '—' }}
             {{ a.avocat?.prenom || '' }}
           </td>
-          <td>
-            <ul class="expert-list">
-              <li *ngFor="let e of a.experts">{{ e.nom }} {{ e.prenom }}</li>
-              <li *ngIf="a.experts.length === 0">—</li>
-            </ul>
-          </td>
+          
           <td>{{ a.tribunal?.nom || '—' }}</td>
-          <td class="actions">
+          <td>{{ a.consignment?.montant || '—' }} TND</td>
+          <td>
+            {{ a.consignment?.dateConsignation ? (a.consignment.dateConsignation | date:'shortDate') : 'En cours' }}
+          </td>
+          <td>
+            {{ a.consignment?.dateRecuperation? (a.consignment.dateRecuperation| date:'shortDate') : 'En cours' }}
+          </td>
+                    <td class="actions">
             <button class="btn edit" (click)="onEdit(a._id)">
               <i class="fas fa-pen"></i> Modifier
             </button>
@@ -69,6 +75,7 @@
     </table>
   </div>
 
+  <!-- Modal pour l'assignation d'avocat -->
   <div class="overlay" *ngIf="showModal"></div>
 
   <div *ngIf="showModal" class="modal">
@@ -94,5 +101,4 @@
       <button class="btn modal-close-btn" (click)="fermerModal()">Fermer</button>
     </div>
   </div>
-  
 </div>

@@ -104,5 +104,17 @@ export class AffaireService {
       })
     );
   }
+  assignConsignationToAffaire(affaireId: string, montant: number, dateConsignation: string): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}/assign-consignation`,
+      { affaireId, montant, dateConsignation },
+      { headers: this.getAuthHeaders() }
+    ).pipe(
+      catchError(err => {
+        console.error('Erreur lors de l\'assignation de la consignation à l\'affaire:', err);
+        return throwError(() => new Error(err.error?.message || 'Erreur inconnue lors de l\'assignation de la consignation.'));
+      })
+    );
+  }
   
 }

@@ -13,6 +13,7 @@ router.get('/avocats-eligibles/:affaireId', authenticateToken,roleMiddleware('Pe
 router.post('/assign-tribunal',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.assignTribunalToAffaire);
 router.get('/rechercheAffaire/:numeroAffaire',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.searchAffaire);
 router.get('/compatibles/:affaireId',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.getTribunauxCompatible);
+router.post('/assign-consignation',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.assigneConsignation);
 module.exports = router;
 
 

@@ -124,7 +124,7 @@ affaireController.assignAvocatToAffaire = async (req, res) => {
 
 affaireController.getAllAffaires = async (req, res) => {
   try {
-    // On récupère en lean + populate
+    // Récupérer toutes les affaires avec les associations nécessaires
     let affaires = await Affaire.find()
       .populate({
         path: 'avocat',
@@ -143,20 +143,40 @@ affaireController.getAllAffaires = async (req, res) => {
       })
       .populate({
         path: 'tribunal',
-        select: 'nom ville -_id' // Vous pouvez ajouter d'autres informations si nécessaire
+        select: 'nom ville -_id'
       })
-      .populate({ path: 'saisies', select: '-__v' })
-      .populate({ path: 'consignations', select: '-__v' })
+      .populate({
+        path: 'saisies',
+        select: '-__v'
+      })
+      .populate({
+        path: 'consignations', 
+        select: 'montant dateConsignation dateRecuperation -_id ' // Récupère la dateConsignation correctement
+      })
       .sort({ createdAt: -1 })
       .lean();
 
-    // Aplatir les sous‑objets
     affaires = affaires.map(a => {
+      // Modification de l'objet avocat pour obtenir seulement les informations utilisateur
       if (a.avocat?.utilisateur) a.avocat = a.avocat.utilisateur;
+
+      // Modification de la liste d'experts
       if (Array.isArray(a.experts)) {
         a.experts = a.experts.map(e => e.utilisateur || e);
       }
+
+      // Modification de la demandeur pour obtenir seulement les informations utilisateur
       if (a.demandeur?.utilisateur) a.demandeur = a.demandeur.utilisateur;
+
+      // Traitement des consignations et ajout de la consignment dans l'affaire
+      if (Array.isArray(a.consignations) && a.consignations.length > 0) {
+        const consignation = a.consignations[0];  // Assumer qu'il y a au moins une consignation
+        a.consignment = {
+          montant: consignation.montant,
+          dateConsignation: consignation.dateConsignation  // Assurez-vous que vous utilisez dateConsignation ici
+        };
+      }
+
       return a;
     });
 
@@ -166,6 +186,8 @@ affaireController.getAllAffaires = async (req, res) => {
     return res.status(500).json({ message: 'Erreur serveur.' });
   }
 };
+
+
 
 
 affaireController.getAvocatsEligibles= async(req,res)=>{
@@ -295,6 +317,46 @@ affaireController.getTribunauxCompatible = async (req,res)=>{
   res.status(500).json({ message: "Erreur serveur" });
 };
 }
+
+
+
+
+affaireController.assigneConsignation = async (req, res) => {
+  const { affaireId, montant, dateConsignation } = req.body;
+
+  try {
+    // Vérification de l'ID de l'affaire
+    if (!mongoose.Types.ObjectId.isValid(affaireId)) {
+      return res.status(400).json({ message: "ID d'affaire invalide" });
+    }
+
+    const affaire = await Affaire.findById(affaireId);
+
+    if (!affaire) {
+      return res.status(404).json({ message: "Affaire non trouvée" });
+    }
+
+    // Si dateConsignation n'est pas précisé, utiliser la date actuelle
+    const consignationDate = dateConsignation || Date.now();
+
+    const consignation = await Consignation.create({
+      affaire: affaire._id, // Utilisation de _id de l'affaire
+      montant,
+      dateConsignation: consignationDate, 
+    });
+
+    affaire.consignations.push(consignation._id);
+    await affaire.save();
+
+    res.status(201).json({
+      message: "Consignation créée et assignée avec succès",
+      consignation,
+    });
+  } catch (error) {
+    console.error("Erreur consignation :", error);
+    res.status(500).json({ message: "Erreur serveur", error: error.message });
+  }
+};
 
 
 module.exports = affaireController;
