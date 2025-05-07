@@ -1,46 +1,61 @@
-<div class="container mt-5">
-    <!-- Formulaire de recherche -->
-    <div class="mb-4">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="input-group">
-            <i class="fa fa-search"></i> <!-- Icône de recherche -->
-            <input type="text" class="form-control" [(ngModel)]="regionSearch" placeholder="Rechercher par Région" (input)="filterAvocats()">
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="input-group">
-            <i class="fa fa-search"></i> <!-- Icône de recherche -->
-            <input type="text" class="form-control" [(ngModel)]="degreSearch" placeholder="Rechercher par Degré de Juridiction" (input)="filterAvocats()">
-          </div>
+<div class="container mt-5 offset-container"> <!-- décalage vers la droite -->
+  <!-- Formulaire de recherche stylisé -->
+  <div class="mb-4">
+    <div class="row search-row">
+      <div class="col-md-6">
+        <div class="input-group">
+          <i class="fa fa-search"></i>
+          <input type="text" class="form-control" [(ngModel)]="regionSearch" placeholder="Rechercher par Région" (input)="filterAvocats()" />
         </div>
       </div>
-    </div>
-  
-    <!-- Liste des avocats -->
-    <div class="row">
-      <div class="col-md-6 mb-4" *ngFor="let avocat of filteredAvocats; let i = index">
-        <div class="avocat-card p-3 shadow rounded">
-          <div class="d-flex align-items-center mb-3">
-            <img [src]="avocat.utilisateur.imageprofile || 'assets/images/user-profile.jpg'" 
-                 alt="Profil" class="rounded-circle me-3" width="60" height="60">
-            <div>
-              <h5 class="mb-0">{{ avocat.utilisateur.nom }} {{ avocat.utilisateur.prenom }}</h5>
-              <small class="text-muted">{{ avocat.utilisateur.email }}</small>
-            </div>
-          </div>
-  
-          <p><strong>Téléphone :</strong> {{ avocat.utilisateur.phone }}</p>
-          <p><strong>Adresse :</strong> {{ avocat.adresse }}</p>
-          <p><strong>Région :</strong> {{ avocat.region }}</p>
-          <p><strong>Honoraires :</strong> {{ avocat.honoraires }} TND</p>
-  
-          <!-- Niveau en rectangle vert -->
-          <div class="niveau-rectangle mt-3">
-            {{ getNiveauLabel(avocat.degreJuridiction) }}
-          </div>
+      <div class="col-md-6">
+        <div class="input-group">
+          <i class="fa fa-search"></i>
+          <input type="text" class="form-control" [(ngModel)]="degreSearch" placeholder="Rechercher par Degré de Juridiction" (input)="filterAvocats()" />
         </div>
       </div>
     </div>
   </div>
-  
+
+  <!-- Tableau stylisé -->
+  <div class="table-responsive shadow-sm rounded overflow-hidden border">
+    <table class="table table-striped align-middle text-center mb-0">
+      <thead class="table-dark text-white">
+        <tr>
+          <th scope="col">👤 Image</th>
+          <th scope="col">👨‍⚖️ Nom</th>
+          <th scope="col">📧 Email</th>
+          <th scope="col">📞 Téléphone</th>
+          <th scope="col">🏠 Adresse</th>
+          <th scope="col">📍 Région</th>
+          <th scope="col">💰 Honoraires</th>
+          <th scope="col">⚖️ Degré</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let avocat of filteredAvocats" class="table-row-hover">
+          <td>
+            <img
+              [src]="avocat.utilisateur.imageprofile || 'assets/images/user-profile.jpg'"
+              alt="Profil"
+              class="rounded-circle border"
+              width="50"
+              height="50"
+            />
+          </td>
+          <td>{{ avocat.utilisateur.nom }} {{ avocat.utilisateur.prenom }}</td>
+          <td>{{ avocat.utilisateur.email }}</td>
+          <td>{{ avocat.utilisateur.phone }}</td>
+          <td>{{ avocat.adresse }}</td>
+          <td>{{ avocat.region }}</td>
+          <td><strong>{{ avocat.honoraires }}</strong> TND</td>
+          <td>
+            <span class="badge bg-gradient text-white">
+              {{ getNiveauLabel(avocat.degreJuridiction) }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

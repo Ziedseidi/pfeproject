@@ -1,0 +1,156 @@
+<!-- Contrat works! -->
+<p class="text-center text-3xl font-semibold mb-4 text-blue-600">Contrat works!</p>
+
+<!-- Formulaire pour la création du contrat -->
+<div class="container mx-auto p-6 bg-white rounded-lg shadow-lg mt-6">
+  <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Créer un Contrat</h2>
+
+  <!-- Formulaire de création du contrat -->
+  <form [formGroup]="contratForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- Avocat ID -->
+    <div class="form-group">
+      <label for="avocatId" class="block text-gray-700 font-medium">Avocat</label>
+      <input
+        type="text"
+        formControlName="avocatId"
+        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
+        id="avocatId"
+        placeholder="Entrez l'ID de l'avocat"
+      />
+    </div>
+
+    <!-- Demandeur ID -->
+    <div class="form-group">
+      <label for="demandeurId" class="block text-gray-700 font-medium">Demandeur</label>
+      <input
+        type="text"
+        formControlName="demandeurId"
+        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
+        id="demandeurId"
+        placeholder="Entrez l'ID du demandeur"
+      />
+    </div>
+
+    <!-- Affaires IDs -->
+    <div class="form-group">
+      <label for="affairesIds" class="block text-gray-700 font-medium">Affaires</label>
+      <input
+        type="text"
+        formControlName="affairesIds"
+        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
+        id="affairesIds"
+        placeholder="Entrez les IDs des affaires (séparés par des virgules)"
+      />
+    </div>
+
+    <!-- Objet -->
+    <div class="form-group">
+      <label for="objet" class="block text-gray-700 font-medium">Objet</label>
+      <input
+        type="text"
+        formControlName="objet"
+        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
+        id="objet"
+        placeholder="Objet du contrat"
+      />
+    </div>
+
+    <!-- Montant -->
+    <div class="form-group">
+      <label for="montant" class="block text-gray-700 font-medium">Montant</label>
+      <input
+        type="number"
+        formControlName="montant"
+        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
+        id="montant"
+        placeholder="Montant du contrat"
+      />
+    </div>
+
+    <!-- Direction -->
+    <div class="form-group">
+      <label for="direction" class="block text-gray-700 font-medium">Direction</label>
+      <input
+        type="text"
+        formControlName="direction"
+        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
+        id="direction"
+        placeholder="Direction associée au contrat"
+      />
+    </div>
+
+    <!-- Date de signature -->
+    <div class="form-group">
+      <label for="dateSignature" class="block text-gray-700 font-medium">Date de Signature</label>
+      <input
+        type="date"
+        formControlName="dateSignature"
+        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
+        id="dateSignature"
+      />
+    </div>
+
+    <!-- Date d'effet -->
+    <div class="form-group">
+      <label for="dateEffet" class="block text-gray-700 font-medium">Date d'Effet</label>
+      <input
+        type="date"
+        formControlName="dateEffet"
+        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
+        id="dateEffet"
+      />
+    </div>
+
+    <!-- Durée -->
+    <div class="form-group">
+      <label for="duree" class="block text-gray-700 font-medium">Durée</label>
+      <input
+        type="text"
+        formControlName="duree"
+        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
+        id="duree"
+        placeholder="Durée du contrat"
+      />
+    </div>
+
+    <!-- Date de fin -->
+    <div class="form-group">
+      <label for="dateFin" class="block text-gray-700 font-medium">Date de Fin</label>
+      <input
+        type="date"
+        formControlName="dateFin"
+        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
+        id="dateFin"
+      />
+    </div>
+
+    <!-- Date de préavis -->
+    <div class="form-group">
+      <label for="datePreavis" class="block text-gray-700 font-medium">Date de Préavis</label>
+      <input
+        type="date"
+        formControlName="datePreavis"
+        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
+        id="datePreavis"
+      />
+    </div>
+
+    <!-- Bouton pour soumettre le formulaire -->
+    <div class="flex justify-center">
+      <button
+        type="submit"
+        class="btn btn-primary w-full py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        [disabled]="!contratForm.valid"
+      >
+        Créer le Contrat
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Affichage du PDF après la création -->
+<div *ngIf="pdfGenerated" class="mt-6 text-center">
+  <h3 class="text-xl font-semibold text-green-600">Contrat créé avec succès!</h3>
+  <p class="text-gray-700">Voici le PDF généré :</p>
+  <iframe [src]="getPdfUrl()" width="100%" height="600px" class="border-2 border-gray-300 rounded-lg"></iframe>
+</div>

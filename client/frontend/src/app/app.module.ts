@@ -18,7 +18,6 @@ import { ClientDashboardComponent } from './client-dashboard/client-dashboard.co
 import { DatePipe } from '@angular/common';  // Assurez-vous que DatePipe est importé
 import { MatIconModule } from '@angular/material/icon';
 
-
 import { NavbarComponent } from './navbar/navbar.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { CardComponent } from './card/card.component';
@@ -45,6 +44,7 @@ import { ListAffairesComponent } from './list-affaires/list-affaires.component';
 import { RechercheAffaireComponent } from './recherche-affaire/recherche-affaire.component';
 import { ConsignationAffaireComponent } from './consignation-affaire/consignation-affaire.component';
 import { SaisieAffaireComponent } from './saisie-affaire/saisie-affaire.component';
+import { ContratComponent } from './contrat/contrat.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +82,7 @@ import { SaisieAffaireComponent } from './saisie-affaire/saisie-affaire.componen
     RechercheAffaireComponent,
     ConsignationAffaireComponent,
     SaisieAffaireComponent,
+    ContratComponent,
   ],
   imports: [
     BrowserModule,

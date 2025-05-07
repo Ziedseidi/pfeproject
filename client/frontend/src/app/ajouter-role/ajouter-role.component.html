@@ -1,20 +1,38 @@
-<div class="add-role-form">
-  <h2>Ajouter un Rôle</h2>
-  <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="nom">Nom du rôle</label>
-      <input type="text" formControlName="nom" id="nom" />
-    </div>
+<div class="role-form-container">
+  <div class="role-form-card">
+    <h2 class="role-form-title">✨ Nouveau Rôle</h2>
 
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea formControlName="description" id="description"></textarea>
-    </div>
+    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+      <div class="role-form-group">
+        <label for="nom">🧾 Nom du rôle</label>
+        <input
+          type="text"
+          id="nom"
+          formControlName="nom"
+          placeholder="Ex : Super Admin"
+        />
+      </div>
 
-    <button type="submit" class="submit-btn" [disabled]="roleForm.invalid">Créer</button>
-  </form>
-  <p *ngIf="message" class="message">{{ message }}</p>
+      <div class="role-form-group">
+        <label for="description">📝 Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          rows="4"
+          placeholder="Décrivez brièvement le rôle..."
+        ></textarea>
+      </div>
 
-  <!-- Lien vers la liste des rôles -->
-  <a routerLink="/admin-dashboard/liste-roles" class="go-to-list">Voir la liste des rôles</a>
+      <div class="role-form-actions">
+        <button type="submit" [disabled]="roleForm.invalid" class="btn-create">
+          ➕ Créer le rôle
+        </button>
+        <a routerLink="/admin-dashboard/liste-roles" class="btn-secondary">
+          📋 Voir les rôles
+        </a>
+      </div>
+    </form>
+
+    <p *ngIf="message" class="form-message">{{ message }}</p>
+  </div>
 </div>

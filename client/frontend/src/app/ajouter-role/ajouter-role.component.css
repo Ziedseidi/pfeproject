@@ -1,118 +1,102 @@
-/* Conteneur du formulaire */
-.add-role-form {
+.role-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #f0f4f8, #ffffff);
+    min-height: 100vh;
+  }
+  
+  .role-form-card {
+    background: #ffffff;
+    padding: 100px;
+    border-radius: 16px;
     max-width: 600px;
-    margin: 0 auto;
-    padding: 40px;
-    background-color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    font-family: 'Arial', sans-serif;
+    width: 100%;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .role-form-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #2c3e50;
+  }
+  
+  .role-form-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Titre du formulaire */
-.add-role-form h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 24px;
-}
-
-/* Style des groupes de champs */
-.form-group {
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.form-group label {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    display: block;
+    margin-bottom: 25px;
+  }
+  
+  .role-form-group label {
+    font-weight: 600;
+    color: #34495e;
     margin-bottom: 8px;
-}
-
-/* Champs de saisie (input, textarea) */
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.form-group textarea {
-    resize: vertical;
-    height: 150px;
-}
-
-/* Bouton de soumission */
-button.submit-btn {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    background-color: #2f4050;
+  }
+  
+  .role-form-group input,
+  .role-form-group textarea {
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: 0.3s;
+  }
+  
+  .role-form-group input:focus,
+  .role-form-group textarea:focus {
+    border-color: #5c9ded;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(92, 157, 237, 0.2);
+  }
+  
+  .role-form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .btn-create {
+    flex: 1;
+    background-color: #28a745;
     color: white;
+    font-weight: 600;
     border: none;
-    border-radius: 4px;
+    padding: 12px 0;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-/* Effet au survol du bouton */
-button.submit-btn:hover {
-    background-color: #1ab394;
-}
-
-/* Message de succès ou erreur */
-.message {
-    margin-top: 10px;
+    transition: 0.3s ease;
+  }
+  
+  .btn-create:hover {
+    background-color: #218838;
+  }
+  
+  .btn-secondary {
+    flex: 1;
+    background-color: transparent;
+    border: 2px solid #007bff;
+    color: #007bff;
     text-align: center;
-    color: green;
-    font-weight: bold;
-}
-
-/* Responsiveness */
-@media (max-width: 600px) {
-    .add-role-form {
-        padding: 20px;
-    }
-
-    .form-group label {
-        font-size: 12px;
-    }
-
-    .form-group input,
-    .form-group textarea {
-        font-size: 14px;
-    }
-
-    button.submit-btn {
-        font-size: 14px;
-        padding: 10px;
-    }
-}
-/* Conteneur du lien */
-.link-container {
+    padding: 12px 0;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .form-message {
     margin-top: 20px;
     text-align: center;
-}
-
-/* Style du lien simple */
-.simple-link {
-    color: #1ab394;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 15px;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
-}
-
-.simple-link:hover {
-    color: #117964;
-    text-decoration: underline;
-}
+    color: #28a745;
+    font-weight: bold;
+  }
+  

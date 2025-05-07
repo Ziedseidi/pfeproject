@@ -12,9 +12,7 @@ const contratSchema = new mongoose.Schema({
 
     fichier: { type: String, default: null },
 
-    // Relations
     avocat: { type: mongoose.Schema.Types.ObjectId, ref: 'Avocat', required: true },
-    demandeur: { type: mongoose.Schema.Types.ObjectId, ref: 'Demandeur', required: true },
     affaires: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Affaire' }]
 }, { timestamps: true });
 

@@ -8,9 +8,9 @@ import { AvocatService } from '../services/avocat.service';
 })
 export class ListAvocatsComponent implements OnInit {
   avocats: any[] = [];
-  filteredAvocats: any[] = []; // Liste filtrée des avocats
-  regionSearch: string = ''; // Variable pour rechercher par région
-  degreSearch: string = ''; // Variable pour rechercher par degré de juridiction
+  filteredAvocats: any[] = [];
+  regionSearch: string = '';
+  degreSearch: string = '';
 
   constructor(private avocatService: AvocatService) {}
 
@@ -18,7 +18,7 @@ export class ListAvocatsComponent implements OnInit {
     this.avocatService.getAvocatsOrdonnes().subscribe(
       (response) => {
         this.avocats = response;
-        this.filteredAvocats = response; // Initialement, tous les avocats sont affichés
+        this.filteredAvocats = response;
       },
       (error) => {
         console.error('Erreur lors de la récupération des avocats:', error);
@@ -28,26 +28,17 @@ export class ListAvocatsComponent implements OnInit {
 
   getNiveauLabel(degre: string): string {
     switch (degre) {
-      case 'Cassation':
-        return 'Niveau 3 : Cassation';
-      case 'Première Instance':
-        return 'Niveau 2 : Première Instance';
-      case 'Appel':
-        return 'Niveau 1 : Appel';
-      default:
-        return 'Niveau Inconnu';
+      case 'Cassation': return 'Niveau 3 : Cassation';
+      case 'Première Instance': return 'Niveau 2 : Première Instance';
+      case 'Appel': return 'Niveau 1 : Appel';
+      default: return 'Niveau Inconnu';
     }
   }
 
-  // Méthode pour filtrer les avocats en fonction de la recherche
   filterAvocats(): void {
     this.filteredAvocats = this.avocats.filter(avocat => {
-      // Recherche de la région : si une région est spécifiée, on filtre selon la correspondance
       const matchesRegion = this.regionSearch ? avocat.region.toLowerCase().includes(this.regionSearch.toLowerCase()) : true;
-      // Recherche du degré de juridiction : si un degré est spécifié, on filtre selon la correspondance
       const matchesDegre = this.degreSearch ? avocat.degreJuridiction.toLowerCase().includes(this.degreSearch.toLowerCase()) : true;
-
-      // Retourne vrai si les deux conditions de filtrage sont remplies
       return matchesRegion && matchesDegre;
     });
   }
