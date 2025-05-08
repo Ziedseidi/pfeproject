@@ -18,7 +18,7 @@ export class FormClientComponent {
     ficheCarriere: '',
     contratTravail: '',
     decisionsPromotions: '',
-    imageprofile: '' // on n'utilise plus ngModel ici pour l'image
+    imageprofile: '' 
   };
 
   selectedFile: File | null = null; // pour stocker le fichier sélectionné
@@ -42,7 +42,7 @@ export class FormClientComponent {
       return;
     }
 
-    console.log('Formulaire envoyé:', this.demandeur);  // Log les données
+    console.log('Formulaire envoyé:', this.demandeur); 
     this.demandeurService.registerDemandeur(this.demandeur, this.selectedFile).subscribe({
       next: (response) => {
         this.message = 'Inscription demandeur réussie !';

@@ -1,156 +1,168 @@
-<!-- Contrat works! -->
-<p class="text-center text-3xl font-semibold mb-4 text-blue-600">Contrat works!</p>
+<div class="max-w-3xl mx-auto p-8 bg-white shadow-lg rounded-lg">
+    <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Créer un contrat</h2>
 
-<!-- Formulaire pour la création du contrat -->
-<div class="container mx-auto p-6 bg-white rounded-lg shadow-lg mt-6">
-  <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Créer un Contrat</h2>
+    <form [formGroup]="contratForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Avocat -->
+        <div class="grid grid-cols-2 gap-6">
+            <div class="form-control">
+                <label for="avocatNom" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-user-tie mr-2"></i> Nom de l'avocat
+                </label>
+                <input id="avocatNom" formControlName="avocatNom" type="text" placeholder="Nom de l'avocat"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                <div *ngIf="contratForm.get('avocatNom')?.invalid && contratForm.get('avocatNom')?.touched" class="text-red-500 text-xs mt-1">
+                    Ce champ est requis.
+                </div>
+            </div>
 
-  <!-- Formulaire de création du contrat -->
-  <form [formGroup]="contratForm" (ngSubmit)="onSubmit()" class="space-y-6">
-    <!-- Avocat ID -->
-    <div class="form-group">
-      <label for="avocatId" class="block text-gray-700 font-medium">Avocat</label>
-      <input
-        type="text"
-        formControlName="avocatId"
-        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
-        id="avocatId"
-        placeholder="Entrez l'ID de l'avocat"
-      />
+            <div class="form-control">
+                <label for="avocatPrenom" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-user mr-2"></i> Prénom de l'avocat
+                </label>
+                <input id="avocatPrenom" formControlName="avocatPrenom" type="text" placeholder="Prénom de l'avocat"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                <div *ngIf="contratForm.get('avocatPrenom')?.invalid && contratForm.get('avocatPrenom')?.touched" class="text-red-500 text-xs mt-1">
+                    Ce champ est requis.
+                </div>
+            </div>
+        </div>
+
+        <!-- Demandeur -->
+        <div class="grid grid-cols-2 gap-6">
+            <div class="form-control">
+                <label for="demandeurNom" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-user-alt mr-2"></i> Nom du demandeur
+                </label>
+                <input id="demandeurNom" formControlName="demandeurNom" type="text" placeholder="Nom du demandeur"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                <div *ngIf="contratForm.get('demandeurNom')?.invalid && contratForm.get('demandeurNom')?.touched" class="text-red-500 text-xs mt-1">
+                    Ce champ est requis.
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label for="demandeurPrenom" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-user-circle mr-2"></i> Prénom du demandeur
+                </label>
+                <input id="demandeurPrenom" formControlName="demandeurPrenom" type="text" placeholder="Prénom du demandeur"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                <div *ngIf="contratForm.get('demandeurPrenom')?.invalid && contratForm.get('demandeurPrenom')?.touched" class="text-red-500 text-xs mt-1">
+                    Ce champ est requis.
+                </div>
+            </div>
+        </div>
+
+        <!-- Affaire -->
+        <div class="grid grid-cols-2 gap-6">
+            <div class="form-control">
+                <label for="numeroAffaire" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-file-alt mr-2"></i> Numéro d'affaire
+                </label>
+                <input id="numeroAffaire" formControlName="numeroAffaire" type="text" placeholder="Numéro d'affaire"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                <div *ngIf="contratForm.get('numeroAffaire')?.invalid && contratForm.get('numeroAffaire')?.touched" class="text-red-500 text-xs mt-1">
+                    Ce champ est requis.
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label for="objet" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-bullseye mr-2"></i> Objet du contrat
+                </label>
+                <input id="objet" formControlName="objet" type="text" placeholder="Objet du contrat"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                <div *ngIf="contratForm.get('objet')?.invalid && contratForm.get('objet')?.touched" class="text-red-500 text-xs mt-1">
+                    Ce champ est requis.
+                </div>
+            </div>
+        </div>
+
+        <!-- Montant et Direction -->
+        <div class="grid grid-cols-2 gap-6">
+            <div class="form-control">
+                <label for="montant" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-dollar-sign mr-2"></i> Montant
+                </label>
+                <input id="montant" formControlName="montant" type="text" placeholder="Montant du contrat"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                <div *ngIf="contratForm.get('montant')?.invalid && contratForm.get('montant')?.touched" class="text-red-500 text-xs mt-1">
+                    Ce champ est requis.
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label for="direction" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-location-arrow mr-2"></i> Direction
+                </label>
+                <input id="direction" formControlName="direction" type="text" placeholder="Direction des litiges"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+            </div>
+        </div>
+
+        <!-- Dates -->
+        <div class="grid grid-cols-2 gap-6">
+            <div class="form-control">
+                <label for="dateSignature" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-calendar-alt mr-2"></i> Date de signature
+                </label>
+                <input id="dateSignature" formControlName="dateSignature" type="date"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                <div *ngIf="contratForm.get('dateSignature')?.invalid && contratForm.get('dateSignature')?.touched" class="text-red-500 text-xs mt-1">
+                    Ce champ est requis.
+                </div>
+            </div>
+
+            <div class="form-control">
+                <label for="dateEffet" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-calendar-check mr-2"></i> Date d'effet
+                </label>
+                <input id="dateEffet" formControlName="dateEffet" type="date"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+                <div *ngIf="contratForm.get('dateEffet')?.invalid && contratForm.get('dateEffet')?.touched" class="text-red-500 text-xs mt-1">
+                    Ce champ est requis.
+                </div>
+            </div>
+        </div>
+
+        <!-- Autres informations -->
+        <div class="grid grid-cols-2 gap-6">
+            <div class="form-control">
+                <label for="duree" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-clock mr-2"></i> Durée
+                </label>
+                <input id="duree" formControlName="duree" type="text" placeholder="Durée du contrat"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+            </div>
+
+            <div class="form-control">
+                <label for="dateFin" class="block text-sm font-medium text-gray-700 flex items-center">
+                    <i class="fas fa-calendar-day mr-2"></i> Date de fin
+                </label>
+                <input id="dateFin" formControlName="dateFin" type="date"
+                    class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+            </div>
+        </div>
+
+        <div class="form-control">
+            <label for="datePreavis" class="block text-sm font-medium text-gray-700 flex items-center">
+                <i class="fas fa-calendar-minus mr-2"></i> Date de préavis
+            </label>
+            <input id="datePreavis" formControlName="datePreavis" type="date"
+                class="mt-2 p-3 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        </div>
+
+        <div class="flex justify-center mt-8">
+            <button type="submit" [disabled]="contratForm.invalid" class="bg-indigo-500 text-white py-2 px-6 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 flex items-center">
+                <i class="fas fa-save mr-2"></i> Créer le contrat
+            </button>
+        </div>
+    </form>
+
+    <!-- Affichage du PDF généré -->
+    <div *ngIf="pdfGenerated" class="mt-6 text-center">
+        <h3 class="text-xl font-semibold">Contrat généré avec succès :</h3>
+        <a [href]="getPdfUrl()" target="_blank" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+            <i class="fas fa-download mr-2"></i> Télécharger le PDF
+        </a>
     </div>
-
-    <!-- Demandeur ID -->
-    <div class="form-group">
-      <label for="demandeurId" class="block text-gray-700 font-medium">Demandeur</label>
-      <input
-        type="text"
-        formControlName="demandeurId"
-        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
-        id="demandeurId"
-        placeholder="Entrez l'ID du demandeur"
-      />
-    </div>
-
-    <!-- Affaires IDs -->
-    <div class="form-group">
-      <label for="affairesIds" class="block text-gray-700 font-medium">Affaires</label>
-      <input
-        type="text"
-        formControlName="affairesIds"
-        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
-        id="affairesIds"
-        placeholder="Entrez les IDs des affaires (séparés par des virgules)"
-      />
-    </div>
-
-    <!-- Objet -->
-    <div class="form-group">
-      <label for="objet" class="block text-gray-700 font-medium">Objet</label>
-      <input
-        type="text"
-        formControlName="objet"
-        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
-        id="objet"
-        placeholder="Objet du contrat"
-      />
-    </div>
-
-    <!-- Montant -->
-    <div class="form-group">
-      <label for="montant" class="block text-gray-700 font-medium">Montant</label>
-      <input
-        type="number"
-        formControlName="montant"
-        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
-        id="montant"
-        placeholder="Montant du contrat"
-      />
-    </div>
-
-    <!-- Direction -->
-    <div class="form-group">
-      <label for="direction" class="block text-gray-700 font-medium">Direction</label>
-      <input
-        type="text"
-        formControlName="direction"
-        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
-        id="direction"
-        placeholder="Direction associée au contrat"
-      />
-    </div>
-
-    <!-- Date de signature -->
-    <div class="form-group">
-      <label for="dateSignature" class="block text-gray-700 font-medium">Date de Signature</label>
-      <input
-        type="date"
-        formControlName="dateSignature"
-        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
-        id="dateSignature"
-      />
-    </div>
-
-    <!-- Date d'effet -->
-    <div class="form-group">
-      <label for="dateEffet" class="block text-gray-700 font-medium">Date d'Effet</label>
-      <input
-        type="date"
-        formControlName="dateEffet"
-        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
-        id="dateEffet"
-      />
-    </div>
-
-    <!-- Durée -->
-    <div class="form-group">
-      <label for="duree" class="block text-gray-700 font-medium">Durée</label>
-      <input
-        type="text"
-        formControlName="duree"
-        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
-        id="duree"
-        placeholder="Durée du contrat"
-      />
-    </div>
-
-    <!-- Date de fin -->
-    <div class="form-group">
-      <label for="dateFin" class="block text-gray-700 font-medium">Date de Fin</label>
-      <input
-        type="date"
-        formControlName="dateFin"
-        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
-        id="dateFin"
-      />
-    </div>
-
-    <!-- Date de préavis -->
-    <div class="form-group">
-      <label for="datePreavis" class="block text-gray-700 font-medium">Date de Préavis</label>
-      <input
-        type="date"
-        formControlName="datePreavis"
-        class="form-control w-full px-4 py-2 mt-2 border rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
-        id="datePreavis"
-      />
-    </div>
-
-    <!-- Bouton pour soumettre le formulaire -->
-    <div class="flex justify-center">
-      <button
-        type="submit"
-        class="btn btn-primary w-full py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        [disabled]="!contratForm.valid"
-      >
-        Créer le Contrat
-      </button>
-    </div>
-  </form>
-</div>
-
-<!-- Affichage du PDF après la création -->
-<div *ngIf="pdfGenerated" class="mt-6 text-center">
-  <h3 class="text-xl font-semibold text-green-600">Contrat créé avec succès!</h3>
-  <p class="text-gray-700">Voici le PDF généré :</p>
-  <iframe [src]="getPdfUrl()" width="100%" height="600px" class="border-2 border-gray-300 rounded-lg"></iframe>
 </div>

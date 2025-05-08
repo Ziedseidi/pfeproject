@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +27,16 @@ export class DemandeurService {
     formData.append('contratTravail', demandeurData.contratTravail);
     formData.append('decisionsPromotions', demandeurData.decisionsPromotions);
 
-    // Ajouter l'image au FormData (si présente)
-    if (file) {
-      formData.append('imageprofile', file, file.name);
-    }
-
-    return this.http.post(this.apiUrl, formData);
-  }
+     if (file) {
+          formData.append('imageprofile', file, file.name);
+        }
+    
+        // Pas besoin de token pour cette méthode, donc on ne l'ajoute pas aux headers
+        return this.http.post(this.apiUrl, formData).pipe(
+          catchError((error) => {
+            console.error('Erreur lors de l\'enregistrement de l\'avocat:', error);
+            return throwError(() => new Error('Erreur lors de l\'enregistrement de l\'avocat.'));
+          })
+        );
+      }
 }

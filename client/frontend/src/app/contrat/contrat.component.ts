@@ -9,27 +9,32 @@ import { ContratService } from '../services/contrat.service'; // Importer le ser
 })
 export class ContratComponent implements OnInit {
 
-  contratForm: FormGroup = this.fb.group({  // Initialisation directement ici
-    avocatId: ['', Validators.required],
-    demandeurId: ['', Validators.required],
-    affairesIds: ['', Validators.required],
-    objet: ['', Validators.required],
-    montant: ['', Validators.required],
-    direction: [''],
-    dateSignature: ['', Validators.required],
-    dateEffet: ['', Validators.required],
-    duree: [''],
-    dateFin: [''],
-    datePreavis: ['']
-  });
+  contratForm: FormGroup;
 
   pdfUrl: string | undefined;
   pdfGenerated: boolean = false;
 
-  constructor(private fb: FormBuilder, private contratService: ContratService) { }
+  constructor(private fb: FormBuilder, private contratService: ContratService) { 
+    // Initialisation du formulaire avec les champs du template
+    this.contratForm = this.fb.group({
+      avocatNom: ['', Validators.required],
+      avocatPrenom: ['', Validators.required],
+      demandeurNom: ['', Validators.required],
+      demandeurPrenom: ['', Validators.required],
+      numeroAffaire: [[], Validators.required],
+      objet: ['', Validators.required],
+      montant: ['', Validators.required],
+      direction: [''],
+      dateSignature: ['', Validators.required],
+      dateEffet: ['', Validators.required],
+      duree: [''],
+      dateFin: [''],
+      datePreavis: ['']
+    });
+  }
 
   ngOnInit(): void {
-    // Le formulaire est déjà initialisé dans la déclaration, donc rien à faire ici.
+    // Récupération des valeurs initiales ou autres tâches
   }
 
   onSubmit(): void {

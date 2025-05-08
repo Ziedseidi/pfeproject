@@ -1,74 +1,114 @@
 const fs = require('fs');
 const PDFDocument = require('pdfkit');
 const path = require('path');
-const Avocat = require('../models/Avocat.model');  // Importer le modèle Avocat
-const User = require('../models/User.model');  // Importer le modèle User
+const Avocat = require('../models/Avocat.model');
+const Demandeur = require('../models/Demandeur.model');
 
 const generateContractPdf = (contrat, avocatId, demandeurId, affaires, outputPath) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const doc = new PDFDocument();
+      const doc = new PDFDocument({ margin: 50 });
 
-      // Vérifie si le dossier pdfs existe, sinon le crée
       const dir = path.dirname(outputPath);
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
 
-      // Récupérer les informations de l'avocat et du demandeur
-      const avocat = await Avocat.findById(avocatId).populate('utilisateur');  // Peupler l'utilisateur (avocat)
-      const demandeur = await User.findById(demandeurId);  // Récupérer directement l'utilisateur (demandeur)
+      const avocat = await Avocat.findById(avocatId).populate('utilisateur');
+      const demandeurObj = await Demandeur.findById(demandeurId).populate('utilisateur');
+      const demandeur = demandeurObj?.utilisateur;
 
-      // Crée un flux de sortie pour le fichier PDF
       const stream = fs.createWriteStream(outputPath);
       doc.pipe(stream);
 
-      // Rédige le contenu du PDF
-      doc.fontSize(20).text('DOCUMENT DE CONTRAT', { align: 'center' });
-      doc.moveDown(1);
+      // === EN-TÊTE AVEC BACKGROUND ===
+      const headerHeight = 120;
+      const headerColor = '#1F4E79'; // Couleur de fond pour l'en-tête
 
-      doc.fontSize(12).text(`Objet du contrat : ${contrat.objet}`);
-      doc.text(`Montant : ${contrat.montant ?? 'N/A'} DA`);
-      doc.text(`Direction : ${contrat.direction ?? 'N/A'}`);
-      doc.text(`Date de signature : ${contrat.dateSignature?.toLocaleDateString() ?? 'N/A'}`);
-      doc.text(`Date d'effet : ${contrat.dateEffet?.toLocaleDateString() ?? 'N/A'}`);
-      doc.text(`Durée : ${contrat.duree ?? 'N/A'}`);
-      doc.text(`Date de fin : ${contrat.dateFin?.toLocaleDateString() ?? 'N/A'}`);
-      doc.text(`Date de préavis : ${contrat.datePreavis?.toLocaleDateString() ?? 'N/A'}`);
-      doc.moveDown(1);
+      // Fond coloré
+      doc.rect(0, 0, doc.page.width, headerHeight).fill(headerColor);
 
-      // Informations sur l'Avocat
-      doc.fontSize(14).text('Informations sur l\'Avocat :');
-      if (avocat && avocat.utilisateur) {
-        doc.fontSize(12).text(`Nom : ${avocat.utilisateur.nom} ${avocat.utilisateur.prenom}`);
-        doc.fontSize(12).text(`Email : ${avocat.utilisateur.email}`);
-        doc.fontSize(12).text(`Phone : ${avocat.utilisateur.phone}`);
+      // Logo
+      const logoPath = path.join(__dirname, '..', 'assets', 'Tunisair-logo.png');
+      if (fs.existsSync(logoPath)) {
+        doc.image(logoPath, 40, 40, { width: 120 }); // position et taille du logo
       }
-      doc.moveDown(0.5);
 
-      // Informations sur le Demandeur
-      doc.fontSize(14).text('Informations sur le Demandeur :');
-      if (demandeur) {
-        doc.fontSize(12).text(`Nom : ${demandeur.nom} ${demandeur.prenom}`);
-        doc.fontSize(12).text(`Email : ${demandeur.email}`);
-        doc.fontSize(12).text(`Phone : ${demandeur.phone}`);
-      }
-      doc.moveDown(0.5);
+      // Titre
+      doc.fontSize(20)
+        .fillColor('#FFFFFF') // Texte en blanc
+        .text('CONTRAT JURIDIQUE', 200, 50, { align: 'center', underline: true });
 
+      doc.moveDown(3);
+
+      // === INFOS CONTRAT ===
+      doc.fontSize(14).fillColor('#1F4E79').text('1. Informations sur le contrat', { underline: true });
+      doc.fontSize(12).fillColor('black');
+      doc.text(`Objet : ${contrat.objet}`, { continued: true }).text(`Montant : ${contrat.montant ?? 'N/A'} DNT`, { align: 'right' });
+
+      doc.text(`Direction : ${contrat.direction ?? 'N/A'}`, { continued: true }).text(`Date signature : ${contrat.dateSignature?.toLocaleDateString() ?? 'N/A'}`, { align: 'right' });
+
+      doc.text(`Date effet : ${contrat.dateEffet?.toLocaleDateString() ?? 'N/A'}`, { continued: true }).text(`Durée : ${contrat.duree ?? 'N/A'}`, { align: 'right' });
+
+      doc.text(`Date fin : ${contrat.dateFin?.toLocaleDateString() ?? 'N/A'}`, { continued: true }).text(`Préavis : ${contrat.datePreavis?.toLocaleDateString() ?? 'N/A'}`, { align: 'right' });
+      doc.moveDown(2);
+
+      // === INFOS AVOCAT ===
+      doc.fontSize(14).fillColor('#1F4E79').text('2. Avocat', { underline: true });
+
+      // Colonnes pour Avocat
+      doc.fontSize(12).fillColor('black');
+
+      // Colonne gauche – Nom
+      doc.text(`Nom : ${avocat?.utilisateur.nom} ${avocat?.utilisateur.prenom}`, { continued: true }).text(`Email : ${avocat?.utilisateur.email}`, { align: 'right' });
+
+      // Colonne droite – Téléphone
+      doc.text(`Téléphone : ${avocat?.utilisateur.phone}`, { continued: true }).text('Adresse : N/A', { align: 'right' });
+      doc.moveDown(2);
+
+      // === INFOS DEMANDEUR ===
+      doc.fontSize(14).fillColor('#1F4E79').text('3. Demandeur', { underline: true });
+
+      // Colonnes pour Demandeur
+      doc.fontSize(12).fillColor('black');
+
+      // Colonne gauche – Nom
+      doc.text(`Nom : ${demandeur?.nom} ${demandeur?.prenom}`, { continued: true }).text(`Email : ${demandeur?.email}`, { align: 'right' });
+
+      // Colonne droite – Téléphone
+      doc.text(`Téléphone : ${demandeur?.phone}`, { continued: true }).text('Adresse : N/A', { align: 'right' });
+      doc.moveDown(2);
+
+      // === AFFAIRES ===
       if (affaires.length > 0) {
-        doc.fontSize(14).text('Affaires concernées :');
+        doc.fontSize(14).fillColor('#1F4E79').text('4. Affaires concernées', { underline: true });
         affaires.forEach((affaire, index) => {
-          doc.fontSize(12).text(`• ${index + 1}) Numéro : ${affaire.numeroAffaire} | Titre : ${affaire.objet}`);
+          doc.fontSize(12).fillColor('black')
+            .text(`• ${index + 1}) Numéro : ${affaire.numeroAffaire} | Objet : ${affaire.objet}`);
         });
       }
 
-      // Termine le document
+      // === SIGNATURES ===
+      const signatureY = doc.y + 20;
+
+      // Ligne de signature Avocat à gauche
+      doc.strokeColor('#000').lineWidth(1)
+        .moveTo(80, signatureY).lineTo(250, signatureY).stroke();
+      doc.text("Signature de l'Avocat", 80, signatureY + 5, { align: 'left' });
+
+      // Ligne de signature Demandeur à droite
+      doc.moveTo(330, signatureY).lineTo(500, signatureY).stroke();
+      doc.text('Signature du Personel Juridique', 330, signatureY + 5, { align: 'left' });
+
+      doc.moveDown(2);
+
+      // === FOOTER ===
+      doc.fontSize(10).fillColor('#999').text('Centre juridique Tunisair - contacter nous : Tél: (00216) 71 754 000 ', { align: 'center' });
+
       doc.end();
 
-      // Lorsque le flux est terminé, on résout la promesse
       stream.on('finish', () => resolve());
       stream.on('error', reject);
-
     } catch (error) {
       reject(error);
     }

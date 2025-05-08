@@ -6,31 +6,52 @@ const path = require('path');
 const generateContractPdf = require('../utils/generateContractPdf');
 
 const contratController = {};
-
 contratController.createContrat = async (req, res) => {
   try {
-    // Extraire les IDs de la requête
-    const { avocatId, demandeurId, affairesIds, ...contratData } = req.body;
+    const { avocatNom, avocatPrenom, demandeurNom, demandeurPrenom, numeroAffaire, ...contratData } = req.body;
 
     // Vérification que les champs obligatoires sont présents
-    if (!avocatId || !demandeurId) {
-      return res.status(400).json({ message: 'Les champs avocatId et demandeurId sont requis.' });
+    if (!avocatNom || !avocatPrenom || !demandeurNom || !demandeurPrenom || !numeroAffaire) {
+      return res.status(400).json({ message: 'Champs requis manquants.' });
     }
 
+    // Chercher l'avocat par nom + prénom
+    const avocat = await Avocat.findOne().populate({
+      path: 'utilisateur',
+      match: { nom: avocatNom, prenom: avocatPrenom }
+    });
+
+    if (!avocat || !avocat.utilisateur) {
+      return res.status(404).json({ message: "Avocat introuvable." });
+    }
+
+    // Chercher le demandeur par nom + prénom
+    const demandeur = await Demandeur.findOne().populate({
+      path: 'utilisateur',
+      match: { nom: demandeurNom, prenom: demandeurPrenom }
+    });
+
+    if (!demandeur || !demandeur.utilisateur) {
+      return res.status(404).json({ message: "Demandeur introuvable." });
+    }
+
+    // Trouver les affaires par leur numéro
+    const affaires = await Affaire.find({ numeroAffaire: { $in: numeroAffaire } });
+    if (affaires.length === 0) {
+      return res.status(404).json({ message: "Aucune affaire trouvée avec les numéros fournis." });
+    }
+
+    // Créer et enregistrer le contrat
     const contrat = new Contrat({
       ...contratData,
-      avocat: avocatId, 
-      demandeur: demandeurId, 
-      affaires: affairesIds, 
+      avocat: avocat._id,
+      demandeur: demandeur._id,
+      affaires: affaires.map(a => a._id),
     });
 
     await contrat.save();
 
-    const avocat = await Avocat.findById(avocatId);
-    const demandeur = await Demandeur.findById(demandeurId);
-    const affaires = await Affaire.find({ _id: { $in: affairesIds } });
-
-    // Génération du fichier PDF
+    // Génération du PDF
     const fileName = `contrat_${contrat._id}.pdf`;
     const filePath = path.join(__dirname, '../pdfs', fileName);
     await generateContractPdf(contrat, avocat, demandeur, affaires, filePath);
@@ -39,7 +60,6 @@ contratController.createContrat = async (req, res) => {
     contrat.fichier = fileName;
     await contrat.save();
 
-    // Réponse avec le contrat créé
     res.status(201).json(contrat);
   } catch (err) {
     console.error('Erreur création contrat :', err);
