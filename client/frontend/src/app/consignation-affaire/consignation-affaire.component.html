@@ -34,7 +34,9 @@
       <h3>Détails de l'Affaire</h3>
       <p><strong>Numéro :</strong> {{ affaire.numeroAffaire }}</p>
       <p><strong>Objet :</strong> {{ affaire.objet }}</p>
-      <p><strong>Avocat :</strong> {{ affaire.avocat ? affaire.avocat.nom : 'Non assigné' }}</p>
+      <p><strong>Avocat :</strong>
+        {{ affaire.avocat?.utilisateur?.nom }} {{ affaire.avocat?.utilisateur?.prenom }}
+      </p>      
       <p><strong>Tribunal :</strong> {{ affaire.tribunal ? affaire.tribunal.nom : 'Non assigné' }}</p>
   
       <!-- Affichage des consignations -->

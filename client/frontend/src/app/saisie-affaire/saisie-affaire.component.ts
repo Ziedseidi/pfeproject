@@ -28,11 +28,12 @@ export class SaisieAffaireComponent {
     if (!this.numeroAffaire) {
       return; // Si le numéro d'affaire est vide, ne rien faire
     }
-
+  
     // Recherche de l'affaire par son numéro
     this.affaireService.rechercherAffaireParNumero(this.numeroAffaire).subscribe(
       (data) => {
         this.affaire = data; // Stocke les données récupérées
+        this.affaireId = this.affaire._id; // Assigner l'ID de l'affaire trouvée
         this.errorMessage = null; // Réinitialiser le message d'erreur si succès
       },
       (error) => {

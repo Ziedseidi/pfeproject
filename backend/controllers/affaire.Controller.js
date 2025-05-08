@@ -131,11 +131,7 @@ affaireController.getAllAffaires = async (req, res) => {
         select: 'utilisateur -_id',
         populate: { path: 'utilisateur', select: 'nom prenom -_id' }
       })
-      .populate({
-        path: 'experts',
-        select: 'utilisateur -_id',
-        populate: { path: 'utilisateur', select: 'nom prenom -_id' }
-      })
+      
       .populate({
         path: 'demandeur',
         select: 'utilisateur -_id',
@@ -147,7 +143,7 @@ affaireController.getAllAffaires = async (req, res) => {
       })
       .populate({
         path: 'saisies',
-        select: '-__v'
+        select: 'numeroSaisie -_id'
       })
       .populate({
         path: 'consignations', 

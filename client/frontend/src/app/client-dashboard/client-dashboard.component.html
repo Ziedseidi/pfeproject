@@ -1,72 +1,96 @@
-<div class="main-container">
-  <!-- Barre d’actions -->
-  <div class="action-bar">
-    <button class="action-btn" (click)="openAddAffaireModal()">➕ Ajouter une affaire</button>
-    <button class="action-btn" [routerLink]="['/list-affaires']">
-      👨‍⚖️ Affecter avocat
-    </button>
-    <button class="action-btn">🧑‍🔬 Affecter expert</button>
-    <button class="action-btn" [routerLink]="['/contrat']">📄 Créer  contrat</button>
-    <button class="action-btn">⚖️ Créer jugement</button>
-    <button class="action-btn" [routerLink]="['/consignation-affaire']">💰 Affecter consignation</button>
-    <button class="action-btn" [routerLink]="['/recherche-affaire']">🏛️ Affecter tribunal</button>
-    <button class="action-btn" [routerLink]="['/saisie-affaire']">⚖️ Affecter saisie</button>
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">⚖️ <span>Tunisair</span></div>
+    <nav class="nav">
+      <button (click)="openAddAffaireModal()" class="nav-link">
+        <span class="icon">➕</span>
+        <span class="label">Ajouter affaire</span>
+      </button>
+      <a class="nav-link" [routerLink]="['/list-affaires']">
+        <span class="icon">👨‍⚖️</span>
+        <span class="label">Affecter avocat</span>
+      </a>
+      <a class="nav-link" [routerLink]="['/contrat']">
+        <span class="icon">📄</span>
+        <span class="label">Créer contrat</span>
+      </a>
+      <a class="nav-link">
+        <span class="icon">🧑‍🔬</span>
+        <span class="label">Affecter expert</span>
+      </a>
+      <a class="nav-link">
+        <span class="icon">⚖️</span>
+        <span class="label">Créer jugement</span>
+      </a>
+      <a class="nav-link" [routerLink]="['/consignation-affaire']">
+        <span class="icon">💰</span>
+        <span class="label">Affecter consignation</span>
+      </a>
+      <a class="nav-link" [routerLink]="['/recherche-affaire']">
+        <span class="icon">🏛️</span>
+        <span class="label">Affecter tribunal</span>
+      </a>
+      <a class="nav-link" [routerLink]="['/saisie-affaire']">
+        <span class="icon">⚖️</span>
+        <span class="label">Affecter saisie</span>
+      </a>
+    </nav>
+  </aside>
 
-    <div class="user-section">
-      <img
-        [src]="user.imageprofile || 'assets/images/user-profile.jpg'"
-        alt="User Profile"
-        class="user-image"
-      />
-      <button class="logout-btn" (click)="logout()">Déconnexion</button>
-    </div>
+  <!-- Main content -->
+  <div class="main-content">
+    <header class="header">
+      <div class="user-info">
+      
+        <span class="user-name">{{ user.nom }} {{ user.prenom }}</span>
+        <img
+          [src]="user.imageprofile || 'assets/images/user-profile.jpg'"
+          alt="Profil"
+          class="profile-img"
+        />
+        <button (click)="logout()" class="logout-btn">
+          <span class="logout-icon">🚪</span>
+          <span class="logout-text">Déconnexion</span>
+        </button>
+              </div>
+    </header>
+
+    <section class="dashboard-stats">
+      <h2 class="section-title">Tableau de bord - Personnel juridique</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Affaires</h3>
+          <p>12</p>
+          <p>Affectation : ✔</p>
+          <button class="btn">Voir</button>
+        </div>
+        <div class="stat-card">
+          <h3>Experts</h3>
+          <p>5</p>
+          <p>Affectation : ✔</p>
+          <button class="btn">Voir</button>
+        </div>
+        <div class="stat-card">
+          <h3>Avocats</h3>
+          <p>7</p>
+          <p>Affectation : ✔</p>
+          <button class="btn">Voir</button>
+        </div>
+        <div class="stat-card">
+          <h3>Contrats</h3>
+          <p>20</p>
+          <p>Affectation : ✖</p>
+          <button class="btn">Voir</button>
+        </div>
+      </div>
+    </section>
+
+    <app-add-affaire
+      *ngIf="isAddAffaireModal"
+      (closeModal)="closeAddAffaireModal()"
+    ></app-add-affaire>
+    <app-spinner *ngIf="isLoading"></app-spinner>
+    <router-outlet></router-outlet>
   </div>
-
-  <!-- Tableau principal -->
-  <div class="table-wrapper">
-    <div class="table-title">
-      {{ user.nom }} {{ user.prenom }} - PERSONNEL JURIDIQUE
-    </div>
-    <div class="table-grid">
-      <!-- En-tête -->
-      <div class="cell head black">Éléments</div>
-      <div class="cell head red">Affaires</div>
-      <div class="cell head red">Experts</div>
-      <div class="cell head red">Avocats</div>
-      <div class="cell head red">Contrats</div>
-
-      <!-- Ligne 1 -->
-      <div class="cell black">Nombre total</div>
-      <div class="cell grey">12</div>
-      <div class="cell grey">5</div>
-      <div class="cell grey">7</div>
-      <div class="cell grey">20</div>
-
-      <!-- Ligne 2 -->
-      <div class="cell black">Affectations possibles</div>
-      <div class="cell grey">✔</div>
-      <div class="cell grey">✔</div>
-      <div class="cell grey">✔</div>
-      <div class="cell grey">✖</div>
-
-      <!-- Ligne 3 -->
-      <div class="cell black">Accès rapide</div>
-      <div class="cell grey"><button class="btn">Voir</button></div>
-      <div class="cell grey"><button class="btn">Voir</button></div>
-      <div class="cell grey"><button class="btn">Voir</button></div>
-      <div class="cell grey"><button class="btn">Voir</button></div>
-    </div>
-  </div>
-
-  <!-- MODALE Ajouter une Affaire -->
-  <app-add-affaire
-    *ngIf="isAddAffaireModal"
-    (closeModal)="closeAddAffaireModal()"
-  ></app-add-affaire>
-
-  <!-- Appeler ton composant spinner ici -->
-  <app-spinner *ngIf="isLoading"></app-spinner>
-
-  <router-outlet></router-outlet>
-
 </div>

@@ -20,9 +20,10 @@
           <th>Réclamation</th>
           <th>Client</th>
           <th>Vol</th>
-          <th>Demandeur</th>
+         
           <th>Avocat</th>
           <th>Tribunal</th>
+          <th>Numéro saisie</th>
           <th>Montant Consignation</th>
           <th>Date Consignation</th>
           <th>Date Recuperation</th>
@@ -42,16 +43,19 @@
           <td>{{ a.reclamation?.type }}</td>
           <td>{{ a.typeClient }}</td>
           <td>{{ a.numeroVol || '—' }}</td>
-          <td>
-            {{ a.demandeur?.nom || '—' }}
-            {{ a.demandeur?.prenom || '' }}
-          </td>
+          
           <td>
             {{ a.avocat?.nom || '—' }}
             {{ a.avocat?.prenom || '' }}
           </td>
           
           <td>{{ a.tribunal?.nom || '—' }}</td>
+          <td>
+            <span *ngFor="let s of a.saisies; let last = last">
+              {{ s.numeroSaisie }}<span *ngIf="!last">, </span>
+            </span>
+            <span *ngIf="!a.saisies || a.saisies.length === 0">—</span>
+          </td>
           <td>{{ a.consignment?.montant || '—' }} TND</td>
           <td>
             {{ a.consignment?.dateConsignation ? (a.consignment.dateConsignation | date:'shortDate') : 'En cours' }}

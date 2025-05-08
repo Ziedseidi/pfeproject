@@ -29,10 +29,10 @@ const sendMail = (to, subject, content, isHtml = false, from = process.env.EMAIL
     }
 
     const mailOptions = {
-        from: from, // L'expéditeur (par défaut, l'email de l'admin)
+        from: from, 
         to: to, // Le destinataire
-        subject: subject, // L'objet du mail
-        [isHtml ? "html" : "text"]: content // Le contenu, soit en HTML, soit en texte
+        subject: subject, 
+        [isHtml ? "html" : "text"]: content 
     };
 
     transporter.sendMail(mailOptions, (err, info) => {
