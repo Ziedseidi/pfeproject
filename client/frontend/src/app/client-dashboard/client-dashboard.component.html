@@ -3,6 +3,10 @@
   <aside class="sidebar">
     <div class="logo">⚖️ <span>Tunisair</span></div>
     <nav class="nav">
+      <a class="nav-link" [routerLink]="['/profile']">
+        <span class="icon">👤</span>
+        <span class="label">Profil</span>
+      </a>
       <button (click)="openAddAffaireModal()" class="nav-link">
         <span class="icon">➕</span>
         <span class="label">Ajouter affaire</span>

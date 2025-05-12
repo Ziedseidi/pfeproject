@@ -1,22 +1,30 @@
 <div class="container">
   <h2>Liste des dossiers</h2>
 
+  <!-- Champ de recherche : positionné juste après le titre -->
+  <div class="search-container">
+    <div class="search-bar">
+      <input type="text" placeholder="Rechercher par numéro d'affaire" [(ngModel)]="searchTerm" />
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+
   <!-- Message d'erreur -->
   <div *ngIf="errorMessage" class="error">
     {{ errorMessage }}
   </div>
 
   <!-- Message si aucun dossier n'est trouvé -->
-  <div *ngIf="dossiers.length === 0 && !errorMessage" class="no-dossiers">
+  <div *ngIf="filteredDossiers.length === 0 && !errorMessage" class="no-dossiers">
     Aucun dossier trouvé.
   </div>
 
-  <!-- Liste des dossiers sous forme de liens -->
-  <div *ngFor="let dossier of dossiers" class="card">
+  <!-- Liste des dossiers -->
+  <div *ngFor="let dossier of filteredDossiers" class="card">
     <a [routerLink]="['/dossier', dossier._id]" class="dossier-link">
       <div class="dossier-icon">
-        <i class="fas fa-folder"></i> <!-- Icône de dossier Font Awesome -->
-        <span class="numero-affaire">{{ dossier.numeroAffaire }}</span> <!-- Numéro du dossier -->
+        <i class="fas fa-folder"></i>
+        <span class="numero-affaire">{{ dossier.numeroAffaire }}</span>
       </div>
     </a>
   </div>

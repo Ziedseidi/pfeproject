@@ -86,3 +86,42 @@ h2 {
   font-weight: bold;
   color: #333;
 }
+.search-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+/* Barre de recherche */
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 20px auto;
+  position: relative;
+}
+
+/* Champ de saisie */
+.search-bar input {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  font-size: 1rem;
+  border: 2px solid #c0a52c;
+  border-radius: 25px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: #b59625;
+}
+
+/* Icône de recherche */
+.search-bar i {
+  position: absolute;
+  right: 15px;
+  color: #eeff00;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
