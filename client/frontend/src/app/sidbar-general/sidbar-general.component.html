@@ -3,39 +3,30 @@
   <div class="navbar-center">
     <div class="user-info">
       <img [src]="user.imageprofile || 'assets/images/user-profile.jpg'" alt="User Profile" class="user-image">
-      <span class="user-name">{{ user.nom }} {{ user.prenom }}</span>
-      <span class="user-role">{{ user.role || 'Rôle non défini' }}</span> <!-- Affichage du rôle -->
+      <div class="user-details">
+        <span class="user-name">{{ user.nom }} {{ user.prenom }}</span>
+        <span class="user-role">{{ user.role || 'Rôle non défini' }}</span>
+      </div>
     </div>
   </div>
 
-  <!-- Search Bar Section -->
+  <!-- Search Bar -->
   <div class="search-container">
-    <input type="text" placeholder="Rechercher..." class="search-input">
     <i class="fas fa-search"></i>
+    <input type="text" placeholder="Rechercher..." class="search-input">
   </div>
 
-  <!-- Menu Section -->
+  <!-- Navigation Menu -->
   <ul class="menu">
-    <li class="active"><i class="fas fa-user"></i> Profile</li>
-
-    <li [routerLink]="['/admin-dashboard/liste-utilisateurs']" style="cursor: pointer;">
-      <i class="fas fa-users"></i> Gestion des utilisateurs
-    </li>
-    <li [routerLink]="['/admin-dashboard/add-role']" style="cursor: pointer;">
-      <i class="fas fa-users-cog"></i> Gestion des rôles
-    </li>
-    <!-- Redirection vers la page Liste Avocats -->
-    <li [routerLink]="['/admin-dashboard/list-avocats']" style="cursor: pointer;">
-      <i class="fas fa-gavel"></i> Gestion des avocats
-    </li>
-    <li><i class="fas fa-user-tie"></i> Gestion des clients</li>
-    <li><i class="fas fa-user-md"></i> Gestion des experts</li>
-    <li><i class="fas fa-file-contract"></i> Gestion des contrats</li>
-    <li><i class="fas fa-folder"></i> Gestion des dossiers</li>
-    <li><i class="fas fa-balance-scale"></i> Gestion des affaires juridiques</li>
-    <!-- Ajout du lien pour la gestion des tribunaux -->
-    <li [routerLink]="['/admin-dashboard/liste-tribunaux']" style="cursor: pointer;">
-      <i class="fas fa-gavel"></i> Gestion des tribunaux
-    </li>
+    <li class="active"><i class="fas fa-user-circle"></i><span>Profil</span></li>
+    <li [routerLink]="['/admin-dashboard/liste-utilisateurs']"><i class="fas fa-users"></i><span>Utilisateurs</span></li>
+    <li [routerLink]="['/admin-dashboard/add-role']"><i class="fas fa-user-shield"></i><span>Rôles</span></li>
+    <li [routerLink]="['/admin-dashboard/list-avocats']"><i class="fas fa-scale-balanced"></i><span>Avocats</span></li>
+    <li><i class="fas fa-user-tie"></i><span>Clients</span></li>
+    <li><i class="fas fa-user-md"></i><span>Experts</span></li>
+    <li><i class="fas fa-file-signature"></i><span>Contrats</span></li>
+    <li><i class="fas fa-folder-open"></i><span>Dossiers</span></li>
+    <li><i class="fas fa-balance-scale-left"></i><span>Affaires</span></li>
+    <li [routerLink]="['/admin-dashboard/liste-tribunaux']"><i class="fas fa-landmark"></i><span>Tribunaux</span></li>
   </ul>
 </aside>

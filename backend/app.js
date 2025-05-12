@@ -10,6 +10,7 @@ const userRoutes = require('./routes/userRoutes');
 const affaireRoutes = require('./routes/affaireRoutes');
 const tribunalRoutes = require('./routes/tribunalRoutes');
 const contratRoutes = require('./routes/contratRoutes');
+const dossierRoutes=require('./routes/dossierRoutes');
 
 const app = express();
 
@@ -32,5 +33,6 @@ app.use('/user', userRoutes);
 app.use('/affaire', affaireRoutes);
 app.use('/tribunal', tribunalRoutes);
 app.use('/contrat', contratRoutes);
+app.use('/dossier',dossierRoutes);
 
 module.exports = app;

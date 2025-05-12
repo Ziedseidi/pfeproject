@@ -1,0 +1,150 @@
+/* Conteneur principal */
+.container {
+  margin: 40px auto;
+  max-width: 900px;
+  padding: 0 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre */
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Carte du dossier */
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Titre du dossier */
+.card h3 {
+  font-size: 1.5rem;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+/* Paragraphes des détails */
+.card p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+/* Section "Avocat" */
+.card div {
+  margin-bottom: 10px;
+}
+
+/* Message d'erreur */
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+/* Message si aucun dossier */
+.no-dossiers {
+  background-color: #e2e3e5;
+  color: #383d41;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Conteneur des images */
+.images-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Chaque image de fichier */
+.image-card {
+  width: calc(33.33% - 20px); /* Trois images par ligne */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.image-card:hover {
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Image */
+.image-preview {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-preview:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive pour les petites tailles d'écran */
+@media screen and (max-width: 768px) {
+  .image-card {
+    width: calc(50% - 20px); /* Deux images par ligne */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .image-card {
+    width: 100%; /* Une seule image par ligne */
+  }
+}
+
+/* Modale */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Image modale agrandie */
+/* Image modale agrandie */
+.modal-image {
+  max-width: 600%; /* Augmente la largeur de l'image */
+  max-height: 600%; /* Augmente la hauteur de l'image */
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: zoom-out; /* Permet de zoomer ou fermer la modale */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Zoom sur survol de l'image */
+.modal-image:hover {
+  transform: scale(1.1); /* Augmenter la taille légèrement sur hover */
+}
+
+/* Fermer la modale en cliquant sur l'arrière-plan */
+.modal:hover {
+  cursor: pointer;
+}

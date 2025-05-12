@@ -1,87 +1,75 @@
-/* Sidebar Styles */
 .sidebar {
-  width: 240px;  /* Largeur augmentée pour éviter que le texte soit tronqué */
-  background: #2f4050;
-  color: white;
-  height: calc(100vh - 50px);
+  width: 250px;
+  background: #ffffff;
+  color: #333;
+  height: calc(100vh - 57px);
   padding: 20px 15px;
   position: fixed;
-  left: 0;
   top: 57px;
-  z-index: 1;
-  overflow-y: auto;
-}
-
-/* Navbar Styles */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #2f4050;
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  top: 0;
   left: 0;
-  right: 0;
-  z-index: 10;
-  position: fixed;
-  height: 57px;
+  z-index: 100;
+  overflow-y: auto;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #e5e7eb;
 }
 
-/* User Info Section */
-.navbar-center {
-  margin-bottom: 8px;
-}
-
+/* User Info */
 .user-info {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .user-image {
-  width: 75px;
-  height: 90px;
-  border-radius: 60%;
-  margin-right: 10px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
   object-fit: cover;
+  border: 2px solid #38bdf8;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
 }
 
 .user-name {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
+  color: #2563eb;
 }
 
-/* Search Bar Section */
+.user-role {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* Search Bar */
 .search-container {
   display: flex;
   align-items: center;
-  background-color: #34495e;
-  border-radius: 4px;
-  padding: 6px;
-  margin-bottom: 10px;
-}
-
-.search-container .search-input {
-  border: none;
-  background-color: transparent;
-  color: white;
-  padding: 5px;
-  margin-right: 5px;
-  width: 100%;
-}
-
-.search-container .search-input:focus {
-  outline: none;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 20px;
+  border: 1px solid #cbd5e1;
 }
 
 .search-container i {
-  color: white;
-  font-size: 16px;
+  color: #94a3b8;
+  margin-right: 8px;
 }
 
-/* Menu Section */
+.search-input {
+  border: none;
+  background: transparent;
+  color: #333;
+  flex-grow: 1;
+  outline: none;
+}
+
+/* Menu */
 .menu {
   list-style: none;
   padding: 0;
@@ -91,20 +79,32 @@
 .menu li {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px;
+  gap: 12px;
+  padding: 12px;
   font-size: 16px;
-  color: white;
+  color: #1e293b;
   cursor: pointer;
-  transition: background 0.4s;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s;
 }
 
 .menu li i {
-  flex-shrink: 10; /* empêche l’icône de se réduire */
+  min-width: 20px;
+  font-size: 17px;
+  color: #0ea5e9;
 }
 
-.menu li:hover,
+.menu li span {
+  flex: 1;
+}
+
+.menu li:hover {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
 .menu li.active {
-  background: #1ab394;
-  border-radius: 4px;
+  background-color: #bae6fd;
+  font-weight: bold;
+  color: #0284c7;
 }

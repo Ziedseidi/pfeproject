@@ -1,0 +1,44 @@
+<div class="container">
+  <h2>Détails du dossier</h2>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Message si aucun dossier n'est trouvé -->
+  <div *ngIf="!dossier && !errorMessage">
+    Dossier introuvable.
+  </div>
+
+  <!-- Affichage du dossier -->
+  <div *ngIf="dossier" class="card">
+    <h3>{{ dossier.titre }}</h3>
+    <p><strong>Numéro d'affaire :</strong> {{ dossier.numeroAffaire }}</p>
+    <p><strong>Description :</strong> {{ dossier.description }}</p>
+    <p><strong>Date de création :</strong> {{ dossier.dateCreation | date:'short' }}</p>
+
+    <!-- Afficher l'avocat ou aucun avocat -->
+    <div *ngIf="dossier.nomAvocat && dossier.prenomAvocat">
+      <p><strong>Avocat :</strong> {{ dossier.nomAvocat }} {{ dossier.prenomAvocat }}</p>
+    </div>
+    <div *ngIf="!dossier.nomAvocat || !dossier.prenomAvocat">
+      <p><strong>Avocat :</strong> Aucun avocat attribué</p>
+    </div>
+
+    <!-- Afficher les images -->
+    <div *ngIf="dossier.imagesFichier && dossier.imagesFichier.length > 0">
+      <p><strong>Fichiers :</strong></p>
+      <div class="images-container">
+        <div *ngFor="let image of dossier.imagesFichier" class="image-card" (click)="openImage(image)">
+          <img [src]="image" alt="Fichier" class="image-preview" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modale pour afficher l'image agrandie -->
+<div *ngIf="isImageOpen" class="modal" (click)="closeImage()">
+  <img [src]="selectedImage" class="modal-image" />
+</div>

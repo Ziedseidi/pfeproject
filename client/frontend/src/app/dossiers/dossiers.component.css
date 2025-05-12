@@ -1,0 +1,88 @@
+/* Conteneur principal */
+.container {
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap; /* Permet aux éléments de se déplacer sur plusieurs lignes si nécessaire */
+  gap: 20px; /* Espace entre les éléments */
+  justify-content: center; /* Centrer les éléments */
+}
+
+/* Titre */
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+/* Message d'erreur */
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+/* Message "Aucun dossier trouvé" */
+.no-dossiers {
+  background-color: #e2e3e5;
+  color: #383d41;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Carte de dossier */
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px; /* Largeur fixe pour chaque icône de dossier */
+  height: 150px; /* Hauteur fixe */
+}
+
+/* Lien du dossier */
+.dossier-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Icône du dossier avec numéro */
+.dossier-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  background-color: #ffeb3b; /* Jaune dossier */
+  border-radius: 8px;
+  border: 2px solid #f9c300;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.dossier-icon:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Icône de dossier Font Awesome */
+.dossier-icon i {
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+/* Numéro du dossier au centre */
+.numero-affaire {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}

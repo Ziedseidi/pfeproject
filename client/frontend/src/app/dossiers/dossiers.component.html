@@ -1,0 +1,23 @@
+<div class="container">
+  <h2>Liste des dossiers</h2>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Message si aucun dossier n'est trouvé -->
+  <div *ngIf="dossiers.length === 0 && !errorMessage" class="no-dossiers">
+    Aucun dossier trouvé.
+  </div>
+
+  <!-- Liste des dossiers sous forme de liens -->
+  <div *ngFor="let dossier of dossiers" class="card">
+    <a [routerLink]="['/dossier', dossier._id]" class="dossier-link">
+      <div class="dossier-icon">
+        <i class="fas fa-folder"></i> <!-- Icône de dossier Font Awesome -->
+        <span class="numero-affaire">{{ dossier.numeroAffaire }}</span> <!-- Numéro du dossier -->
+      </div>
+    </a>
+  </div>
+</div>

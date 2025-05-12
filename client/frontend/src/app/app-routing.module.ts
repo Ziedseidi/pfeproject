@@ -25,9 +25,13 @@ import { RechercheAffaireComponent } from './recherche-affaire/recherche-affaire
 import { ConsignationAffaireComponent } from './consignation-affaire/consignation-affaire.component';
 import { SaisieAffaireComponent } from './saisie-affaire/saisie-affaire.component';
 import { ContratComponent } from './contrat/contrat.component';
+import { DossiersComponent } from './dossiers/dossiers.component';
+import { DossierDetailComponent } from './dossier-detail/dossier-detail.component'; // Importer le composant
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  
+  // Routes pour le tableau de bord Admin
   { 
     path: 'admin-dashboard', 
     component: AdminDashboardComponent,
@@ -39,17 +43,27 @@ const routes: Routes = [
       { path: 'list-avocats', component: ListAvocatsComponent }
     ]
   },
+  
+  // Routes pour les tableaux de bord de différents rôles
   { path: 'avocat-dashboard', component: AvocatDashboardComponent },
   { path: 'expert-dashboard', component: ExpertDashboardComponent },
   { path: 'client-dashboard', component: ClientDashboardComponent },
-  { path: 'list-affaires', component: ListAffairesComponent }, 
-  {path:'contrat',component:ContratComponent} ,
-  {path:'recherche-affaire', component: RechercheAffaireComponent},
-  {path:'consignation-affaire', component:ConsignationAffaireComponent},
-  {path:'saisie-affaire', component:SaisieAffaireComponent},
+  
+  // Routes pour les affaires
+  { path: 'list-affaires', component: ListAffairesComponent },
+  { path: 'contrat', component: ContratComponent },
+  { path: 'recherche-affaire', component: RechercheAffaireComponent },
+  { path: 'consignation-affaire', component: ConsignationAffaireComponent },
+  { path: 'saisie-affaire', component: SaisieAffaireComponent },
+  
+  // Route pour la liste des dossiers
+  { path: 'dossiers', component: DossiersComponent },
+  
+  // Route pour les détails d'un dossier
+  { path: 'dossier/:id', component: DossierDetailComponent }, // Route dynamique pour l'ID du dossier
+  
+  // Routes pour la gestion des utilisateurs
   { path: 'login', component: LoginComponent },
-
-
   { 
     path: 'register', 
     component: RegisterComponent, 
@@ -59,10 +73,12 @@ const routes: Routes = [
       { path: 'form-demandeur', component: FormClientComponent },
     ]
   },
-
+  
+  // Routes pour la gestion du mot de passe
   { path: 'reset-password/:token', component: NewPasswordComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
 
+  // Route pour rediriger les utilisateurs vers la page d'accueil si la route n'existe pas
   { path: '**', redirectTo: '' }
 ];
 

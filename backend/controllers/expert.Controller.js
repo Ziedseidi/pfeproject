@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/User.model');
 const Expert = require('../models/Expert.model');
+const uploadImage=require('../midelware/multer')
 
 const expertController = {};
 
