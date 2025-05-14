@@ -1,10 +1,12 @@
-<div class="recherche-affaire">
-  <h2>Affectation d'une Saisie</h2>
+<div class="recherche-affaire container shadow-lg p-4 rounded">
+  <h2 class="text-center text-primary mb-4">
+    <i class="fas fa-balance-scale"></i> Affectation d'une Saisie
+  </h2>
 
   <!-- Formulaire de recherche -->
-  <form (ngSubmit)="onSearch()" #rechercheForm="ngForm" class="search-form">
-    <div class="form-group">
-      <label for="numeroAffaire">Numéro de l'Affaire</label>
+  <form (ngSubmit)="onSearch()" #rechercheForm="ngForm" class="search-form mb-4">
+    <div class="form-group mb-3">
+      <label for="numeroAffaire"><i class="fas fa-folder-open"></i> Numéro de l'Affaire</label>
       <input
         type="text"
         id="numeroAffaire"
@@ -14,127 +16,88 @@
         required
         #numeroAffaireInput="ngModel"
       />
-      <div *ngIf="numeroAffaireInput.invalid && numeroAffaireInput.touched" class="error-message">
-        Le numéro de l'affaire est requis.
+      <div *ngIf="numeroAffaireInput.invalid && numeroAffaireInput.touched" class="text-danger small mt-1">
+        <i class="fas fa-exclamation-circle"></i> Le numéro de l'affaire est requis.
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="rechercheForm.invalid">
-      Rechercher
+    <button type="submit" class="btn btn-outline-primary w-100" [disabled]="rechercheForm.invalid">
+      <i class="fas fa-search"></i> Rechercher
     </button>
   </form>
 
-  <!-- Affichage du message de succès -->
-  <div *ngIf="successMessage" class="success-message">
-    {{ successMessage }}
+  <!-- Message succès -->
+  <div *ngIf="successMessage" class="alert alert-success text-center">
+    <i class="fas fa-check-circle"></i> {{ successMessage }}
   </div>
 
-  <!-- Affichage des détails de l'affaire -->
-  <div *ngIf="affaire" class="affaire-details">
-    <h3>Détails de l'Affaire</h3>
-    <p><strong>Numéro :</strong> {{ affaire.numeroAffaire }}</p>
-    <p><strong>Objet :</strong> {{ affaire.objet }}</p>
+  <!-- Message erreur -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    <i class="fas fa-times-circle"></i> {{ errorMessage }}
+  </div>
 
-    <p><strong>Avocat :</strong>
-      {{ affaire.avocat?.utilisateur?.nom }} {{ affaire.avocat?.utilisateur?.prenom }}
-    </p>
-     <p><strong>Tribunal :</strong> {{ affaire.tribunal ? affaire.tribunal.nom : 'Non assigné' }}</p>
+  <!-- Détails affaire -->
+  <div *ngIf="affaire" class="affaire-details mt-5">
+    <h3 class="mb-3"><i class="fas fa-info-circle"></i> Détails de l'Affaire</h3>
+    <ul class="list-group mb-3">
+      <li class="list-group-item"><strong>Numéro :</strong> {{ affaire.numeroAffaire }}</li>
+      <li class="list-group-item"><strong>Objet :</strong> {{ affaire.objet }}</li>
+      <li class="list-group-item">
+        <strong>Avocat :</strong> {{ affaire.avocat?.utilisateur?.nom }} {{ affaire.avocat?.utilisateur?.prenom }}
+      </li>
+      <li class="list-group-item">
+        <strong>Tribunal :</strong> {{ affaire.tribunal ? affaire.tribunal.nom : 'Non assigné' }}
+      </li>
+    </ul>
 
     <!-- Affichage des saisies -->
-    <div *ngIf="affaire.saisies && affaire.saisies.length > 0">
-      <h4>Saisies</h4>
-      <ul>
-        <li *ngFor="let saisie of affaire.saisies">
-          <strong>Numéro de saisie :</strong> {{ saisie.numeroSaisie }} |
-          <strong> Date de saisie :</strong> {{ saisie.dateAudience | date: 'dd/MM/yyyy' }} |
-          <strong> Objets saisies :</strong> {{ saisie.objetsSaisis }}
+    <div *ngIf="affaire.saisies?.length > 0" class="mb-4">
+      <h4><i class="fas fa-folder"></i> Liste des Saisies</h4>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let saisie of affaire.saisies">
+          <strong>Numéro :</strong> {{ saisie.numeroSaisie }} |
+          <strong>Date :</strong> {{ saisie.dateAudience | date: 'dd/MM/yyyy' }} |
+          <strong>Objets :</strong> {{ saisie.objetsSaisis }}
         </li>
       </ul>
     </div>
 
     <!-- Formulaire de saisie -->
-    <h3>Assigner une Saisie</h3>
+    <h3 class="mb-3"><i class="fas fa-plus-circle"></i> Assigner une Saisie</h3>
     <form (ngSubmit)="assignSaisie()" #saisieForm="ngForm" class="search-form">
-      <div class="form-group">
-        <label for="numeroSaisie">Numéro de Saisie</label>
-        <input
-          type="text"
-          id="numeroSaisie"
-          [(ngModel)]="numeroSaisie"
-          name="numeroSaisie"
-          class="form-control"
-          required
-        />
+      <div class="form-group mb-3">
+        <label for="numeroSaisie"><i class="fas fa-file-alt"></i> Numéro de Saisie</label>
+        <input type="text" id="numeroSaisie" [(ngModel)]="numeroSaisie" name="numeroSaisie" class="form-control" required />
       </div>
 
-      <div class="form-group">
-        <label for="dateAudience">Date de l'Audience</label>
-        <input
-          type="date"
-          id="dateAudience"
-          [(ngModel)]="dateAudience"
-          name="dateAudience"
-          class="form-control"
-          required
-        />
+      <div class="form-group mb-3">
+        <label for="dateAudience"><i class="fas fa-calendar-alt"></i> Date de l'Audience</label>
+        <input type="date" id="dateAudience" [(ngModel)]="dateAudience" name="dateAudience" class="form-control" required />
       </div>
 
-      <div class="form-group">
-        <label for="objetsSaisis">Objets Saisis</label>
-        <input
-          type="text"
-          id="objetsSaisis"
-          [(ngModel)]="objetsSaisis"
-          name="objetsSaisis"
-          class="form-control"
-          required
-        />
+      <div class="form-group mb-3">
+        <label for="objetsSaisis"><i class="fas fa-box-open"></i> Objets Saisis</label>
+        <input type="text" id="objetsSaisis" [(ngModel)]="objetsSaisis" name="objetsSaisis" class="form-control" required />
       </div>
 
-      <div class="form-group">
-        <label for="nomAdverse">Nom de l'Adverse</label>
-        <input
-          type="text"
-          id="nomAdverse"
-          [(ngModel)]="nomAdverse"
-          name="nomAdverse"
-          class="form-control"
-          required
-        />
+      <div class="form-group mb-3">
+        <label for="nomAdverse"><i class="fas fa-user"></i> Nom de l'Adverse</label>
+        <input type="text" id="nomAdverse" [(ngModel)]="nomAdverse" name="nomAdverse" class="form-control" required />
       </div>
 
-      <div class="form-group">
-        <label for="numeroPV">Numéro du PV</label>
-        <input
-          type="text"
-          id="numeroPV"
-          [(ngModel)]="numeroPV"
-          name="numeroPV"
-          class="form-control"
-          required
-        />
+      <div class="form-group mb-3">
+        <label for="numeroPV"><i class="fas fa-file-invoice"></i> Numéro du PV</label>
+        <input type="text" id="numeroPV" [(ngModel)]="numeroPV" name="numeroPV" class="form-control" required />
       </div>
 
-      <div class="form-group">
-        <label for="montantSaisi">Montant Saisi</label>
-        <input
-          type="number"
-          id="montantSaisi"
-          [(ngModel)]="montantSaisi"
-          name="montantSaisi"
-          class="form-control"
-          required
-        />
+      <div class="form-group mb-4">
+        <label for="montantSaisi"><i class="fas fa-coins"></i> Montant Saisi</label>
+        <input type="number" id="montantSaisi" [(ngModel)]="montantSaisi" name="montantSaisi" class="form-control" required />
       </div>
 
-      <button type="submit" class="btn btn-success" [disabled]="saisieForm.invalid">
-        Assigner Saisie
+      <button type="submit" class="btn btn-success w-100" [disabled]="saisieForm.invalid">
+        <i class="fas fa-check"></i> Assigner Saisie
       </button>
     </form>
-  </div>
-
-  <!-- Affichage des erreurs -->
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
   </div>
 </div>

@@ -1,0 +1,87 @@
+<div class="recherche-affaire">
+  <h2 class="title">⚖️ Affectation d'un Jugement</h2>
+
+  <!-- Formulaire de recherche -->
+  <form (ngSubmit)="onSearch()" #rechercheForm="ngForm" class="search-form">
+    <div class="form-group">
+      <label for="numeroAffaire">Numéro de l'affaire</label>
+      <input
+        type="text"
+        id="numeroAffaire"
+        [(ngModel)]="numeroAffaire"
+        name="numeroAffaire"
+        class="form-control"
+        required
+        #numeroAffaireInput="ngModel"
+      />
+      <div *ngIf="numeroAffaireInput.invalid && numeroAffaireInput.touched" class="error-message">
+        Le numéro de l'affaire est requis.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="rechercheForm.invalid">🔍 Rechercher</button>
+  </form>
+
+  <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <!-- Détails de l'affaire + Formulaire de jugement -->
+  <div *ngIf="affaire" class="affaire-details">
+    <h3>Détails de l'affaire</h3>
+    <p><strong>Numéro :</strong> {{ affaire.numeroAffaire }}</p>
+    <p><strong>Objet :</strong> {{ affaire.objet }}</p>
+
+    <h3>📜 Affecter un Jugement</h3>
+    <form (ngSubmit)="assignerJugement()" #jugementForm="ngForm" class="judgment-form">
+      <div class="form-group">
+        <label for="dateJugement">📅 Date du Jugement</label>
+        <input
+          type="date"
+          id="dateJugement"
+          [(ngModel)]="dateJugement"
+          name="dateJugement"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="montant">💶 Montant</label>
+        <input
+          type="number"
+          id="montant"
+          [(ngModel)]="montant"
+          name="montant"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="issue">🏁 Issue</label>
+        <input
+          type="text"
+          id="issue"
+          [(ngModel)]="issue"
+          name="issue"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="remarque">📝 Remarques</label>
+        <textarea
+          id="remarque"
+          [(ngModel)]="remarque"
+          name="remarque"
+          class="form-control"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="jugementForm.invalid">
+        ✅ Affecter Jugement
+      </button>
+    </form>
+  </div>
+</div>

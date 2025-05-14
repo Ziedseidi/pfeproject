@@ -1,4 +1,3 @@
-// models/Affaire.model.js
 const mongoose = require('mongoose');
 
 const affaireSchema = new mongoose.Schema({
@@ -7,6 +6,7 @@ const affaireSchema = new mongoose.Schema({
 
   avocat:    { type: mongoose.Schema.Types.ObjectId, ref: 'Avocat',    default: null },
   tribunal:  { type: mongoose.Schema.Types.ObjectId, ref: 'Tribunal',  default: null },
+jugements: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Jugement' }],
 
   dateConvocation:    { type: Date, default: null },
   degreJuridique: {

@@ -27,6 +27,8 @@ import { SaisieAffaireComponent } from './saisie-affaire/saisie-affaire.componen
 import { ContratComponent } from './contrat/contrat.component';
 import { DossiersComponent } from './dossiers/dossiers.component';
 import { DossierDetailComponent } from './dossier-detail/dossier-detail.component'; // Importer le composant
+import { MesAffairesListeComponent } from './mes-affaires-liste/mes-affaires-liste.component';
+import { AffaireJugementComponent } from './affaire-jugement/affaire-jugement.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -45,7 +47,14 @@ const routes: Routes = [
   },
   
   // Routes pour les tableaux de bord de différents rôles
-  { path: 'avocat-dashboard', component: AvocatDashboardComponent },
+  { 
+    path: 'avocat-dashboard', 
+    component: AvocatDashboardComponent,
+    children: [
+      { path: 'mes-affaires-liste', component: MesAffairesListeComponent },
+      // Ajoutez d'autres routes pour l'avocat ici si nécessaire
+    ]
+  },
   { path: 'expert-dashboard', component: ExpertDashboardComponent },
   { path: 'client-dashboard', component: ClientDashboardComponent },
   
@@ -55,6 +64,8 @@ const routes: Routes = [
   { path: 'recherche-affaire', component: RechercheAffaireComponent },
   { path: 'consignation-affaire', component: ConsignationAffaireComponent },
   { path: 'saisie-affaire', component: SaisieAffaireComponent },
+{ path: 'affaire-jugement', component: AffaireJugementComponent },
+
   
   // Route pour la liste des dossiers
   { path: 'dossiers', component: DossiersComponent },

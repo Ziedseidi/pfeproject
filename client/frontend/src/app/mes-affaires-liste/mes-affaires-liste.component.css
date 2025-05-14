@@ -1,0 +1,152 @@
+/* Style général de la page */
+.container {
+  margin-top: 50px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(to right, #5f84ff, #feb47b);
+  padding: 40px;
+  border-radius: 0px;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre avec icône */
+h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 i {
+  font-size: 2.8rem;
+  margin-right: 15px;
+}
+
+/* Bar de recherche moderne */
+.input-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.form-control {
+  width: 500px;
+  padding: 15px;
+  border-radius: 50px;
+  border: 2px solid #f1c40f;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #ff7e5f;
+  box-shadow: 0px 0px 10px rgba(255, 126, 95, 0.5);
+}
+
+.input-group-text {
+  background-color: #ff7e5f;
+  color: white;
+  border: none;
+  border-radius: 50px 0 0 50px;
+  padding: 0 20px;
+  font-size: 1.3rem;
+}
+
+/* Zone de chargement */
+.isLoading {
+  text-align: center;
+  color: #f39c12;
+  font-size: 1.5rem;
+}
+
+.isLoading i {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+
+/* Zone d'erreur */
+.error {
+  color: #e74c3c;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.error i {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+
+/* Aucun résultat */
+.no-results {
+  text-align: center;
+  color: #bdc3c7;
+  font-size: 1.5rem;
+}
+
+.no-results i {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+
+/* Style du tableau */
+.table {
+  border-radius: 12px;
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  background-color: white;
+  margin-top: 30px;
+}
+
+.table th, .table td {
+  padding: 15px;
+  text-align: center;
+}
+
+.table th {
+  background-color: #ff7e5f;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.table td {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+  background-color: #fafafa;
+}
+
+/* Effect hover sur table */
+.table-bordered {
+  border: none;
+}
+
+.table-bordered th, .table-bordered td {
+  border: none;
+}
+
+/* Effet de survol des icônes dans le tableau */
+.table th i {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.table th i:hover {
+  transform: rotate(180deg);
+  color: #f39c12;
+}

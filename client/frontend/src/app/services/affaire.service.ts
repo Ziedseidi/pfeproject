@@ -7,6 +7,9 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AffaireService {
+  assignJugementToAffaire(jugementData: { affaireId: any; dateJugement: string; montant: number; issue: string; remarque: string; }) {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'http://localhost:7501/affaire'; // URL à adapter si nécessaire
 
   constructor(private http: HttpClient) {}
@@ -130,5 +133,30 @@ export class AffaireService {
         })
       )
     }
-  
+    getMesAffaires(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/mes-affaires`, {
+    headers: this.getAuthHeaders()
+  }).pipe(
+    catchError(err => {
+      console.error('Erreur lors de la récupération des affaires assignées :', err);
+      return throwError(() => new Error('Erreur lors de la récupération de vos affaires.'));
+    })
+  );
+}
+assignerJugement(jugementData: {
+  affaireId: string;
+  dateJugement: string;
+  montant: number;
+  issue: string;
+  remarque: string;
+}): Observable<any> {
+  return this.http.post(`${this.apiUrl}/assign-jugement`, jugementData, {
+    headers: this.getAuthHeaders()
+  }).pipe(
+    catchError((error) => {
+      console.error("Erreur lors de l'assignation du jugement :", error);
+      return throwError(() => new Error("Erreur lors de l'assignation du jugement."));
+    })
+  );
+}
 }

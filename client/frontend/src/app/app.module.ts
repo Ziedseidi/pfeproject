@@ -47,6 +47,8 @@ import { SaisieAffaireComponent } from './saisie-affaire/saisie-affaire.componen
 import { ContratComponent } from './contrat/contrat.component';
 import { DossiersComponent } from './dossiers/dossiers.component';
 import { DossierDetailComponent } from './dossier-detail/dossier-detail.component';
+import { MesAffairesListeComponent } from './mes-affaires-liste/mes-affaires-liste.component';
+import { AffaireJugementComponent } from './affaire-jugement/affaire-jugement.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +89,8 @@ import { DossierDetailComponent } from './dossier-detail/dossier-detail.componen
     ContratComponent,
     DossiersComponent,
     DossierDetailComponent,
+    MesAffairesListeComponent,
+    AffaireJugementComponent,
   ],
   imports: [
     BrowserModule,

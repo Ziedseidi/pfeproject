@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <h2>📁 Mes Affaires Assignées</h2>
+
+  <input
+    type="text"
+    class="form-control my-3"
+    placeholder="🔍 Rechercher par numéro ou objet"
+    [(ngModel)]="searchTerm"
+  />
+
+  <div *ngIf="isLoading">Chargement en cours...</div>
+  <div *ngIf="error" class="text-danger">{{ error }}</div>
+
+  <div *ngIf="!isLoading && !error && filteredAffaires.length === 0">
+    Aucun résultat trouvé.
+  </div>
+
+  <table
+    *ngIf="filteredAffaires.length > 0"
+    class="table table-striped table-bordered"
+  >
+    <thead class="table-dark">
+      <tr>
+        <th>Numéro</th>
+        <th>Objet</th>
+        <th>Réclamation</th>
+        <th>Date Convocation</th>
+        <th>Clôture</th>
+        <th>Degré Juridique</th>
+        <th>Type Client</th>
+        <th>Type Tribunal</th>
+        <th>🧾 Issue du Jugement</th>
+        <th>Remarques</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let affaire of filteredAffaires">
+        <td>{{ affaire.numeroAffaire }}</td>
+        <td>{{ affaire.objet }}</td>
+        <td>{{ affaire.reclamation?.type || 'Non spécifié' }}</td>
+        <td>{{ affaire.dateConvocation | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ affaire.dateCloture | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ affaire.degreJuridique }}</td>
+        <td>{{ affaire.typeClient }}</td>
+        <td>{{ affaire.tribunal?.typeTribunal || 'Non spécifié' }}</td>
+        <td>
+          {{
+            affaire.jugements?.length
+              ? affaire.jugements[affaire.jugements.length - 1]?.issue || 'Non rendu'
+              : 'Non rendu'
+          }}
+        </td>
+        <td>{{ affaire.remarques }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

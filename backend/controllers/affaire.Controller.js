@@ -8,6 +8,7 @@ const Demandeur = require('../models/Demandeur.model');
 const Saisie = require('../models/Saisie.model');
 const Consignation = require('../models/Consignation.model');
 const Tribunal=require('../models/Tribunal.model');
+const Jugement=require('../models/jugement.model');
 const { v4: uuidv4 } = require('uuid');
 
 const affaireController = {};
@@ -145,6 +146,7 @@ affaireController.getAllAffaires = async (req, res) => {
         path: 'saisies',
         select: 'numeroSaisie -_id'
       })
+       
       .populate({
         path: 'consignations', 
         select: 'montant dateConsignation dateRecuperation -_id ' // Récupère la dateConsignation correctement
@@ -389,5 +391,85 @@ affaireController.assigneSaisie = async (req, res) => {
 };
 
 
+affaireController.getAffairesByAvocat = async (req, res) => {
+  try {
+    const utilisateurId = req.user.userId;
+    console.log("ID de l'utilisateur connecté:", utilisateurId);
 
+    const avocat = await Avocat.findOne({ utilisateur: utilisateurId }).populate({
+      path: 'affairesAttribuees',
+      populate: [
+        {
+          path: 'tribunal',
+          select: 'typeTribunal'
+        },
+        {
+          path: 'jugements',
+          select: 'issue'  // <-- ici on récupère juste le champ "issue"
+        }
+      ]
+    });
+
+    if (!avocat) {
+      return res.status(404).json({ message: "Avocat non trouvé." });
+    }
+
+    const affaires = avocat.affairesAttribuees;
+
+    if (!affaires || affaires.length === 0) {
+      return res.status(404).json({ message: "Aucune affaire assignée à cet avocat." });
+    }
+
+    return res.status(200).json(affaires);
+  } catch (error) {
+    console.error("Erreur dans la récupération des affaires:", error);
+    return res.status(500).json({ message: "Erreur serveur." });
+  }
+};
+
+affaireController.assigneJugement = async (req, res) => {
+  try {
+    const { affaireId, dateJugement, montant, issue, remarque } = req.body;
+
+    // Vérification ID valide
+    if (!mongoose.Types.ObjectId.isValid(affaireId)) {
+      return res.status(400).json({ message: "ID d'affaire invalide" });
+    }
+
+    // Recherche de l'affaire
+    const affaire = await Affaire.findById(affaireId);
+    if (!affaire) {
+      return res.status(404).json({ message: "Affaire non trouvée" });
+    }
+
+    // Utilisation d'une variable temporaire pour éviter redéclaration
+    const jugementDate = dateJugement || Date.now();
+
+    // Création du jugement
+    const jugement = await Jugement.create({
+      affaire: affaire._id,
+      dateJugement: jugementDate,
+      montant,
+      issue,
+      remarques: remarque // Assure-toi que le champ est bien "remarques" dans le modèle
+    });
+
+    // Ajout du jugement à l'affaire
+    if (!affaire.jugements) {
+      affaire.jugements = [];
+    }
+    affaire.jugements.push(jugement._id);
+    await affaire.save();
+
+    // Réponse succès
+    res.status(201).json({
+      message: "Jugement créé et assigné avec succès",
+      jugement
+    });
+
+  } catch (error) {
+    console.error("Erreur jugement :", error);
+    res.status(500).json({ message: "Erreur serveur", error: error.message });
+  }
+};
 module.exports = affaireController;
