@@ -29,6 +29,7 @@ import { DossiersComponent } from './dossiers/dossiers.component';
 import { DossierDetailComponent } from './dossier-detail/dossier-detail.component'; // Importer le composant
 import { MesAffairesListeComponent } from './mes-affaires-liste/mes-affaires-liste.component';
 import { AffaireJugementComponent } from './affaire-jugement/affaire-jugement.component';
+import { AjouterDossierComponent } from './ajouter-dossier/ajouter-dossier.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -52,6 +53,7 @@ const routes: Routes = [
     component: AvocatDashboardComponent,
     children: [
       { path: 'mes-affaires-liste', component: MesAffairesListeComponent },
+      {path:'ajouter-dossier',component:AjouterDossierComponent}
       // Ajoutez d'autres routes pour l'avocat ici si nécessaire
     ]
   },

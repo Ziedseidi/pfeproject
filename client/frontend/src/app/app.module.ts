@@ -49,6 +49,7 @@ import { DossiersComponent } from './dossiers/dossiers.component';
 import { DossierDetailComponent } from './dossier-detail/dossier-detail.component';
 import { MesAffairesListeComponent } from './mes-affaires-liste/mes-affaires-liste.component';
 import { AffaireJugementComponent } from './affaire-jugement/affaire-jugement.component';
+import { AjouterDossierComponent } from './ajouter-dossier/ajouter-dossier.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { AffaireJugementComponent } from './affaire-jugement/affaire-jugement.co
     DossierDetailComponent,
     MesAffairesListeComponent,
     AffaireJugementComponent,
+    AjouterDossierComponent,
   ],
   imports: [
     BrowserModule,

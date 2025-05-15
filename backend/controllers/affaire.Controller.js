@@ -9,6 +9,7 @@ const Saisie = require('../models/Saisie.model');
 const Consignation = require('../models/Consignation.model');
 const Tribunal=require('../models/Tribunal.model');
 const Jugement=require('../models/jugement.model');
+const Contrat=require('../models/Contrat.model');
 const { v4: uuidv4 } = require('uuid');
 
 const affaireController = {};
@@ -472,4 +473,31 @@ affaireController.assigneJugement = async (req, res) => {
     res.status(500).json({ message: "Erreur serveur", error: error.message });
   }
 };
+
+affaireController.getContratsByAvocat=async(req,res)=>{
+try {
+    const utilisateurId = req.user.userId;
+    console.log("ID de l'utilisateur connecté:", utilisateurId);
+
+    const avocat = await Avocat.findOne({ utilisateur: utilisateurId });
+
+    if (!avocat) {
+      return res.status(404).json({ message: "Avocat non trouvé." });
+    }
+
+    const contrats = await Contrat.find({ avocats: avocat._id }).populate({
+      path: 'affaires',
+      select: 'numeroAffaire titre'
+    });
+
+    if (!contrats || contrats.length === 0) {
+      return res.status(404).json({ message: "Aucun contrat assigné à cet avocat." });
+    }
+
+    return res.status(200).json(contrats);
+  } catch (error) {
+    console.error("Erreur dans la récupération des contrats:", error);
+    return res.status(500).json({ message: "Erreur serveur." });
+  }
+}
 module.exports = affaireController;

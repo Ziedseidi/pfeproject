@@ -9,12 +9,14 @@ const avocatSchema = new Schema({
     region: { type: String },
     honoraires: { type: Number },
     affairesAttribuees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Affaire' }],
-    
+
     degreJuridiction: {
         type: String,
         enum: ['Première Instance', 'Appel', 'Cassation'],
         default: 'Première Instance'
-    }
+    },
+
+    contrats: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Contrat' }] // tableau des contrats
 }, { timestamps: true });
 
 module.exports = mongoose.model('Avocat', avocatSchema);

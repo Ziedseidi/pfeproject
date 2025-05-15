@@ -12,7 +12,7 @@ const contratSchema = new mongoose.Schema({
 
     fichier: { type: String, default: null },
 
-    avocat: { type: mongoose.Schema.Types.ObjectId, ref: 'Avocat', required: true },
+    avocat: { type: mongoose.Schema.Types.ObjectId, ref: 'Avocat', required: true }, // un seul avocat
     affaires: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Affaire' }]
 }, { timestamps: true });
 
