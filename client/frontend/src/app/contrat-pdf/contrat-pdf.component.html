@@ -1,0 +1,24 @@
+<div *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="pdfs.length === 0 && !errorMessage">
+  Aucun PDF disponible.
+</div>
+
+<ul *ngIf="pdfs.length > 0" class="pdf-list">
+  <li *ngFor="let pdf of pdfs" class="pdf-item">
+    <div class="pdf-actions">
+      <button class="btn btn-accept">Accepter</button>
+      <button class="btn btn-refuse">Refuser</button>
+    </div>
+    <a [href]="pdf.url" target="_blank" rel="noopener noreferrer" class="pdf-card" aria-label="Ouvrir le PDF">
+      <div class="pdf-icon-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="pdf-icon" aria-hidden="true" width="24" height="24">
+          <path d="M6 2h7l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM13 3.5V9h5.5L13 3.5zM8.5 14v-2h2v-1h-2V9h3v1.5h-2v1h2v2h-3z"/>
+        </svg>
+      </div>
+      <span class="pdf-label">Contrat n° {{ pdf.numeroAffaire }}</span>
+    </a>
+  </li>
+</ul>

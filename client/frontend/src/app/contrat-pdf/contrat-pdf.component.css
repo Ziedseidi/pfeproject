@@ -1,0 +1,86 @@
+.pdf-list {
+  list-style: none;
+  padding: 15;
+  display: flex;
+  gap: 12px; /* Espace entre les feuillets */
+  flex-wrap: wrap;
+}
+
+.pdf-item {
+  /* rien ici */
+}
+
+.pdf-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 3,5cm;
+  height: 3cm;
+
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
+
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.pdf-card:hover {
+  background-color: #ffe6e6;
+  box-shadow: 2px 4px 8px rgba(230, 57, 70, 0.5);
+}
+
+.pdf-icon-container {
+  flex-shrink: 0;
+  margin-bottom: 8px;
+}
+
+.pdf-icon {
+  width: 32px;
+  height: 32px;
+  fill: #e63946;
+}
+
+.pdf-label {
+  font-size: 0.85rem;
+  text-align: center;
+}
+.pdf-actions {
+  margin-bottom: 8px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 3px 3px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.btn-accept {
+  background-color: #28a745; /* Vert */
+}
+
+.btn-accept:hover {
+  background-color: #218838;
+}
+
+.btn-refuse {
+  background-color: #dc3545; /* Rouge */
+}
+
+.btn-refuse:hover {
+  background-color: #c82333;
+}

@@ -474,30 +474,6 @@ affaireController.assigneJugement = async (req, res) => {
   }
 };
 
-affaireController.getContratsByAvocat=async(req,res)=>{
-try {
-    const utilisateurId = req.user.userId;
-    console.log("ID de l'utilisateur connecté:", utilisateurId);
 
-    const avocat = await Avocat.findOne({ utilisateur: utilisateurId });
 
-    if (!avocat) {
-      return res.status(404).json({ message: "Avocat non trouvé." });
-    }
-
-    const contrats = await Contrat.find({ avocats: avocat._id }).populate({
-      path: 'affaires',
-      select: 'numeroAffaire titre'
-    });
-
-    if (!contrats || contrats.length === 0) {
-      return res.status(404).json({ message: "Aucun contrat assigné à cet avocat." });
-    }
-
-    return res.status(200).json(contrats);
-  } catch (error) {
-    console.error("Erreur dans la récupération des contrats:", error);
-    return res.status(500).json({ message: "Erreur serveur." });
-  }
-}
 module.exports = affaireController;

@@ -29,12 +29,12 @@ export class ContratComponent implements OnInit {
       dateEffet: ['', Validators.required],
       duree: [''],
       dateFin: [''],
-      datePreavis: ['']
+      datePreavis: [''],
+      etat: ['en attente'] 
     });
   }
 
   ngOnInit(): void {
-    // Récupération des valeurs initiales ou autres tâches
   }
 
   onSubmit(): void {
@@ -43,7 +43,6 @@ export class ContratComponent implements OnInit {
         (response) => {
           console.log('Contrat créé avec succès', response);
 
-          // Vérifier si la réponse contient le champ 'fichier' et l'assigner à pdfUrl
           if (response && response.fichier) {
             this.pdfUrl = response.fichier;
             this.pdfGenerated = true;

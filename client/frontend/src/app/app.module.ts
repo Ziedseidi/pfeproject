@@ -50,6 +50,7 @@ import { DossierDetailComponent } from './dossier-detail/dossier-detail.componen
 import { MesAffairesListeComponent } from './mes-affaires-liste/mes-affaires-liste.component';
 import { AffaireJugementComponent } from './affaire-jugement/affaire-jugement.component';
 import { AjouterDossierComponent } from './ajouter-dossier/ajouter-dossier.component';
+import { ContratPdfComponent } from './contrat-pdf/contrat-pdf.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { AjouterDossierComponent } from './ajouter-dossier/ajouter-dossier.compo
     MesAffairesListeComponent,
     AffaireJugementComponent,
     AjouterDossierComponent,
+    ContratPdfComponent,
   ],
   imports: [
     BrowserModule,

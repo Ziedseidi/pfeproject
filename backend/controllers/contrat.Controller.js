@@ -8,6 +8,7 @@ const generateContractPdf = require('../utils/generateContractPdf');
 
 const contratController = {};
 
+
 contratController.createContrat = async (req, res) => {
   try {
     const {
@@ -16,9 +17,11 @@ contratController.createContrat = async (req, res) => {
       demandeurNom,
       demandeurPrenom,
       numeroAffaire,
+      etat,
       ...contratData
     } = req.body;
 
+    // Vérification des champs requis
     if (!avocatNom || !avocatPrenom || !demandeurNom || !demandeurPrenom || !numeroAffaire) {
       return res.status(400).json({ message: 'Champs requis manquants.' });
     }
@@ -29,7 +32,6 @@ contratController.createContrat = async (req, res) => {
       return res.status(404).json({ message: "Utilisateur avocat introuvable." });
     }
 
-    // Trouver l'avocat lié à cet utilisateur
     const avocat = await Avocat.findOne({ utilisateur: utilisateurAvocat._id });
     if (!avocat) {
       return res.status(404).json({ message: "Avocat introuvable." });
@@ -41,39 +43,38 @@ contratController.createContrat = async (req, res) => {
       return res.status(404).json({ message: "Utilisateur demandeur introuvable." });
     }
 
-    // Trouver le demandeur lié à cet utilisateur
     const demandeur = await Demandeur.findOne({ utilisateur: utilisateurDemandeur._id });
     if (!demandeur) {
       return res.status(404).json({ message: "Demandeur introuvable." });
     }
 
-    // Récupérer les affaires
+    // Récupérer les affaires liées
     const numeroAffaireArray = Array.isArray(numeroAffaire) ? numeroAffaire : [numeroAffaire];
     const affaires = await Affaire.find({ numeroAffaire: { $in: numeroAffaireArray } });
     if (affaires.length === 0) {
       return res.status(404).json({ message: "Aucune affaire trouvée avec les numéros fournis." });
     }
 
-    // Créer le contrat (avocat est un ObjectId simple)
+    // Création du contrat avec ou sans état (valide uniquement)
     const contrat = new Contrat({
       ...contratData,
-      avocat: avocat._id,          // ici un seul avocat (pas tableau)
-      demandeur: demandeur._id,    // assure que ce champ existe dans ton schema Contrat
+      avocat: avocat._id,
+      demandeur: demandeur._id,
       affaires: affaires.map(a => a._id),
+      etat: ['en attente', 'accepté', 'refusé'].includes(etat) ? etat : 'en attente'
     });
 
     await contrat.save();
 
-    // Ajouter ce contrat à la liste des contrats de l'avocat
+    // Lier le contrat à l'avocat
     avocat.contrats.push(contrat._id);
     await avocat.save();
 
-    // Générer le PDF
+    // Génération du fichier PDF
     const fileName = `contrat_${contrat._id}.pdf`;
     const filePath = path.join(__dirname, '../pdfs', fileName);
     await generateContractPdf(contrat, avocat, demandeur, affaires, filePath);
 
-    // Sauvegarder le nom du fichier dans contrat
     contrat.fichier = fileName;
     await contrat.save();
 
@@ -81,8 +82,49 @@ contratController.createContrat = async (req, res) => {
 
   } catch (err) {
     console.error('Erreur création contrat :', err);
-    return res.status(500).json({ message: 'Erreur création du contrat' });
+    return res.status(500).json({ message: 'Erreur lors de la création du contrat.' });
+  }
+};
+contratController.getPdfContratsByAvocat = async (req, res) => {
+  try {
+    const utilisateurId = req.user.userId;
+
+    // Trouver l'avocat lié à l'utilisateur connecté
+    const avocat = await Avocat.findOne({ utilisateur: utilisateurId });
+    if (!avocat) {
+      return res.status(404).json({ message: "Avocat non trouvé." });
+    }
+
+    // Récupérer les contrats avec fichier et populate affaires (pour numeroAffaire)
+    const contrats = await Contrat.find({ avocat: avocat._id }, 'fichier affaires')
+      .populate({
+        path: 'affaires',
+        select: 'numeroAffaire',  // ne récupérer que numeroAffaire
+        options: { limit: 1 }     // si tu veux juste la première affaire
+      });
+
+    if (!contrats || contrats.length === 0) {
+      return res.status(404).json({ message: "Aucun contrat assigné à cet avocat." });
+    }
+
+    // Construire la réponse avec url + numeroAffaire
+    const pdfs = contrats
+      .filter(c => c.fichier)
+      .map(c => {
+        const numeroAffaire = (c.affaires && c.affaires.length > 0) ? c.affaires[0].numeroAffaire : 'N/A';
+        return {
+          url: `http://localhost:7501/pdfs/${c.fichier}`,
+          numeroAffaire
+        };
+      });
+
+    return res.status(200).json(pdfs);
+
+  } catch (error) {
+    console.error("Erreur dans la récupération des PDFs:", error);
+    return res.status(500).json({ message: "Erreur serveur." });
   }
 };
 
-module.exports = contratController;
+
+ module.exports=contratController;

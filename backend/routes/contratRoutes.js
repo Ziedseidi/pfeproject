@@ -7,6 +7,6 @@ const affaireController = require('../controllers/affaire.Controller');
 
 
 router.post('/ajouterContrat',authenticateToken,roleMiddleware('PersonelJurédique') ,contratController.createContrat);
-router.get('/Mes-Contrats',authenticateToken,roleMiddleware('Avocat'),affaireController.getContratsByAvocat),
+router.get('/Pdfs',authenticateToken,roleMiddleware('Avocat'),contratController.getPdfContratsByAvocat),
 
 module.exports = router;
