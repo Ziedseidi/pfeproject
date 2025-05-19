@@ -51,6 +51,9 @@ import { MesAffairesListeComponent } from './mes-affaires-liste/mes-affaires-lis
 import { AffaireJugementComponent } from './affaire-jugement/affaire-jugement.component';
 import { AjouterDossierComponent } from './ajouter-dossier/ajouter-dossier.component';
 import { ContratPdfComponent } from './contrat-pdf/contrat-pdf.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { NgChartsModule } from 'ng2-charts';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +98,8 @@ import { ContratPdfComponent } from './contrat-pdf/contrat-pdf.component';
     AffaireJugementComponent,
     AjouterDossierComponent,
     ContratPdfComponent,
+    StatisticsComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,6 +109,7 @@ import { ContratPdfComponent } from './contrat-pdf/contrat-pdf.component';
     ReactiveFormsModule,  // Ajoutez ReactiveFormsModule ici
     HttpClientModule,
     MatIconModule,  
+    NgChartsModule,
   ],
   providers: [DatePipe],  // Ajoute DatePipe ici pour qu'il soit disponible dans le composant
   bootstrap: [AppComponent]

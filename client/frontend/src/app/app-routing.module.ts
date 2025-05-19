@@ -31,6 +31,7 @@ import { MesAffairesListeComponent } from './mes-affaires-liste/mes-affaires-lis
 import { AffaireJugementComponent } from './affaire-jugement/affaire-jugement.component';
 import { AjouterDossierComponent } from './ajouter-dossier/ajouter-dossier.component';
 import { ContratPdfComponent } from './contrat-pdf/contrat-pdf.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -40,6 +41,7 @@ const routes: Routes = [
     path: 'admin-dashboard', 
     component: AdminDashboardComponent,
     children: [
+      { path: '', component: StatisticsComponent },
       { path: 'liste-utilisateurs', component: ListeUtilisateursComponent },
       { path: 'add-role', component: AjouterRoleComponent },
       { path: 'liste-roles', component: ListeRolesComponent }, 

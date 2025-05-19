@@ -1,0 +1,41 @@
+.charts-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 50px;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  background-color: #f8fafc;
+  width: 200%;
+  box-sizing: border-box;
+
+  margin-left: 25px; /* décale tout vers la droite (taille sidebar) */
+}
+
+.chart-wrapper {
+  flex: 0 0 calc((100% / 3) - 16px); /* 3 charts par ligne avec gap de 24px (2 gaps à 12px = 24px total) */
+  max-width: calc((100% / 3) - 16px);
+  background: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  height: 300px;          /* hauteur fixe égale */
+  min-height: 260px;
+}
+
+/* Responsive: 1 chart par ligne sur petit écran */
+@media (max-width: 748px) {
+  .chart-wrapper {
+    flex: 0 0 100%;
+    max-width: 200%;
+    height: auto;
+    min-height: auto;
+    margin-bottom: 20px;
+  }
+}

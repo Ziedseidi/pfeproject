@@ -1,0 +1,66 @@
+.charts-row {
+  display: flex;
+  justify-content: flex-end; /* aligne à droite */
+  gap: 32px;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  background-color: #f8fafc;
+  width: 120%;
+  box-sizing: border-box;
+}
+
+/* Taille fixe et identique pour chaque carte */
+.chart-wrapper {
+  flex: 0 0 48%;
+  max-width: 48%;
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  /* Taille fixe */
+  height: 340px; /* hauteur fixe identique */
+  min-height: 400px;
+}
+
+/* Carte en bas (centrée à droite) */
+.centered {
+  width: 110%;
+  max-width: 600px;
+  margin: 40px 0 0 auto;
+  background: white;
+  padding: 24px;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  /* Même hauteur pour uniformité */
+  height: 320px;
+  min-height: 320px;
+}
+
+/* Responsive : en petit écran, full width et hauteur auto */
+@media (max-width: 768px) {
+  .chart-wrapper,
+  .centered {
+    flex: 0 0 100%;
+    max-width: 100%;
+    height: auto; /* hauteur auto pour petit écran */
+    min-height: auto;
+  }
+
+  .centered {
+    margin-left: 0;
+  }
+}

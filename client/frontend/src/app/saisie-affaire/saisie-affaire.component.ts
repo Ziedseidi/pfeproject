@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./saisie-affaire.component.css']
 })
 export class SaisieAffaireComponent {
-  numeroAffaire: string = ''; // Numéro de l'affaire à rechercher
-  affaireId: string = ''; // Identifiant de l'affaire
-  objetsSaisis: string = ''; // Objets saisis
-  dateAudience: string = ''; // Date de l'audience
+  numeroAffaire: string = ''; 
+  affaireId: string = ''; 
+  objetsSaisis: string = ''; 
+  dateAudience: string = ''; 
   numeroSaisie: number | null = null; // Numéro de saisie
   nomAdverse: string = ''; // Nom adverse
   numeroPV: number | null = null; // Numéro du procès-verbal
@@ -23,16 +23,15 @@ export class SaisieAffaireComponent {
 
   constructor(private affaireService: AffaireService, private router: Router) {}
 
-  // Fonction de recherche d'affaire par numéro
+  
   onSearch(): void {
     if (!this.numeroAffaire) {
-      return; // Si le numéro d'affaire est vide, ne rien faire
+      return; 
     }
   
-    // Recherche de l'affaire par son numéro
     this.affaireService.rechercherAffaireParNumero(this.numeroAffaire).subscribe(
       (data) => {
-        this.affaire = data; // Stocke les données récupérées
+        this.affaire = data; 
         this.affaireId = this.affaire._id; // Assigner l'ID de l'affaire trouvée
         this.errorMessage = null; // Réinitialiser le message d'erreur si succès
       },
