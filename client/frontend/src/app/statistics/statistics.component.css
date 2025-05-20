@@ -1,41 +1,56 @@
 .charts-row {
   display: flex;
-  justify-content: flex-start;
-  gap: 50px;
-  flex-wrap: wrap;
-  padding: 10px 0;
-  background-color: #f8fafc;
-  width: 200%;
-  box-sizing: border-box;
-
-  margin-left: 25px; /* décale tout vers la droite (taille sidebar) */
+  justify-content: center;
+  gap: 40px;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  align-items: stretch; /* Cadres même hauteur */
 }
 
 .chart-wrapper {
-  flex: 0 0 calc((100% / 3) - 16px); /* 3 charts par ligne avec gap de 24px (2 gaps à 12px = 24px total) */
-  max-width: calc((100% / 3) - 16px);
-  background: rgb(255, 255, 255);
-  padding: 10px;
-  border-radius: 20px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-
+  flex: 1 1 320px;
+  max-width: 320px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  
+  /* Flex column pour alignement vertical */
   display: flex;
-  justify-content: center;
-  align-items: center;
-
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 400px; /* hauteur fixe identique */
   box-sizing: border-box;
-
-  height: 300px;          /* hauteur fixe égale */
-  min-height: 260px;
 }
 
-/* Responsive: 1 chart par ligne sur petit écran */
-@media (max-width: 748px) {
-  .chart-wrapper {
-    flex: 0 0 100%;
-    max-width: 200%;
-    height: auto;
-    min-height: auto;
-    margin-bottom: 20px;
-  }
+.chart-wrapper h3 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  height: 40px; /* hauteur fixe titre */
+  line-height: 40px;
+  text-align: center;
+  user-select: none;
+  flex-shrink: 0; /* empêcher de rétrécir */
+}
+
+.chart-wrapper .chart-content {
+  /* Prend toute la hauteur restante sous le titre */
+  flex-grow: 1;
+  display: flex;
+  align-items: center; /* centre verticalement le canvas */
+  justify-content: center; /* centre horizontalement */
+}
+
+.chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 12px;
+  object-fit: contain;
+  display: block;
 }

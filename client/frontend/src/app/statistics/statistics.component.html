@@ -1,14 +1,14 @@
 <div class="charts-row">
   <div class="chart-wrapper">
-    <app-chart [data]="affairesData" [options]="affairesOptions" [type]="affairesType"></app-chart>
+    <h3>Affaires par degré juridique</h3>
+    <div class="chart-content">
+      <app-chart [data]="affairesData" [options]="affairesOptions" [type]="affairesType"></app-chart>
+    </div>
   </div>
   <div class="chart-wrapper">
-    <app-chart [data]="typesData" [options]="typesOptions" [type]="typesType"></app-chart>
-  </div>
-</div>
-
-<div class="charts-row">
-  <div class="chart-wrapper">
-    <app-chart [data]="tribunauxData" [options]="tribunauxOptions" [type]="tribunauxType"></app-chart>
+    <h3>Nombre d'avocats par degré avec affaires</h3>
+    <div class="chart-content">
+      <app-chart [data]="avocatsData" [options]="avocatsOptions" [type]="avocatsType"></app-chart>
+    </div>
   </div>
 </div>

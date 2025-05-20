@@ -474,6 +474,68 @@ affaireController.assigneJugement = async (req, res) => {
   }
 };
 
+affaireController.countByDegreJuridique = async (req, res) => {
+  try {
+    const result = await Affaire.aggregate([
+      {
+        $group: {
+          _id: '$degreJuridique',
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    // Les 3 degrés attendus
+    const allDegrees = ['1er degré', '2ème degré', '3ème degré'];
+
+    // Transformer en objet clé:valeur
+    const formatted = {};
+    allDegrees.forEach(degree => {
+      // Chercher le count correspondant, ou 0 sinon
+      const found = result.find(item => item._id === degree);
+      formatted[degree] = found ? found.count : 0;
+    });
+
+    res.status(200).json(formatted);
+  } catch (error) {
+    console.error('Erreur dans countByDegreJuridique :', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+};
+
+affaireController.countAvocatsByDegreWithAffaires= async (req, res) => {
+  try {
+    const result = await Avocat.aggregate([
+      {
+        $match: {
+          affairesAttribuees: { $exists: true, $not: { $size: 0 } } // filtre avocats avec affaires
+        }
+      },
+      {
+        $group: {
+          _id: '$degreJuridiction',
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    // Normaliser le résultat pour inclure tous les degrés même si zéro
+    const degrees = ['Première Instance', 'Appel', 'Cassation'];
+    const formatted = {};
+    degrees.forEach(degree => {
+      const found = result.find(r => r._id === degree);
+      formatted[degree] = found ? found.count : 0;
+    });
+
+    res.status(200).json(formatted);
+
+  } catch (error) {
+    console.error('Erreur dans countAvocatsByDegreWithAffaires :', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+};
+
+
 
 
 module.exports = affaireController;
