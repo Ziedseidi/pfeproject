@@ -37,7 +37,6 @@ contratController.createContrat = async (req, res) => {
       return res.status(404).json({ message: "Avocat introuvable." });
     }
 
-    // Trouver l'utilisateur demandeur
     const utilisateurDemandeur = await User.findOne({ nom: demandeurNom, prenom: demandeurPrenom });
     if (!utilisateurDemandeur) {
       return res.status(404).json({ message: "Utilisateur demandeur introuvable." });
@@ -48,14 +47,12 @@ contratController.createContrat = async (req, res) => {
       return res.status(404).json({ message: "Demandeur introuvable." });
     }
 
-    // Récupérer les affaires liées
     const numeroAffaireArray = Array.isArray(numeroAffaire) ? numeroAffaire : [numeroAffaire];
     const affaires = await Affaire.find({ numeroAffaire: { $in: numeroAffaireArray } });
     if (affaires.length === 0) {
       return res.status(404).json({ message: "Aucune affaire trouvée avec les numéros fournis." });
     }
 
-    // Création du contrat avec ou sans état (valide uniquement)
     const contrat = new Contrat({
       ...contratData,
       avocat: avocat._id,
@@ -95,34 +92,55 @@ contratController.getPdfContratsByAvocat = async (req, res) => {
       return res.status(404).json({ message: "Avocat non trouvé." });
     }
 
-    // Récupérer les contrats avec fichier et populate affaires (pour numeroAffaire)
-    const contrats = await Contrat.find({ avocat: avocat._id }, 'fichier affaires')
-      .populate({
-        path: 'affaires',
-        select: 'numeroAffaire',  // ne récupérer que numeroAffaire
-        options: { limit: 1 }     // si tu veux juste la première affaire
-      });
+    // Récupérer les contrats avec le fichier
+    const contrats = await Contrat.find({ avocat: avocat._id }, 'fichier');
 
     if (!contrats || contrats.length === 0) {
       return res.status(404).json({ message: "Aucun contrat assigné à cet avocat." });
     }
 
-    // Construire la réponse avec url + numeroAffaire
+    // Filtrer les contrats avec fichier et construire la réponse avec uniquement _id et url
     const pdfs = contrats
       .filter(c => c.fichier)
-      .map(c => {
-        const numeroAffaire = (c.affaires && c.affaires.length > 0) ? c.affaires[0].numeroAffaire : 'N/A';
-        return {
-          url: `http://localhost:7501/pdfs/${c.fichier}`,
-          numeroAffaire
-        };
-      });
+      .map(c => ({
+        _id: c._id,
+        url: `http://localhost:7501/pdfs/${c.fichier}`
+      }));
 
     return res.status(200).json(pdfs);
-
   } catch (error) {
     console.error("Erreur dans la récupération des PDFs:", error);
     return res.status(500).json({ message: "Erreur serveur." });
+  }
+};
+
+contratController.accepterContrat = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const contrat = await Contrat.findByIdAndUpdate(
+      id,
+      { etat: 'accepté' },
+      { new: true }
+    );
+    if (!contrat) return res.status(404).json({ message: 'Contrat introuvable' });
+    res.json({ message: 'Contrat accepté avec succès', contrat });
+  } catch (err) {
+    res.status(500).json({ message: 'Erreur serveur', error: err.message });
+  }
+};
+
+contratController.refuserContrat = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const contrat = await Contrat.findByIdAndUpdate(
+      id,
+      { etat: 'refusé' },
+      { new: true }
+    );
+    if (!contrat) return res.status(404).json({ message: 'Contrat introuvable' });
+    res.json({ message: 'Contrat refusé avec succès', contrat });
+  } catch (err) {
+    res.status(500).json({ message: 'Erreur serveur', error: err.message });
   }
 };
 

@@ -40,14 +40,25 @@ export class ContratService {
       );
   }
 
-  getPdfContrats(): Observable<PdfContrat[]> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<PdfContrat[]>(`${this.apiUrl}/pdfs`, { headers })
-      .pipe(
-        catchError(error => {
-          console.error('Erreur lors de la récupération des PDFs:', error);
-          return throwError(() => new Error('Échec de la récupération des PDFs. Veuillez réessayer plus tard.'));
-        })
-      );
-  }
+  getPdfContrats(): Observable<any[]> {
+  const headers = this.getAuthHeaders();
+  return this.http.get<any[]>(`${this.apiUrl}/pdfs`, { headers })
+    .pipe(
+      catchError(error => {
+        console.error('Erreur lors de la récupération des PDFs:', error);
+        return throwError(() => new Error('Échec de la récupération des PDFs. Veuillez réessayer plus tard.'));
+      })
+    );
+}
+
+  accepterContrat(contratId: string): Observable<any> {
+  const headers = this.getAuthHeaders();
+  return this.http.put(`${this.apiUrl}/${contratId}/accepter`, {}, { headers });
+}
+
+refuserContrat(contratId: string): Observable<any> {
+  const headers = this.getAuthHeaders();
+  return this.http.put(`${this.apiUrl}/${contratId}/refuser`, {}, { headers });
+}
+
 }

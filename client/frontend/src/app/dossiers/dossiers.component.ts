@@ -37,7 +37,6 @@ export class DossiersComponent implements OnInit {
     });
   }
 
-  // Getter pour retourner les dossiers filtrés
   get filteredDossiers(): Dossier[] {
     return this.dossiers.filter(dossier =>
       dossier.numeroAffaire?.toLowerCase().includes(this.searchTerm.toLowerCase())

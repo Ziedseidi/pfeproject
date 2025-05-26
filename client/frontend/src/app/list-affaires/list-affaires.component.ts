@@ -85,7 +85,6 @@ export class ListAffairesComponent implements OnInit {
       });
   }
 
-  // Méthode pour formater la date
   formatDate(date: string): string {
     const parsedDate = new Date(date);
     return !isNaN(parsedDate.getTime()) ? parsedDate.toLocaleDateString() : '—';

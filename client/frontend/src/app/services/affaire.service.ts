@@ -50,8 +50,8 @@ export class AffaireService {
   }
 
   // Récupérer les avocats éligibles pour une affaire
-  getAvocatsEligibles(affaireId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/avocats-eligibles/${affaireId}`, {
+ getAvocatsEligibles(affaireId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/avocats-eligibles/${affaireId}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError((error) => {
@@ -61,19 +61,26 @@ export class AffaireService {
     );
   }
 
-  // Assigner un avocat à une affaire
   assignAvocatToAffaire(utilisateurId: string, affaireId: string): Observable<any> {
-    return this.http.post(
-      `${this.apiUrl}/assign_avocat`,
+    return this.http.post<any>(
+      `${this.apiUrl}/assign_avocat`, // endpoint POST pour assigner avocat à affaire
       { utilisateurId, affaireId },
       { headers: this.getAuthHeaders() }
     ).pipe(
       catchError(err => {
         console.error('Erreur lors de l\'assignation de l\'avocat:', err);
+
+        if (err.status === 403 && err.error?.message === "Cet avocat n’a aucun contrat accepté.") {
+          return throwError(() => new Error("Cet avocat n’a aucun contrat accepté. Veuillez choisir un autre avocat."));
+        }
+
+        // Gestion d'autres erreurs côté backend
         return throwError(() => new Error(err.error?.message || 'Erreur inconnue lors de l\'assignation.'));
       })
     );
   }
+
+
   rechercherAffaireParNumero(numeroAffaire: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/rechercheAffaire/${numeroAffaire}`, {
       headers: this.getAuthHeaders()

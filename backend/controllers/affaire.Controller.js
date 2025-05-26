@@ -86,7 +86,11 @@ affaireController.assignAvocatToAffaire = async (req, res) => {
       return res.status(404).json({ message: "Aucun avocat pour cet utilisateur." });
     }
 
-    // Vérification si l'affaire a déjà un avocat assigné
+    const contratAccepte = await Contrat.findOne({ avocat: avocat._id, etat: 'accepté' });
+    if (!contratAccepte) {
+      return res.status(403).json({ message: "Cet avocat n’a aucun contrat accepté." });
+    }
+
     const affaire = await Affaire.findById(affaireId);
     if (!affaire) {
       return res.status(404).json({ message: "Affaire non trouvée." });
@@ -185,8 +189,7 @@ affaireController.getAllAffaires = async (req, res) => {
 
 
 
-
-affaireController.getAvocatsEligibles= async(req,res)=>{
+affaireController.getAvocatsEligibles = async (req, res) => {
   try {
     const { affaireId } = req.params;
     const affaire = await Affaire.findById(affaireId);
@@ -207,13 +210,28 @@ affaireController.getAvocatsEligibles= async(req,res)=>{
       return res.status(400).json({ message: "Degré juridique invalide." });
     }
 
+    // Trouver les avocats avec le bon degré de juridiction
+    // Puis peupler les contrats qui ont l'état 'accepté'
     const avocats = await Avocat.find(condition)
-      .populate('utilisateur', 'nom prenom email')
+      .populate({
+        path: 'utilisateur',
+        select: 'nom prenom email'
+      })
+      .populate({
+        path: 'contrats',
+        match: { etat: 'accepté' },  // SEULES les contrats acceptés seront peuplés
+        select: 'etat dateSignature'
+      })
       .lean();
 
-    const disponibles = avocats.filter(a => (a.affairesAttribuees?.length || 0) < 10);
+    // Garder uniquement les avocats qui ont au moins un contrat accepté (contrats non vide)
+    const avocatsEligibles = avocats.filter(avocat => avocat.contrats.length > 0);
+
+    // Garder uniquement les avocats ayant moins de 10 affaires attribuées
+    const disponibles = avocatsEligibles.filter(a => (a.affairesAttribuees?.length || 0) < 10);
 
     return res.status(200).json(disponibles);
+
   } catch (error) {
     console.error("Erreur getAvocatsEligibles :", error);
     return res.status(500).json({ message: "Erreur serveur." });

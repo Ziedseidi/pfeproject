@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ContratService, PdfContrat } from '../services/contrat.service';
+import { ContratService } from '../services/contrat.service';
 
 @Component({
   selector: 'app-contrat-pdf',
@@ -7,8 +7,9 @@ import { ContratService, PdfContrat } from '../services/contrat.service';
   styleUrls: ['./contrat-pdf.component.css']
 })
 export class ContratPdfComponent implements OnInit {
-  pdfs: PdfContrat[] = [];  // tableau d'objets { url, numeroAffaire }
+  pdfs: any[] = [];
   errorMessage: string = '';
+  successMessage: string = '';
 
   constructor(private contratService: ContratService) {}
 
@@ -20,11 +21,40 @@ export class ContratPdfComponent implements OnInit {
     this.contratService.getPdfContrats().subscribe({
       next: (data) => {
         this.pdfs = data;
+        this.errorMessage = '';
       },
       error: (err) => {
-        this.errorMessage = err.message || 'Erreur lors du chargement des PDFs.';
+        this.errorMessage = err.message || 'Erreur lors du chargement des contrats PDF.';
+        this.pdfs = [];
       }
     });
   }
-  
+
+  accepter(contratId: string): void {
+    this.contratService.accepterContrat(contratId).subscribe({
+      next: () => {
+        this.successMessage = 'Contrat accepté avec succès.';
+        this.errorMessage = '';
+        this.loadPdfs();
+      },
+      error: (err) => {
+        this.successMessage = '';
+        this.errorMessage = err.message || 'Erreur lors de l’acceptation du contrat.';
+      }
+    });
+  }
+
+  refuser(contratId: string): void {
+    this.contratService.refuserContrat(contratId).subscribe({
+      next: () => {
+        this.successMessage = 'Contrat refusé avec succès.';
+        this.errorMessage = '';
+        this.loadPdfs();
+      },
+      error: (err) => {
+        this.successMessage = '';
+        this.errorMessage = err.message || 'Erreur lors du refus du contrat.';
+      }
+    });
+  }
 }

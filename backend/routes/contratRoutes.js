@@ -8,5 +8,8 @@ const affaireController = require('../controllers/affaire.Controller');
 
 router.post('/ajouterContrat',authenticateToken,roleMiddleware('PersonelJurédique') ,contratController.createContrat);
 router.get('/Pdfs',authenticateToken,roleMiddleware('Avocat'),contratController.getPdfContratsByAvocat),
+router.put('/:id/accepter', authenticateToken,roleMiddleware('Avocat'),contratController.accepterContrat);
+router.put('/:id/refuser', authenticateToken,roleMiddleware('Avocat'),contratController.refuserContrat);
+
 
 module.exports = router;
