@@ -32,7 +32,7 @@ import { AffaireJugementComponent } from './affaire-jugement/affaire-jugement.co
 import { AjouterDossierComponent } from './ajouter-dossier/ajouter-dossier.component';
 import { ContratPdfComponent } from './contrat-pdf/contrat-pdf.component';
 import { StatisticsComponent } from './statistics/statistics.component';
-
+import { ChatbotJuridiqueComponent } from './chatbot-juridique/chatbot-juridique.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   
@@ -71,6 +71,7 @@ const routes: Routes = [
   { path: 'consignation-affaire', component: ConsignationAffaireComponent },
   { path: 'saisie-affaire', component: SaisieAffaireComponent },
 { path: 'affaire-jugement', component: AffaireJugementComponent },
+{ path: 'chatbot', component: ChatbotJuridiqueComponent },
 
   
   // Route pour la liste des dossiers

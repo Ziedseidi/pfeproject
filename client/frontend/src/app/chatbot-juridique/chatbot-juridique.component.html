@@ -1,0 +1,19 @@
+<p>chatbot-juridique works!</p>
+<div class="chatbot-container">
+  <h2>Chatbot Juridique</h2>
+
+  <input
+    type="text"
+    [(ngModel)]="question"
+    placeholder="Posez votre question juridique ici"
+    (keyup.enter)="poserQuestion()"
+  />
+  <button (click)="poserQuestion()">Envoyer</button>
+
+  <div *ngIf="loading">Recherche en cours...</div>
+  <div *ngIf="erreur" class="error">{{ erreur }}</div>
+
+  <div *ngIf="reponse" class="reponse">
+    <strong>Réponse :</strong> {{ reponse }}
+  </div>
+</div>

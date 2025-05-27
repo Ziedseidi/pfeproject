@@ -54,6 +54,7 @@ import { ContratPdfComponent } from './contrat-pdf/contrat-pdf.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartComponent } from './chart/chart.component';
+import { ChatbotJuridiqueComponent } from './chatbot-juridique/chatbot-juridique.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { ChartComponent } from './chart/chart.component';
     ContratPdfComponent,
     StatisticsComponent,
     ChartComponent,
+    ChatbotJuridiqueComponent,
   ],
   imports: [
     BrowserModule,
