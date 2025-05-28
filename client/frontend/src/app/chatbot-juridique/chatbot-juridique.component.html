@@ -1,19 +1,30 @@
-<p>chatbot-juridique works!</p>
-<div class="chatbot-container">
-  <h2>Chatbot Juridique</h2>
+<div class="chatbot-wrapper">
+  <!-- HEADER -->
+  <div class="chatbot-header">
+    <img src="assets/juridique-bot.png" alt="Bot" class="bot-icon" />
+    <div>
+      <h3>Juridique-bot </h3>
+      <small>Your Virtual Assistant</small>
+    </div>
+  </div>
 
-  <input
-    type="text"
-    [(ngModel)]="question"
-    placeholder="Posez votre question juridique ici"
-    (keyup.enter)="poserQuestion()"
-  />
-  <button (click)="poserQuestion()">Envoyer</button>
+  <!-- CORPS DU CHAT -->
+  <div class="chatbot-body">
+    <div *ngFor="let msg of messages" class="chat-message" [ngClass]="msg.type">
+      {{ msg.text }}
+    </div>
 
-  <div *ngIf="loading">Recherche en cours...</div>
-  <div *ngIf="erreur" class="error">{{ erreur }}</div>
+    <div *ngIf="loading" class="chat-message bot">Recherche en cours...</div>
+  </div>
 
-  <div *ngIf="reponse" class="reponse">
-    <strong>Réponse :</strong> {{ reponse }}
+  <!-- PIED DU CHAT -->
+  <div class="chatbot-footer">
+    <input
+      type="text"
+      [(ngModel)]="question"
+      (keyup.enter)="poserQuestion()"
+      placeholder="Tapez votre message ici"
+    />
+    <button (click)="poserQuestion()">➤</button>
   </div>
 </div>

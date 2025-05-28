@@ -1,30 +1,104 @@
-.chatbot-container {
-  max-width: 500px;
-  margin: 20px auto;
-  font-family: Arial, sans-serif;
+.chatbot-wrapper {
+  width: 350px;
+  max-width: 100%;
+  border: 1px solid #ff0000;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+  font-family: "Segoe UI", sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #fff;
+}
+.chatbot-header {
+  display: flex;
+  align-items: center;
+  background-color: #fc0404;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  color: white;
+
+  .bot-icon {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 20px;
+    color: white;
+  }
+
+  small {
+    font-size: 14px;
+    color: white;
+  }
+}
+.chatbot-body {
+  flex-grow: 1;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
-input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-  margin-bottom: 10px;
+.chat-message {
+  padding: 10px 14px;
+  border-radius: 20px;
+  max-width: 80%;
+  word-wrap: break-word;
+
+  &.bot {
+    background-color: #f0f0f0;
+    align-self: flex-start;
+  }
+
+  &.user {
+    background-color: #ff0000;
+    color: white;
+    align-self: flex-end;
+  }
+
+  &.error {
+    color: red;
+    background-color: #ffe6e6;
+  }
 }
 
-button {
-  padding: 8px 16px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.error {
-  color: red;
-  margin-top: 10px;
-}
-
-.reponse {
-  margin-top: 20px;
-  background-color: #f0f8ff;
+/* === FOOTER === */
+.chatbot-footer {
+  display: flex;
   padding: 10px;
-  border-radius: 5px;
+  border-top: 1px solid #f90000;
+
+  input {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+  }
+
+  button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    margin-left: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #e60000;
+  }
 }
