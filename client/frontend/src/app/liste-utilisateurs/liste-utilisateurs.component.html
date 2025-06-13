@@ -1,4 +1,5 @@
-<div class="search-container">
+<div class="toolbar">
+  <div class="search-container">
     <input
       type="text"
       class="search-input"
@@ -7,73 +8,90 @@
       (input)="filterUsers()"
     />
   </div>
-  
-  <table class="table" *ngIf="filteredUtilisateurs.length > 0; else noUsers">
-    <thead>
-      <tr>
-        <th>Image</th>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Type</th>
-        <th>Rôle</th>
-        <th>Informations supplémentaires</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let utilisateur of filteredUtilisateurs">
-        <td>
-          <img *ngIf="utilisateur.imageprofile" [src]="utilisateur.imageprofile" alt="Image de profil" class="profile-img" />
-          <img *ngIf="!utilisateur.imageprofile" src="path/to/default-image.jpg" alt="Image par défaut" class="profile-img" />
-        </td>
-        <td>{{ utilisateur.nom }}</td>
-        <td>{{ utilisateur.prenom }}</td>
-        <td>{{ utilisateur.additionalInfo?.type || 'Admin' }}</td>
-        <td>{{ utilisateur.role || 'Non défini' }}</td>
-        <td>
-        </td>
-        <td class="actions">
-          <button class="btn btn-danger" title="Supprimer" (click)="supprimerUtilisateur(utilisateur._id)">
-            <i class="fa fa-trash"></i>
-          </button>
-          <button class="btn btn-primary" title="Modifier">
-            <i class="fa fa-pencil-alt"></i>
-          </button>
-          <button class="btn btn-primary" (click)="openRoleModal(utilisateur._id)">
-            <i class="fa fa-user-tag"></i>
-          </button>
-          <button class="btn" [ngClass]="utilisateur.isActive ? 'btn-success' : 'btn-danger'" (click)="toggleActivation(utilisateur._id)">
-            <i class="fa" [ngClass]="utilisateur.isActive ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
-          </button>
-          <button class="btn btn-success" title="Envoyer Email" (click)="openEmailModal(utilisateur._id)">
-            <i class="fa fa-envelope"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
-  <ng-template #noUsers>
-    <div class="no-users">
-      <p>Aucun utilisateur trouvé.</p>
-    </div>
-  </ng-template>
-  
-  <app-send-email *ngIf="isEmailModalOpen" [userId]="selectedUserId" (closeModal)="closeEmailModal()"></app-send-email>
-  
-  <div *ngIf="isRoleModalOpen" class="role-modal">
-    <div class="modal-content">
-      <h2>Assigner un rôle à l'utilisateur</h2>
-      <select [(ngModel)]="selectedRole" class="role-select form-control">
-        <option value="" disabled selected>Choisir un rôle</option>
-        <option *ngFor="let role of roles" [value]="role._id">{{ role.nom }}</option>
-      </select>
-      <div class="modal-actions">
-        <button class="btn btn-primary" (click)="assignRoleToUser(selectedUserId!, selectedRole)" [disabled]="!selectedUserId || !selectedRole">
-          <i class="fa fa-user-tag"></i> Assigner
+
+  <div class="action-links">
+    <a routerLink="/register/form-avocat" class="link-btn avocat">+ Avocat</a>
+<a routerLink="/register/form-demandeur" class="link-btn juridique">+ Personnel Juridique</a>
+<a routerLink="/register/form-expert" class="link-btn expert">+ Expert</a>
+
+  </div>
+</div>
+
+
+<table class="table" *ngIf="filteredUtilisateurs.length > 0; else noUsers">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Type</th>
+      <th>Rôle</th>
+      <th>Informations supplémentaires</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let utilisateur of filteredUtilisateurs">
+      <td>
+        <img *ngIf="utilisateur.imageprofile" [src]="utilisateur.imageprofile" alt="Image de profil" class="profile-img" />
+        <img *ngIf="!utilisateur.imageprofile" src="path/to/default-image.jpg" alt="Image par défaut" class="profile-img" />
+      </td>
+      <td>{{ utilisateur.nom }}</td>
+      <td>{{ utilisateur.prenom }}</td>
+      <td>{{ utilisateur.additionalInfo?.type || 'Admin' }}</td>
+      <td>{{ utilisateur.role || 'Non défini' }}</td>
+      <td></td>
+      <td class="actions">
+        <button class="btn btn-danger" title="Supprimer" (click)="supprimerUtilisateur(utilisateur._id)">
+          <i class="fa fa-trash"></i>
         </button>
-        <button class="btn btn-secondary" (click)="closeRoleModal()">Annuler</button>
-      </div>
+        <button class="btn btn-primary" title="Modifier">
+          <i class="fa fa-pencil-alt"></i>
+        </button>
+        <button class="btn btn-primary" (click)="openRoleModal(utilisateur._id)">
+          <i class="fa fa-user-tag"></i>
+        </button>
+        <button
+          class="btn"
+          [ngClass]="utilisateur.isActive ? 'btn-success' : 'btn-danger'"
+          (click)="toggleActivation(utilisateur._id)">
+          <i class="fa" [ngClass]="utilisateur.isActive ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
+        </button>
+        <button class="btn btn-success" title="Envoyer Email" (click)="openEmailModal(utilisateur._id)">
+          <i class="fa fa-envelope"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noUsers>
+  <div class="no-users">
+    <p>Aucun utilisateur trouvé.</p>
+  </div>
+</ng-template>
+
+<app-send-email
+  *ngIf="isEmailModalOpen"
+  [userId]="selectedUserId"
+  (closeModal)="closeEmailModal()">
+</app-send-email>
+
+<div *ngIf="isRoleModalOpen" class="role-modal">
+  <div class="modal-content">
+    <h2>Assigner un rôle à l'utilisateur</h2>
+    <select [(ngModel)]="selectedRole" class="role-select form-control">
+      <option value="" disabled selected>Choisir un rôle</option>
+      <option *ngFor="let role of roles" [value]="role._id">{{ role.nom }}</option>
+    </select>
+    <div class="modal-actions">
+      <button
+        class="btn btn-primary"
+        (click)="assignRoleToUser(selectedUserId!, selectedRole)"
+        [disabled]="!selectedUserId || !selectedRole">
+        <i class="fa fa-user-tag"></i> Assigner
+      </button>
+      <button class="btn btn-secondary" (click)="closeRoleModal()">Annuler</button>
     </div>
   </div>
-  
+</div>

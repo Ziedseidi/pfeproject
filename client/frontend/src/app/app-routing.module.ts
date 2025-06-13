@@ -50,7 +50,6 @@ const routes: Routes = [
     ]
   },
   
-  // Routes pour les tableaux de bord de différents rôles
   { 
     path: 'avocat-dashboard', 
     component: AvocatDashboardComponent,
@@ -80,7 +79,6 @@ const routes: Routes = [
   // Route pour les détails d'un dossier
   { path: 'dossier/:id', component: DossierDetailComponent }, // Route dynamique pour l'ID du dossier
   
-  // Routes pour la gestion des utilisateurs
   { path: 'login', component: LoginComponent },
   { 
     path: 'register', 

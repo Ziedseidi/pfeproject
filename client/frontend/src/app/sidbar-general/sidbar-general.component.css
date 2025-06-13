@@ -1,7 +1,7 @@
 .sidebar {
   width: 250px;
   background: #ffffff;
-  color: #333;
+  color: #dc2626;
   height: calc(100vh - 57px);
   padding: 20px 15px;
   position: fixed;
@@ -9,8 +9,8 @@
   left: 0;
   z-index: 100;
   overflow-y: auto;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  border-right: 1px solid #e5e7eb;
+  box-shadow: 2px 0 8px rgba(220, 38, 38, 0.1); /* rouge avec opacité */
+  border-right: 1px solid #dedede;
 }
 
 /* User Info */
@@ -26,7 +26,7 @@
   height: 70px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #38bdf8;
+  border: 2px solid #fffefe;
 }
 
 .user-details {
@@ -35,36 +35,36 @@
 }
 
 .user-name {
-  font-size: 18px;
+  font-size: 25px;
   font-weight: 600;
-  color: #2563eb;
+  color: #dc2626;
 }
 
 .user-role {
-  font-size: 14px;
-  color: #64748b;
+  font-size: 16px;
+  color: #dc2626;
 }
 
 /* Search Bar */
 .search-container {
   display: flex;
   align-items: center;
-  background-color: #f1f5f9;
+  background-color: #ffffff;
   border-radius: 8px;
   padding: 8px 10px;
   margin-bottom: 20px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #ffffff;
 }
 
 .search-container i {
-  color: #94a3b8;
+  color: #dc2626;
   margin-right: 8px;
 }
 
 .search-input {
   border: none;
   background: transparent;
-  color: #333;
+  color: #000000;
   flex-grow: 1;
   outline: none;
 }
@@ -82,7 +82,7 @@
   gap: 12px;
   padding: 12px;
   font-size: 16px;
-  color: #1e293b;
+  color: #dc2626;
   cursor: pointer;
   border-radius: 8px;
   transition: background-color 0.2s ease, color 0.2s;
@@ -91,7 +91,7 @@
 .menu li i {
   min-width: 20px;
   font-size: 17px;
-  color: #0ea5e9;
+  color: #dc2626;
 }
 
 .menu li span {
@@ -99,12 +99,12 @@
 }
 
 .menu li:hover {
-  background-color: #e0f2fe;
-  color: #0369a1;
+  background-color: #ffe5e5; /* une nuance très claire de rouge */
+  color: #dc2626;
 }
 
 .menu li.active {
-  background-color: #bae6fd;
+  background-color: #ffffff; /* une autre nuance claire de rouge */
   font-weight: bold;
-  color: #0284c7;
+  color: #dc2626;
 }

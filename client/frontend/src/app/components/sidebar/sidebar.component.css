@@ -1,57 +1,101 @@
 .sidebar {
-    width: 250px;
-    padding: 20px;
-    background: white;
-    border-right: 2px solid #ddd;
-    font-family: Arial, sans-serif;
-  }
-  
-  .logo {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  
-  h2 {
-    font-size: 20px;
-    color: #444;
-  }
-  
-  .steps {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .steps li {
-    padding: 10px 0;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
-  }
-  
-  .steps .active {
-    font-weight: bold;
-    color: #0056b3;
-  }
-  
-  .steps .active span {
-    margin-right: 5px;
-    color: #0056b3;
-  }
-  
-  footer {
-    margin-top: 100px;
-    font-size: 12px;
-    text-align: center;
-    color: #742323;
-  }
-  
-  footer a {
-    color: #500bdc;
-    text-decoration: none;
-    margin-top: 50px;
-  }
-  
-  footer p {
-    margin-top: 40px;
-  }
-  
+  width: 270px;
+  padding: 25px 20px;
+  background: #fff; /* blanc pur */
+  border-right: 3px solid #b30000; /* rouge vif */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-shadow: 3px 0 8px rgba(179,0,0,0.2);
+}
+
+
+
+h2 {
+  font-size: 22px;
+  color: #b30000; /* rouge vif */
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 30px;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.steps li {
+  margin-bottom: 18px;
+}
+
+.role-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 15px;
+  color: #222; /* noir légèrement atténué */
+  padding: 12px 18px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(179, 0, 0, 0.1);
+}
+
+.role-link i {
+  margin-right: 12px;
+  font-size: 18px;
+  color: #b30000; /* icône rouge vif */
+  min-width: 22px;
+  text-align: center;
+}
+
+.role-link:hover {
+  background-color: #b30000;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(179, 0, 0, 0.4);
+}
+
+.role-link:hover i {
+  color: #fff;
+}
+
+footer {
+  margin-top: 190px;
+  text-align: center;
+  font-size: 13px;
+  color: #b30000;
+  border-top: 1px solid #b30000;
+  padding-top: 90px;
+  letter-spacing: 0.7px;
+}
+
+footer a {
+  color: #b30000;
+  text-decoration: none;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #800000;
+  text-decoration: underline;
+}
+
+footer p {
+  margin: 0;
+  font-weight: 500;
+}
+
+footer span {
+  cursor: pointer;
+  font-weight: 700;
+  color: #800000;
+  user-select: none;
+}

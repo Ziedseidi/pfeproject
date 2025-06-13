@@ -19,7 +19,6 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   padding: 20px;
   
-  /* Flex column pour alignement vertical */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -29,7 +28,7 @@
 
 .chart-wrapper h3 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  color: #737373;
   font-weight: 600;
   margin: 0 0 16px 0;
   height: 40px; /* hauteur fixe titre */
