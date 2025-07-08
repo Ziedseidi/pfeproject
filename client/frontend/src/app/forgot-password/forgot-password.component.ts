@@ -27,7 +27,7 @@ export class ForgotPasswordComponent {
       },
       error: (error) => {
         this.isLoading = false;
-        this.message = 'Erreur lors de l\'envoi de l\'email de réinitialisation.';
+        this.message = 'Utilisateur non touvé.';
       }
     });
   }

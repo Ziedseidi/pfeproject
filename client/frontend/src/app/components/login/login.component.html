@@ -1,42 +1,54 @@
 <app-nav></app-nav>
 
-<div class="login-container">
-  <div class="login-card">
-    <h2>Se connecter</h2>
+<div class="page-container">
+  <!-- Partie gauche avec image -->
+  <div class="left-image">
+    <img src="/assets/images/arriereplan.png" alt="Tunisair juridique">
+  </div>
 
-    <!-- Message d'erreur affiché au-dessus du formulaire -->
-    <div *ngIf="message" class="error-message">
-      {{ message }}
-    </div>
+  <!-- Partie droite avec formulaire -->
+  <div class="login-container">
+    <div class="login-card">
+      <h2>Se connecter</h2>
 
-    <p>Veuillez saisir votre email et votre mot de passe.</p>
-
-    <form (ngSubmit)="onSubmit()">
-      <div class="input-group">
-        <label for="email">Email</label>
-        <input type="text" id="email" [(ngModel)]="email" name="email" required>
+      <div *ngIf="message" class="error-message">
+        {{ message }}
       </div>
 
-      <div class="input-group">
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" [(ngModel)]="password" name="password" required>
-      </div>
+      <p>Veuillez saisir votre email et votre mot de passe.</p>
 
-      <div class="checkbox-group">
-        <input type="checkbox" id="remember-me">
-        <label for="remember-me">Se souvenir de moi</label>
-      </div>
+      <form (ngSubmit)="onSubmit()">
+        <div class="input-group with-icon">
+          <label for="email">Email</label>
+          <div class="input-icon-wrapper">
+            <span class="icon">📧</span>
+            <input type="text" id="email" [(ngModel)]="email" name="email" required>
+          </div>
+        </div>
 
-      <button type="submit" class="btn" [disabled]="isLoading">
-        <app-spinner *ngIf="isLoading" [isLoading]="isLoading"></app-spinner>
-        <span *ngIf="!isLoading">Se connecter</span>
-      </button>
-    </form>
+        <div class="input-group with-icon">
+          <label for="password">Mot de passe</label>
+          <div class="input-icon-wrapper">
+            <span class="icon">🔒</span>
+            <input type="password" id="password" [(ngModel)]="password" name="password" required>
+          </div>
+        </div>
 
-    <a routerLink="/forgot-password" class="forgot-password">Mot de passe oublié ?</a>
-    <div class="signup-section">
-      <p>Vous n'avez pas encore de compte ?</p>
-      <button class="signup-btn" (click)="goToRegister()">S'inscrire</button>
+        <div class="checkbox-group">
+          <input type="checkbox" id="remember-me">
+          <label for="remember-me">Se souvenir de moi</label>
+        </div>
+
+        <button type="submit" class="btn" [disabled]="isLoading">
+  <span *ngIf="!isLoading">Se connecter</span>
+  <span *ngIf="isLoading" class="spinner-wrapper">
+    <app-spinner [isLoading]="true"></app-spinner>
+    <span style="margin-left: 8px;">Se connecter</span>
+  </span>
+</button>
+      </form>
+
+      <a routerLink="/forgot-password" class="forgot-password">Mot de passe oublié ?</a>
     </div>
   </div>
 </div>

@@ -347,3 +347,105 @@
   filter: brightness(1.1);
   transform: translateY(-2px);
 }
+/* MODALE DE MODIFICATION */
+.edit-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4); /* fond semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.edit-modal .modal-content {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 480px;
+  text-align: left;
+  animation: slideDown 0.4s ease forwards;
+}
+
+.edit-modal h2 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Form inputs */
+.edit-modal input[type="text"],
+.edit-modal input[type="email"] {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.edit-modal input[type="text"]:focus,
+.edit-modal input[type="email"]:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+/* Boutons dans la modale */
+.edit-modal .modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.edit-modal .btn-success {
+  flex: 1;
+  background-color: #2ecc71;
+  border: none;
+  color: white;
+  padding: 14px;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-modal .btn-success:hover {
+  background-color: #27ae60;
+}
+
+.edit-modal .btn-secondary {
+  flex: 1;
+  background-color: #e67e22;
+  border: none;
+  color: white;
+  padding: 14px;
+  font-weight: 600;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-modal .btn-secondary:hover {
+  background-color: #f39c12;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes slideDown {
+  from {transform: translateY(-30px); opacity: 0;}
+  to {transform: translateY(0); opacity: 1;}
+}

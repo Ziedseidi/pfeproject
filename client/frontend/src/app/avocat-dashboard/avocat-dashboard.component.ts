@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-avocat-dashboard',
   templateUrl: './avocat-dashboard.component.html',
   styleUrls: ['./avocat-dashboard.component.css']
 })
 export class AvocatDashboardComponent {
-   user: any = {};
+  user: any = {};
   isAddAffaireModal = false;
-  isLoading = false;  // Variable pour gérer le spinner
+  isLoading = false;  // Pour gérer le spinner
+
+  isChatbotVisible = false;  // ✅ Ajout pour ton bouton chatbot
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -28,26 +31,25 @@ export class AvocatDashboardComponent {
     this.isAddAffaireModal = false;
   }
 
+  toggleChatbot() {
+    this.isChatbotVisible = !this.isChatbotVisible;
+  }
+
   logout() {
     this.isLoading = true; // Active le spinner avant la déconnexion
-  
+
     this.authService.logout().subscribe(
-      (response) => {
+      () => {
         this.authService.clearToken();
-  
-        // Affiche le spinner pendant 3 secondes
         setTimeout(() => {
-          this.router.navigate(['/login']);  // Redirection après 3 secondes
-          this.isLoading = false;  // Désactive le spinner après 3 secondes
-        }, 2000);  // 3000 ms = 3 secondes
+          this.router.navigate(['/login']);
+          this.isLoading = false;
+        }, 2000);
       },
       (error) => {
         console.error('Erreur lors de la déconnexion', error);
-        this.isLoading = false;  // Désactive le spinner même en cas d'erreur
+        this.isLoading = false;
       }
     );
   }
 }
-
-
-

@@ -4,6 +4,8 @@
     <div class="navbar-left">
       <div class="navbar-logo">⚖️ <span>Tunisair</span></div>
     </div>
+   
+
 
     <div class="navbar-right">
       <!-- Chatbot toggle -->
@@ -52,8 +54,14 @@
         <a class="nav-link" [routerLink]="['/saisie-affaire']">⚖️ Affecter saisie</a>
         <a class="nav-link" [routerLink]="['/dossiers']">📁 Dossiers</a>
       </nav>
+      
     </aside>
-
     
+    <main class="main-content">
+    <app-info-juredique></app-info-juredique>  
+  </main>
+
+    <app-add-affaire *ngIf="isAddAffaireModal" (close)="closeAddAffaireModal()"></app-add-affaire>
+
   </div>
 </div>

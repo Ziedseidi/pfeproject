@@ -12,13 +12,13 @@
   align-items: center;
   background-color: #d00000;
   color: white;
-  padding: 20px 20px;
+  padding: 8px 25px;
 }
 
 .navbar-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .navbar-logo {

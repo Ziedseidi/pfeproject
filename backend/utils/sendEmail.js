@@ -7,10 +7,14 @@ const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
     port: 465,
-    secure: true,
+    secure: true, // true pour port 465, false pour 587
     auth: {
-        user: process.env.EMAIL_USER, // Utilise l'email de l'administrateur
-        pass: process.env.EMAIL_PASS, // Utilise le mot de passe de l'admin
+        user: process.env.EMAIL_USER, // Email administrateur (ex : admin@gmail.com)
+        pass: process.env.EMAIL_PASS, // Mot de passe ou mot de passe d'application si 2FA activé
+    },
+    tls: {
+        // Ignore l'erreur de certificat auto-signé (à utiliser uniquement en développement)
+        rejectUnauthorized: false,
     }
 });
 
@@ -29,10 +33,10 @@ const sendMail = (to, subject, content, isHtml = false, from = process.env.EMAIL
     }
 
     const mailOptions = {
-        from: from, 
-        to: to, // Le destinataire
-        subject: subject, 
-        [isHtml ? "html" : "text"]: content 
+        from: from,
+        to: to,
+        subject: subject,
+        [isHtml ? "html" : "text"]: content
     };
 
     transporter.sendMail(mailOptions, (err, info) => {

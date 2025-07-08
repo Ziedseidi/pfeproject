@@ -8,10 +8,8 @@ from sentence_transformers import SentenceTransformer, util
 app = Flask(__name__)
 CORS(app)
 
-# Charger les données
 data = pd.read_csv("lois.csv")
 
-# Nettoyage simple
 def normalize_text(text):
     text = text.lower()
     text = ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
@@ -19,13 +17,10 @@ def normalize_text(text):
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
-# Appliquer la normalisation
 data["normalized_question"] = data["question"].apply(normalize_text)
 
-# Charger un modèle de similarité sémantique
 model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
 
-# Encoder toutes les questions du CSV
 question_embeddings = model.encode(data["normalized_question"], convert_to_tensor=True)
 
 @app.route("/")

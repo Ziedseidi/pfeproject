@@ -11,12 +11,10 @@
 
   <div class="action-links">
     <a routerLink="/register/form-avocat" class="link-btn avocat">+ Avocat</a>
-<a routerLink="/register/form-demandeur" class="link-btn juridique">+ Personnel Juridique</a>
-<a routerLink="/register/form-expert" class="link-btn expert">+ Expert</a>
-
+    <a routerLink="/register/form-demandeur" class="link-btn juridique">+ Personnel Juridique</a>
+    <a routerLink="/register/form-expert" class="link-btn expert">+ Expert</a>
   </div>
 </div>
-
 
 <table class="table" *ngIf="filteredUtilisateurs.length > 0; else noUsers">
   <thead>
@@ -45,7 +43,7 @@
         <button class="btn btn-danger" title="Supprimer" (click)="supprimerUtilisateur(utilisateur._id)">
           <i class="fa fa-trash"></i>
         </button>
-        <button class="btn btn-primary" title="Modifier">
+        <button class="btn btn-primary" title="Modifier" (click)="openEditModal(utilisateur)">
           <i class="fa fa-pencil-alt"></i>
         </button>
         <button class="btn btn-primary" (click)="openRoleModal(utilisateur._id)">
@@ -77,6 +75,7 @@
   (closeModal)="closeEmailModal()">
 </app-send-email>
 
+<!-- MODAL RÔLE -->
 <div *ngIf="isRoleModalOpen" class="role-modal">
   <div class="modal-content">
     <h2>Assigner un rôle à l'utilisateur</h2>
@@ -93,5 +92,29 @@
       </button>
       <button class="btn btn-secondary" (click)="closeRoleModal()">Annuler</button>
     </div>
+  </div>
+</div>
+
+<!-- MODAL DE MODIFICATION -->
+<div *ngIf="isEditModalOpen && selectedUserToEdit" class="edit-modal">
+  <div class="modal-content">
+    <h2>Modifier l'utilisateur</h2>
+    <form (ngSubmit)="submitEdit()" #editForm="ngForm">
+      <label>Nom</label>
+      <input type="text" [(ngModel)]="selectedUserToEdit.nom" name="editNom" required class="form-control" />
+
+      <label>Prénom</label>
+      <input type="text" [(ngModel)]="selectedUserToEdit.prenom" name="editPrenom" required class="form-control" />
+
+      <label>Email</label>
+      <input type="email" [(ngModel)]="selectedUserToEdit.email" name="editEmail" required class="form-control" />
+
+      <!-- Ajoute d'autres champs si nécessaire -->
+
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-success" [disabled]="editForm.invalid">Enregistrer</button>
+        <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Annuler</button>
+      </div>
+    </form>
   </div>
 </div>

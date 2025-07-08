@@ -14,12 +14,16 @@ export class ListeUtilisateursComponent implements OnInit {
   filteredUtilisateurs: User[] = [];
   searchQuery: string = '';
   roles: Role[] = [];
-  selectedRole: string = ''; // Valeur initiale vide
+  selectedRole: string = '';
   errorMessage: string | null = null;
   isLoading: boolean = true;
   isEmailModalOpen: boolean = false;
   selectedUserId: string | null = null;
   isRoleModalOpen: boolean = false;
+
+  // Pour la modale de modification
+  isEditModalOpen: boolean = false;
+  selectedUserToEdit: User | null = null;
 
   constructor(
     private userService: UserService,
@@ -36,7 +40,7 @@ export class ListeUtilisateursComponent implements OnInit {
     this.userService.getUsersWithDetails().subscribe(
       (data) => {
         this.utilisateurs = data;
-        this.filteredUtilisateurs = data; // Initialisation avec tous les utilisateurs
+        this.filteredUtilisateurs = data;
         this.isLoading = false;
       },
       (error) => {
@@ -66,22 +70,22 @@ export class ListeUtilisateursComponent implements OnInit {
     );
   }
 
-  assignRoleToUser(userId: string, roleId: string): void {
-    if (userId && roleId) {  // Vérification si userId et roleId ne sont pas null ou vides
-      this.roleService.assignRoleToUser(userId, roleId).subscribe(
-        (response) => {
-          alert('Rôle assigné avec succès!');
-          this.fetchUtilisateurs(); // Mettre à jour la liste des utilisateurs après l'assignation
-          this.closeRoleModal(); // Fermer la modale après l'assignation
-        },
-        (error) => {
-          console.error('Erreur lors de l\'assignation du rôle:', error);
-        }
-      );
-    } else {
-      alert('Veuillez sélectionner un utilisateur et un rôle avant de l\'assigner.');
-    }
+  openEditModal(user: User): void {
+    this.selectedUserToEdit = { ...user }; // clone l'utilisateur sélectionné
+    this.isEditModalOpen = true;
   }
+
+  closeEditModal(): void {
+    this.isEditModalOpen = false;
+    this.selectedUserToEdit = null;
+  }
+
+  submitEdit(): void {
+    // Pour l'instant on ne fait rien, juste fermer le modal
+    this.closeEditModal();
+  }
+
+  // Les autres fonctions que tu as déjà...
 
   supprimerUtilisateur(userId: string): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
@@ -128,6 +132,23 @@ export class ListeUtilisateursComponent implements OnInit {
 
   closeRoleModal(): void {
     this.isRoleModalOpen = false;
-    this.selectedRole = ''; // Réinitialiser le rôle sélectionné
+    this.selectedRole = '';
+  }
+
+  assignRoleToUser(userId: string, roleId: string): void {
+    if (userId && roleId) {
+      this.roleService.assignRoleToUser(userId, roleId).subscribe(
+        () => {
+          alert('Rôle assigné avec succès!');
+          this.fetchUtilisateurs();
+          this.closeRoleModal();
+        },
+        (error) => {
+          console.error('Erreur lors de l\'assignation du rôle:', error);
+        }
+      );
+    } else {
+      alert('Veuillez sélectionner un utilisateur et un rôle avant de l\'assigner.');
+    }
   }
 }

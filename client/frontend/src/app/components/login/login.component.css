@@ -1,98 +1,176 @@
+/* --- STRUCTURE PRINCIPALE --- */
+.page-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Partie gauche : image plein hauteur */
+.left-image {
+  flex: 1;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.left-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 20px;
+}
+
+/* Partie droite : zone de login pleine hauteur */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-  }
-  
-  .login-card {
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    text-align: center;
-  }
-  
-  h2 {
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  p {
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .input-group {
-    margin-bottom: 15px;
-    text-align: left;
-  }
-  
-  .input-group label {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  
-  .input-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .checkbox-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-  }
-  
-  .captcha {
-    margin-bottom: 15px;
-  }
-  
-  .btn {
-    background-color: #004a99;
-    color: white;
-    padding: 10px;
-    border: none;
-    width: 100%;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .forgot-password {
-    display: block;
-    margin: 10px 0;
-    font-size: 14px;
-    color: #c00;
-    text-decoration: none;
-  }
-  
-  .signup-section {
-    margin-top: 20px;
-    font-size: 14px;
-  }
-  
-  .signup-btn {
-    background: #004a99;
-    color: white;
-    padding: 10px;
-    border: none;
-    width: 100%;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  .error-message {
-    color: #D8000C;
-    background-color: #FFD2D2;
-    border: 1px solid #D8000C;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    text-align: center;
-  }
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fdf0f0;
+  height: 100%;
+}
+
+/* --- LOGIN CARD --- */
+.login-card {
+  background: white;
+  padding: 30px;
+  border-radius: 0 0 0 20px;
+  box-shadow: -5px 0 15px rgba(255, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border-left: 1px solid #f3cccc;
+}
+
+/* --- TEXTES & TITRES --- */
+h2 {
+  margin-bottom: 20px;
+  color: #c00;
+}
+
+p {
+  font-size: 14px;
+  color: #444343;
+}
+
+/* --- CHAMPS DE SAISIE --- */
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #212020;
+}
+
+.input-icon-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #c61e1e;
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  padding: 0 15px;
+}
+
+.input-icon-wrapper input {
+  border: none;
+  outline: none;
+  padding: 10px;
+  flex: 1;
+  background: transparent;
+}
+
+.icon {
+  margin-right: 8px;
+  font-size: 30px;
+  color: #c00;
+}
+
+/* --- CHECKBOX --- */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #444;
+}
+
+/* --- BOUTONS --- */
+.btn {
+  background-color: #c00;
+  color: white;
+  padding: 10px;
+  border: none;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #a30000;
+}
+
+.signup-btn {
+  background: white;
+  color: #c00;
+  padding: 10px;
+  border: 2px solid #c00;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.signup-btn:hover {
+  background: #c00;
+  color: white;
+}
+
+/* --- LIENS ET MESSAGES --- */
+.forgot-password {
+  display: block;
+  margin: 10px 0;
+  font-size: 14px;
+  color: #c00;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.signup-section {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.error-message {
+  color: #D8000C;
+  background-color: #FFD2D2;
+  border: 1px solid #D8000C;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  text-align: center;
+}
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 24px; /* ou selon la hauteur du bouton */
+}
