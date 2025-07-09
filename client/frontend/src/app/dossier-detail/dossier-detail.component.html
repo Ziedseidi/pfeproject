@@ -1,37 +1,69 @@
-<div class="container">
-  <h2>Détails du dossier</h2>
+<div class="dossier-container">
+  <h2 class="dossier-main-title">
+    <span class="dossier-icon">📂</span>
+    Détails du dossier
+  </h2>
 
   <!-- Message d'erreur -->
-  <div *ngIf="errorMessage" class="error">
+  <div *ngIf="errorMessage" class="dossier-error-message">
+    <span class="error-icon">!</span>
     {{ errorMessage }}
   </div>
 
   <!-- Message si aucun dossier n'est trouvé -->
-  <div *ngIf="!dossier && !errorMessage">
+  <div *ngIf="!dossier && !errorMessage" class="dossier-not-found">
+    <span class="not-found-icon">🔍</span>
     Dossier introuvable.
   </div>
 
   <!-- Affichage du dossier -->
-  <div *ngIf="dossier" class="card">
-    <h3>{{ dossier.titre }}</h3>
-    <p><strong>Numéro d'affaire :</strong> {{ dossier.numeroAffaire }}</p>
-    <p><strong>Description :</strong> {{ dossier.description }}</p>
-    <p><strong>Date de création :</strong> {{ dossier.dateCreation | date:'short' }}</p>
-
-    <!-- Afficher l'avocat ou aucun avocat -->
-    <div *ngIf="dossier.nomAvocat && dossier.prenomAvocat">
-      <p><strong>Avocat :</strong> {{ dossier.nomAvocat }} {{ dossier.prenomAvocat }}</p>
+  <div *ngIf="dossier" class="dossier-card">
+    <div class="dossier-card-header">
+      <h3 class="dossier-card-title">{{ dossier.titre }}</h3>
     </div>
-    <div *ngIf="!dossier.nomAvocat || !dossier.prenomAvocat">
-      <p><strong>Avocat :</strong> Aucun avocat attribué</p>
-    </div>
+    
+    <div class="dossier-card-body">
+      <div class="dossier-info-item">
+        <span class="info-label">Numéro d'affaire :</span>
+        <span class="info-value">{{ dossier.numeroAffaire }}</span>
+      </div>
+      
+      <div class="dossier-info-item">
+        <span class="info-label">Description :</span>
+        <p class="info-description">{{ dossier.description }}</p>
+      </div>
+      
+      <div class="dossier-info-item">
+        <span class="info-label">Date de création :</span>
+        <span class="info-value">{{ dossier.dateCreation | date:'short' }}</span>
+      </div>
 
-    <!-- Afficher les images -->
-    <div *ngIf="dossier.imagesFichier && dossier.imagesFichier.length > 0">
-      <p><strong>Fichiers :</strong></p>
-      <div class="images-container">
-        <div *ngFor="let image of dossier.imagesFichier" class="image-card" (click)="openImage(image)">
-          <img [src]="image" alt="Fichier" class="image-preview" />
+      <!-- Afficher l'avocat ou aucun avocat -->
+      <div class="dossier-info-item">
+        <span class="info-label">Avocat :</span>
+        <span *ngIf="dossier.nomAvocat && dossier.prenomAvocat" class="info-value">
+          {{ dossier.nomAvocat }} {{ dossier.prenomAvocat }}
+        </span>
+        <span *ngIf="!dossier.nomAvocat || !dossier.prenomAvocat" class="info-warning">
+          Aucun avocat attribué
+        </span>
+      </div>
+
+      <!-- Afficher les images -->
+      <div *ngIf="dossier.imagesFichier && dossier.imagesFichier.length > 0" class="dossier-files-section">
+        <div class="files-label">
+          <span class="files-icon">📎</span>
+          <strong>Fichiers :</strong>
+        </div>
+        <div class="dossier-files-container">
+          <div *ngFor="let image of dossier.imagesFichier" class="dossier-file-card" (click)="openImage(image)">
+            <div class="file-image-wrapper">
+              <img [src]="image" alt="Fichier" class="dossier-file-image" />
+              <div class="file-overlay">
+                <span class="zoom-icon">🔍</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -39,6 +71,9 @@
 </div>
 
 <!-- Modale pour afficher l'image agrandie -->
-<div *ngIf="isImageOpen" class="modal" (click)="closeImage()">
-  <img [src]="selectedImage" class="modal-image" />
+<div *ngIf="isImageOpen" class="dossier-modal" (click)="closeImage()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeImage()">&times;</button>
+    <img [src]="selectedImage" class="dossier-modal-image" />
+  </div>
 </div>

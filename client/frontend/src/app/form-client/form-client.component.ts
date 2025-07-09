@@ -7,51 +7,34 @@ import { DemandeurService } from '../services/demandeur.service';
   styleUrls: ['./form-client.component.css']
 })
 export class FormClientComponent {
-  demandeur = {
-    nom: '',
-    prenom: '',
-    email: '',
-    password: '',
-    phone: '',
-    cin: '',
-    matricule: '',
-    ficheCarriere: '',
-    contratTravail: '',
-    decisionsPromotions: '',
-    imageprofile: '' 
-  };
-
-  selectedFile: File | null = null; // pour stocker le fichier sélectionné
-  message: string = '';
+  demandeur: any = {};
+  message = '';
 
   constructor(private demandeurService: DemandeurService) {}
 
-  // Méthode pour capturer le fichier sélectionné
-  onFileSelected(event: any): void {
+  onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
-      this.selectedFile = file;
-      console.log("Fichier sélectionné:", file); // Pour déboguer
+      this.demandeur.imageprofile = file;
+      console.log("✅ Fichier sélectionné:", file);
     }
   }
 
-  // Méthode d'envoi du formulaire
   onSubmit() {
-    if (!this.selectedFile) {
+    if (this.demandeur.imageprofile) {
+      console.log('✅ Formulaire envoyé:', this.demandeur);
+      this.demandeurService.registerDemandeur(this.demandeur, this.demandeur.imageprofile).subscribe({
+        next: (response) => {
+          this.message = 'Inscription demandeur réussie !';
+          console.log("✅ Réponse du serveur:", response);
+        },
+        error: (error) => {
+          this.message = 'Erreur lors de l\'inscription du demandeur';
+          console.error("🔥 Erreur API:", error);
+        }
+      });
+    } else {
       this.message = 'Veuillez sélectionner une image de profil.';
-      return;
     }
-
-    console.log('Formulaire envoyé:', this.demandeur); 
-    this.demandeurService.registerDemandeur(this.demandeur, this.selectedFile).subscribe({
-      next: (response) => {
-        this.message = 'Inscription demandeur réussie !';
-        console.log("✅ Réponse du serveur:", response);
-      },
-      error: (error) => {
-        this.message = 'Erreur lors de l\'inscription';
-        console.error("🔥 Erreur API:", error);
-      }
-    });
   }
 }

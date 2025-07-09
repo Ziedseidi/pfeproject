@@ -56,6 +56,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { ChartComponent } from './chart/chart.component';
 import { ChatbotJuridiqueComponent } from './chatbot-juridique/chatbot-juridique.component';
 import { InfoJurediqueComponent } from './info-juredique/info-juredique.component';
+import { InfoJurediqueAvocatComponent } from './info-juredique-avocat/info-juredique-avocat.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { InfoJurediqueComponent } from './info-juredique/info-juredique.componen
     ChartComponent,
     ChatbotJuridiqueComponent,
     InfoJurediqueComponent,
+    InfoJurediqueAvocatComponent,
   ],
   imports: [
     BrowserModule,

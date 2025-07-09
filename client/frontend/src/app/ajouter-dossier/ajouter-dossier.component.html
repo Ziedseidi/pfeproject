@@ -1,56 +1,63 @@
 <div class="form-container">
-  <h2>📁 Ajouter un Dossier</h2>
+  <h2 class="form-title">📁 Ajouter un Dossier</h2>
 
-  <form [formGroup]="dossierForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="dossierForm" (ngSubmit)="onSubmit()" class="elegant-form">
     <div class="form-group">
       <label for="numeroAffaire">Numéro d'affaire</label>
-      <input id="numeroAffaire" formControlName="numeroAffaire" type="text" placeholder="Ex : 2024-001-AFF" />
-      <div *ngIf="dossierForm.get('numeroAffaire')?.invalid && dossierForm.get('numeroAffaire')?.touched" class="error">
-        Numéro d'affaire obligatoire
+      <input id="numeroAffaire" formControlName="numeroAffaire" type="text" placeholder="Ex : 2024-001-AFF" class="form-input" />
+      <div *ngIf="dossierForm.get('numeroAffaire')?.invalid && dossierForm.get('numeroAffaire')?.touched" class="error-message">
+        <span class="error-icon">!</span> Numéro d'affaire obligatoire
       </div>
     </div>
 
     <div class="form-group">
       <label for="titre">Titre</label>
-      <input id="titre" formControlName="titre" type="text" placeholder="Titre du dossier" />
-      <div *ngIf="dossierForm.get('titre')?.invalid && dossierForm.get('titre')?.touched" class="error">
-        Titre obligatoire
+      <input id="titre" formControlName="titre" type="text" placeholder="Titre du dossier" class="form-input" />
+      <div *ngIf="dossierForm.get('titre')?.invalid && dossierForm.get('titre')?.touched" class="error-message">
+        <span class="error-icon">!</span> Titre obligatoire
       </div>
     </div>
 
     <div class="form-group">
       <label for="description">Description</label>
-      <textarea id="description" formControlName="description" rows="4" placeholder="Décris le dossier ici..."></textarea>
-      <div *ngIf="dossierForm.get('description')?.invalid && dossierForm.get('description')?.touched" class="error">
-        Description obligatoire
+      <textarea id="description" formControlName="description" rows="4" placeholder="Décris le dossier ici..." class="form-textarea"></textarea>
+      <div *ngIf="dossierForm.get('description')?.invalid && dossierForm.get('description')?.touched" class="error-message">
+        <span class="error-icon">!</span> Description obligatoire
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="imagesFichier">Fichiers à joindre</label>
-      <input id="imagesFichier" type="file" (change)="onFileChange($event)" multiple />
-      <div *ngIf="fileError" class="error">
-        {{ fileError }}
+    <div class="form-group file-upload">
+      <label for="imagesFichier" class="file-upload-label">
+        <span class="file-upload-icon">📎</span>
+        <span>Fichiers à joindre</span>
+      </label>
+      <input id="imagesFichier" type="file" (change)="onFileChange($event)" multiple class="file-upload-input" />
+      <div *ngIf="fileError" class="error-message">
+        <span class="error-icon">!</span> {{ fileError }}
       </div>
     </div>
 
-    <div *ngIf="selectedFiles.length > 0" class="selected-files">
-      <h4>Fichiers sélectionnés :</h4>
-      <ul>
-        <li *ngFor="let file of selectedFiles; let i = index">
-          {{ file.name }} ({{ file.size }} bytes)
-          <button type="button" (click)="removeFile(i)">Supprimer</button>
+    <div *ngIf="selectedFiles.length > 0" class="selected-files-container">
+      <h4 class="selected-files-title">Fichiers sélectionnés :</h4>
+      <ul class="selected-files-list">
+        <li *ngFor="let file of selectedFiles; let i = index" class="selected-file-item">
+          <span class="file-info">{{ file.name }} ({{ (file.size / 1024).toFixed(2) }} KB)</span>
+          <button type="button" (click)="removeFile(i)" class="remove-file-btn">×</button>
         </li>
       </ul>
     </div>
 
-    <button type="submit" [disabled]="dossierForm.invalid">Ajouter le dossier</button>
+    <button type="submit" [disabled]="dossierForm.invalid" class="submit-btn">
+      <span class="submit-icon">+</span> Ajouter le dossier
+    </button>
   </form>
 
-  <div *ngIf="message" class="alert" [ngClass]="{
-    'success': message.includes('succès'),
-    'error': message.includes('Erreur')
+  <div *ngIf="message" class="alert-message" [ngClass]="{
+    'success-message': message.includes('succès'),
+    'error-message': message.includes('Erreur')
   }">
+    <span *ngIf="message.includes('succès')" class="alert-icon">✓</span>
+    <span *ngIf="message.includes('Erreur')" class="alert-icon">!</span>
     {{ message }}
   </div>
 </div>

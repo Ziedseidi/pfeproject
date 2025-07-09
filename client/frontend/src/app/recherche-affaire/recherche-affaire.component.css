@@ -1,116 +1,264 @@
+/* Variables de couleur */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #e74c3c;
+  --light-bg: #f8f9fa;
+  --dark-text: #2c3e50;
+  --light-text: #ecf0f1;
+  --success-color: #27ae60;
+  --error-color: #e74c3c;
+  --info-color: #3498db;
+  --card-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Structure principale */
 .recherche-affaire {
-  background: #f9f9fb;
-  padding: 2rem;
-  border-radius: 1rem;
-  max-width: 700px;
-  margin: 2rem auto;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: -10px;
+  padding: 15px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--dark-text);
+}
 
-  .title {
-    text-align: center;
-    font-size: 1.8rem;
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-  }
+.main-title {
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--secondary-color);
+  padding-bottom: 8px;
+}
 
-  .search-form,
-  .judgment-form {
-    display: flex;
+/* Formulaire */
+.search-form {
+  background-color: white;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-control {
+  font-size: 0.9rem;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.form-control:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+}
+
+.btn-search {
+  background-color: var(--secondary-color);
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 12px;
+}
+.btn-search:hover {
+  background-color: #dd4324;
+}
+
+
+/* Conteneur horizontal */
+.affaire-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* Colonne de gauche - Détails de l'affaire */
+.affaire-details-column {
+  flex: 1;
+  min-width: 0;
+}
+
+.section-header {
+  background-color: var(--primary-color);
+  color: rgb(240, 21, 21);
+  padding: 12px 15px;
+  border-radius: 6px 6px 0 0;
+  margin-bottom: 0;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.detail-card {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  padding: 15px;
+  transition: transform 0.2s;
+}
+
+.detail-icon {
+  font-size: 1.4rem;
+  color: var(--secondary-color);
+  margin-right: 15px;
+  align-self: center;
+}
+
+.detail-content {
+  flex: 1;
+}
+
+.detail-label {
+  font-size: 0.8rem;
+  color: #fb0000;
+  margin-bottom: 4px;
+}
+
+.detail-value {
+  font-size: 1rem;
+  color: var(--dark-text);
+  font-weight: 500;
+}
+
+/* Colonne de droite - Tribunal */
+.tribunal-column {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tribunal-card {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: var(--card-shadow);
+}
+
+.tribunal-content-container {
+  display: flex;
+  padding: 15px;
+  gap: 15px;
+}
+
+.tribunal-info {
+  flex: 1;
+}
+
+.tribunal-field {
+  display: flex;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.tribunal-label {
+  font-weight: 600;
+  color: var(--primary-color);
+  min-width: 60px;
+}
+
+.tribunal-image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tribunal-image {
+  max-width: 100%;
+  max-height: 150px;
+  border-radius: 4px;
+}
+
+/* Messages */
+.message-box {
+  padding: 15px;
+  border-radius: 6px;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.message-icon {
+  font-size: 1.4rem;
+  margin-right: 12px;
+}
+
+/* Sélecteur de tribunal */
+.tribunal-select-container {
+  background-color: white;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: var(--card-shadow);
+}
+
+.select-title {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.tribunal-select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #00ff33;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.btn-assign {
+  background-color: var(--success-color);
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+.btn-assign:hover {
+  background-color: #219653;
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .affaire-container {
     flex-direction: column;
-    gap: 1rem;
-    margin-top: 1rem;
   }
-
-  .form-group {
-    display: flex;
+  
+  .tribunal-column {
+    min-width: 100%;
+  }
+  
+  .tribunal-content-container {
     flex-direction: column;
-
-    label {
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: #34495e;
-    }
-
-    .form-control {
-      padding: 0.6rem 0.8rem;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      transition: border 0.2s;
-
-      &:focus {
-        border-color: #2980b9;
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.2);
-      }
-    }
   }
-
-  .btn {
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.2s;
-
-    &.btn-primary {
-      background-color: #2980b9;
-      color: white;
-
-      &:hover {
-        background-color: #3498db;
-        transform: scale(1.02);
-      }
-    }
-
-    &.btn-success {
-      background-color: #27ae60;
-      color: white;
-
-      &:hover {
-        background-color: #2ecc71;
-        transform: scale(1.02);
-      }
-    }
-
-    &:disabled {
-      background-color: #bdc3c7;
-      cursor: not-allowed;
-    }
-  }
-
-  .error-message {
-    color: #e74c3c;
-    font-size: 0.9rem;
-    margin-top: 0.2rem;
-  }
-
-  .success-message {
-    background-color: #dff0d8;
-    color: #2e7d32;
-    padding: 0.8rem;
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-    font-weight: 500;
-  }
-
-  .affaire-details {
-    background-color: #ffffff;
-    margin-top: 2rem;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
-    h3 {
-      margin-bottom: 1rem;
-      color: #2c3e50;
-    }
-
-    p {
-      margin: 0.4rem 0;
-      font-size: 1rem;
-      color: #555;
-    }
+  
+  .tribunal-image {
+    max-height: 1500px;
+    margin-top: 15px;
   }
 }

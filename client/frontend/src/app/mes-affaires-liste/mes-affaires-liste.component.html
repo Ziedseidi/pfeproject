@@ -1,57 +1,73 @@
-<div class="container mt-4">
-  <h2>📁 Mes Affaires Assignées</h2>
-
-  <input
-    type="text"
-    class="form-control my-3"
-    placeholder="🔍 Rechercher par numéro ou objet"
-    [(ngModel)]="searchTerm"
-  />
-
-  <div *ngIf="isLoading">Chargement en cours...</div>
-  <div *ngIf="error" class="text-danger">{{ error }}</div>
-
-  <div *ngIf="!isLoading && !error && filteredAffaires.length === 0">
-    Aucun résultat trouvé.
+<div class="affaires-container">
+  <div class="affaires-header">
+    <h2 class="affaires-title">📁 Mes Affaires Assignées</h2>
+    
+    <div class="search-container">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="🔍 Rechercher par numéro ou objet"
+        [(ngModel)]="searchTerm"
+      />
+      <div class="search-border"></div>
+    </div>
   </div>
 
-  <table
-    *ngIf="filteredAffaires.length > 0"
-    class="table table-striped table-bordered"
-  >
-    <thead class="table-dark">
-      <tr>
-        <th>Numéro</th>
-        <th>Objet</th>
-        <th>Réclamation</th>
-        <th>Date Convocation</th>
-        <th>Clôture</th>
-        <th>Degré Juridique</th>
-        <th>Type Client</th>
-        <th>Type Tribunal</th>
-        <th>🧾 Issue du Jugement</th>
-        <th>Remarques</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let affaire of filteredAffaires">
-        <td>{{ affaire.numeroAffaire }}</td>
-        <td>{{ affaire.objet }}</td>
-        <td>{{ affaire.reclamation?.type || 'Non spécifié' }}</td>
-        <td>{{ affaire.dateConvocation | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ affaire.dateCloture | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ affaire.degreJuridique }}</td>
-        <td>{{ affaire.typeClient }}</td>
-        <td>{{ affaire.tribunal?.typeTribunal || 'Non spécifié' }}</td>
-        <td>
-          {{
-            affaire.jugements?.length
-              ? affaire.jugements[affaire.jugements.length - 1]?.issue || 'Non rendu'
-              : 'Non rendu'
-          }}
-        </td>
-        <td>{{ affaire.remarques }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- États de chargement et erreurs -->
+  <div *ngIf="isLoading" class="state-message loading-message">
+    <div class="spinner"></div>
+    <span>Chargement en cours...</span>
+  </div>
+  
+  <div *ngIf="error" class="state-message error-message">
+    <span class="error-icon">!</span>
+    {{ error }}
+  </div>
+
+  <div *ngIf="!isLoading && !error && filteredAffaires.length === 0" class="state-message empty-message">
+    <span class="empty-icon">☹️</span>
+    Aucun résultat trouvé
+  </div>
+
+  <!-- Tableau des affaires -->
+  <div *ngIf="filteredAffaires.length > 0" class="affaires-table-container">
+    <table class="affaires-table">
+      <thead>
+        <tr>
+          <th>Numéro</th>
+          <th>Objet</th>
+          <th>Réclamation</th>
+          <th>Date Convocation</th>
+          <th>Clôture</th>
+          <th>Degré Juridique</th>
+          <th>Type Client</th>
+          <th>Type Tribunal</th>
+          <th class="judgment-column">🧾 Issue du Jugement</th>
+          <th>Remarques</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let affaire of filteredAffaires">
+          <td class="affaire-number">{{ affaire.numeroAffaire }}</td>
+          <td class="affaire-object">{{ affaire.objet }}</td>
+          <td>{{ affaire.reclamation?.type || 'Non spécifié' }}</td>
+          <td class="date-cell">{{ affaire.dateConvocation | date: 'dd/MM/yyyy' }}</td>
+          <td class="date-cell">{{ affaire.dateCloture | date: 'dd/MM/yyyy' }}</td>
+          <td><span class="badge juridique-badge">{{ affaire.degreJuridique }}</span></td>
+          <td>{{ affaire.typeClient }}</td>
+          <td>{{ affaire.tribunal?.typeTribunal || 'Non spécifié' }}</td>
+          <td class="judgment-cell">
+            <span [class]="'judgment-' + (affaire.jugements?.length ? (affaire.jugements[affaire.jugements.length - 1]?.issue || 'pending') : 'pending')">
+              {{
+                affaire.jugements?.length
+                  ? affaire.jugements[affaire.jugements.length - 1]?.issue || 'Non rendu'
+                  : 'Non rendu'
+              }}
+            </span>
+          </td>
+          <td class="remarks-cell">{{ affaire.remarques }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -41,28 +41,22 @@
     <aside class="sidebar">
       <nav class="nav">
         <a class="nav-link" [routerLink]="['/profile']">
-          <span class="icon">👤</span>
-          <span class="label">Profil</span>
+          👤 Profil
         </a>
-        <a class="nav-link" [routerLink]="['/avocat-dashboard/mes-affaires-liste']">
-          <span class="icon">📂</span>
-          <span class="label">Mes affaires</span>
+        <a class="nav-link" [routerLink]="['/mes-affaires-liste']">
+          📂 Mes affaires
         </a>
         <a class="nav-link" [routerLink]="['/audiences']">
-          <span class="icon">📅</span>
-          <span class="label">Mes audiences</span>
+          📅 Mes audiences
         </a>
-        <a class="nav-link" [routerLink]="['/avocat-dashboard/Pdfs']">
-          <span class="icon">📁</span>
-          <span class="label">Mes Contrats</span>
+        <a class="nav-link" [routerLink]="['/Pdfs']">
+          📁 Mes Contrats
         </a>
-        <a class="nav-link" [routerLink]="['/avocat-dashboard/ajouter-dossier']">
-          <span class="icon">➕</span>
-          <span class="label">Ajouter dossier</span>
+        <a class="nav-link" [routerLink]="['/ajouter-dossier']">
+          ➕ Ajouter dossier
         </a>
         <a class="nav-link" [routerLink]="['/notifications']">
-          <span class="icon">🔔</span>
-          <span class="label">Notifications</span>
+          🔔 Notifications
         </a>
       </nav>
     </aside>
@@ -70,7 +64,11 @@
     <!-- Main content -->
     <main class="main-content">
       <app-spinner *ngIf="isLoading"></app-spinner>
-      <router-outlet></router-outlet>
+
+      <!-- 👇 TON COMPONENT CALÉ ICI EN DUR -->
+      <app-info-juredique-avocat></app-info-juredique-avocat>
     </main>
+          <router-outlet></router-outlet>
+
   </div>
 </div>

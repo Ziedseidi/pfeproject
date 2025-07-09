@@ -1,195 +1,364 @@
-/* Container principal */
-.list-container {
-  padding: 20px;
-  background-color: #f5f7fa;
-  border-radius: 10px;
-  width: 100%;
+/* =============== Container =============== */
+.affaires-container {
+  padding: 10px;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: -40px;
+  height: 100px;
 }
 
-/* Titre */
 h2 {
-  color: #005d8f;
-  margin-bottom: 20px;
+  color: #c62828;
   text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  font-weight: 600;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f8bbd0;
 }
 
-/* Table des affaires */
-.affaires-table {
-  width: 100%;
-  table-layout: fixed; /* important pour forcer l'ajustement */
-  border-collapse: collapse;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+/* =============== Affaire Card =============== */
+.affaires-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
 }
 
-/* En-têtes */
-.affaires-table th {
-  background-color: #e8f1f8;
-  color: #005d8f;
-  font-weight: bold;
-  padding: 10px;
-  text-align: center;
-  font-size: 14px;
-}
-
-/* Cellules */
-.affaires-table td {
-  padding: 10px;
-  border: 1px solid #e0e0e0;
-  text-align: center;
-  font-size: 13px;
-  word-wrap: break-word; /* coupe le texte si trop long */
-}
-
-/* Actions */
-.actions {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-/* Boutons */
-.btn {
-  padding: 6px 10px;
-  border: none;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.btn.edit {
-  background-color: #007bff;
-  color: white;
-}
-.btn.edit:hover {
-  background-color: #0056b3;
-}
-
-.btn.delete {
-  background-color: #dc3545;
-  color: white;
-}
-.btn.delete:hover {
-  background-color: #a71d2a;
-}
-
-.btn.assign {
-  background-color: #28a745;
-  color: white;
-}
-.btn.assign:hover {
-  background-color: #1e7e34;
-}
-
-/* Modale */
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 90%;
-  max-width: 500px;
-  transform: translate(-50%, -50%);
-  background-color: #ffffff;
+.affaire-card {
+  background: white;
   border-radius: 12px;
-  padding: 2rem;
-  z-index: 1000;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.modal h3 {
-  font-size: 18px;
-  margin-bottom: 1rem;
-  text-align: center;
+.affaire-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
 }
 
-.modal ul {
-  padding: 0;
-  list-style: none;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.modal li {
+.affaire-header {
+  background-color: #716e6f;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 8px;
+  border-bottom: 1px solid #f8bbd0;
+}
+
+.affaire-header h3 {
+  margin: 0;
+  color: #c62828;
+  font-size: 1.2rem;
+}
+
+.degre-badge {
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: white;
+}
+
+.degre-premiere {
+  background-color: #e53935;
+}
+
+.degre-appel {
+  background-color: #d81b60;
+}
+
+.degre-cassation {
+  background-color: #8e24aa;
+}
+
+/* =============== Affaire Body =============== */
+.affaire-body {
+  padding: -15px;
+}
+
+.affaire-row {
+  display: flex;
+  margin-bottom: 15px;
+  gap: 15px;
+}
+
+.affaire-info {
+  flex: 3;
+}
+
+.affaire-info label {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.affaire-info p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #333;
+  word-break: break-word;
+}
+
+.remarks {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #eee;
+}
+
+/* =============== Consignation Section =============== */
+.consignation-section {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.consignation-section h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #c62828;
+  font-size: 1rem;
+}
+
+.consignation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+}
+
+.consignation-item label {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.consignation-item p {
+  font-weight: 500;
+}
+
+.highlight {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+/* =============== Actions =============== */
+.affaire-actions {
+  display: flex;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  flex: 1;
+  min-width: 100px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.action-btn i {
+  font-size: 0.9rem;
+}
+
+.edit {
+  background-color: #e53935;
+  color: white;
+}
+
+.edit:hover {
+  background-color: #c62828;
+}
+
+.delete {
+  background-color: #b71c1c;
+  color: white;
+}
+
+.delete:hover {
+  background-color: #8e0000;
+}
+
+.assign {
+  background-color: #d81b60;
+  color: white;
+}
+
+.assign:hover {
+  background-color: #ad1457;
+}
+
+/* =============== Modal =============== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.avocat-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  background: white;
+  border-radius: 12px;
+  z-index: 1001;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content {
+  padding: 25px;
+  position: relative;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #c62828;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-error {
+  color: #b71c1c;
+  background-color: #ffebee;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.modal-loading {
+  text-align: center;
+  padding: 20px;
+  color: #c62828;
+}
+
+.avocat-list {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.avocat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.avocat-info {
+  flex: 1;
+}
+
+.avocat-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.avocat-degre {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 3px;
 }
 
 .assign-btn {
-  background-color: #28a745;
+  background-color: #e53935;
   color: white;
-  padding: 5px 10px;
-  font-size: 13px;
+  border: none;
+  padding: 6px 12px;
   border-radius: 4px;
+  font-size: 0.85rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background-color 0.2s ease;
 }
+
 .assign-btn:hover {
-  background-color: #218838;
+  background-color: #c62828;
 }
 
 .modal-close-btn {
   display: block;
-  margin: 20px auto 0;
-  background-color: #db0c0c;
+  width: 100%;
+  padding: 10px;
+  background-color: #b71c1c;
   color: white;
-  padding: 8px 16px;
+  border: none;
   border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: 5px;
+  transition: background-color 0.2s ease;
 }
 
-/* Responsive (mobile friendly sans scroll horizontal) */
-@media screen and (max-width: 768px) {
-  .affaires-table th,
-  .affaires-table td {
-    font-size: 12px;
-    padding: 8px;
-  }
+.modal-close-btn:hover {
+  background-color: #8e0000;
+}
 
-  .btn {
-    font-size: 11px;
-    padding: 5px 8px;
-  }
+/* =============== Loading & Error States =============== */
+.loading-state, .error-state {
+  text-align: center;
+  padding: 30px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+}
 
-  .actions {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
-  }
+.loading-state {
+  color: #c62828;
+  background-color: #fce4ec;
+}
 
-  .modal {
-    width: 95%;
-    padding: 1.5rem;
-  }
+.error-state {
+  color: #b71c1c;
+  background-color: #ffebee;
+}
 
-  .modal li {
+/* =============== Responsive =============== */
+@media (max-width: 768px) {
+  .affaires-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .affaire-row {
     flex-direction: column;
-    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
   }
-
-  .assign-btn {
-    margin-top: 5px;
-    width: 100%;
+  
+  .consignation-grid {
+    grid-template-columns: 1fr;
   }
-}
-
-@media screen and (max-width: 480px) {
-  .affaires-table th,
-  .affaires-table td {
-    font-size: 11px;
+  
+  .action-btn {
+    min-width: 80px;
+    font-size: 0.8rem;
+    padding: 6px 8px;
   }
-
-  .btn {
-    font-size: 10px;
-    padding: 4px 7px;
-  }
-
-  .modal h3 {
-    font-size: 16px;
+  
+  .avocat-modal {
+    width: 95%;
   }
 }

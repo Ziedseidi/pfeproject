@@ -33,6 +33,8 @@ import { AjouterDossierComponent } from './ajouter-dossier/ajouter-dossier.compo
 import { ContratPdfComponent } from './contrat-pdf/contrat-pdf.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { ChatbotJuridiqueComponent } from './chatbot-juridique/chatbot-juridique.component';
+import { AuthGuard } from './auth.guard';
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   
@@ -40,6 +42,7 @@ const routes: Routes = [
   { 
     path: 'admin-dashboard', 
     component: AdminDashboardComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', component: StatisticsComponent },
       { path: 'liste-utilisateurs', component: ListeUtilisateursComponent },
@@ -53,31 +56,32 @@ const routes: Routes = [
   { 
     path: 'avocat-dashboard', 
     component: AvocatDashboardComponent,
-    children: [
+    canActivate: [AuthGuard]},
+    
       { path: 'mes-affaires-liste', component: MesAffairesListeComponent },
       {path:'ajouter-dossier',component:AjouterDossierComponent},
       {path:'Pdfs', component:ContratPdfComponent},
       // Ajoutez d'autres routes pour l'avocat ici si nécessaire
-    ]
-  },
-  { path: 'expert-dashboard', component: ExpertDashboardComponent },
-  { path: 'client-dashboard', component: ClientDashboardComponent },
+    
+ 
+  { path: 'expert-dashboard', component: ExpertDashboardComponent,  canActivate: [AuthGuard] },
+  { path: 'client-dashboard', component: ClientDashboardComponent,  canActivate: [AuthGuard] },
   
   // Routes pour les affaires
-  { path: 'list-affaires', component: ListAffairesComponent },
-  { path: 'contrat', component: ContratComponent },
-  { path: 'recherche-affaire', component: RechercheAffaireComponent },
-  { path: 'consignation-affaire', component: ConsignationAffaireComponent },
-  { path: 'saisie-affaire', component: SaisieAffaireComponent },
-{ path: 'affaire-jugement', component: AffaireJugementComponent },
-{ path: 'chatbot', component: ChatbotJuridiqueComponent },
+  { path: 'list-affaires', component: ListAffairesComponent,  canActivate: [AuthGuard] },
+  { path: 'contrat', component: ContratComponent ,  canActivate: [AuthGuard]},
+  { path: 'recherche-affaire', component: RechercheAffaireComponent,  canActivate: [AuthGuard] },
+  { path: 'consignation-affaire', component: ConsignationAffaireComponent , canActivate: [AuthGuard]},
+  { path: 'saisie-affaire', component: SaisieAffaireComponent, canActivate: [AuthGuard] },
+{ path: 'affaire-jugement', component: AffaireJugementComponent , canActivate: [AuthGuard]},
+{ path: 'chatbot', component: ChatbotJuridiqueComponent,  canActivate: [AuthGuard] },
 
   
   // Route pour la liste des dossiers
-  { path: 'dossiers', component: DossiersComponent },
+  { path: 'dossiers', component: DossiersComponent , canActivate: [AuthGuard]},
   
   // Route pour les détails d'un dossier
-  { path: 'dossier/:id', component: DossierDetailComponent }, // Route dynamique pour l'ID du dossier
+  { path: 'dossier/:id', component: DossierDetailComponent , canActivate: [AuthGuard] }, // Route dynamique pour l'ID du dossier
   
   { path: 'login', component: LoginComponent },
   { 

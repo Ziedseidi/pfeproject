@@ -1,88 +1,130 @@
-<div class="list-container">
+<div class="affaires-container">
   <h2>Liste des Affaires</h2>
 
   <!-- Chargement et erreurs -->
-  <div *ngIf="loading" class="loading">Chargement…</div>
-  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+  <div *ngIf="loading" class="loading-state">Chargement en cours...</div>
+  <div *ngIf="errorMsg" class="error-state">{{ errorMsg }}</div>
 
-  <!-- Table des affaires -->
-  <div class="table-wrapper" *ngIf="!loading && !errorMsg">
-    <table class="affaires-table">
-      <thead>
-        <tr>
-          <th>Numéro</th>
-          <th>Objet</th>
-          <th>Degré</th>
-          <th>Convocation</th>
-          <th>Clôture</th>
-          <th>Réception</th>
-          <th>Remarques</th>
-          <th>Réclamation</th>
-          <th>Client</th>
-          <th>Vol</th>
-         
-          <th>Avocat</th>
-          <th>Tribunal</th>
-          <th>Numéro saisie</th>
-          <th>Montant Consignation</th>
-          <th>Date Consignation</th>
-          <th>Date Recuperation</th>
+  <!-- Liste des affaires -->
+  <div *ngIf="!loading && !errorMsg" class="affaires-list">
+    <div *ngFor="let a of affaires" class="affaire-card">
+      <div class="affaire-header">
+        <h3>Affaire n°{{ a.numeroAffaire }}</h3>
+        <span class="degre-badge" [ngClass]="'degre-' + a.degreJuridique.toLowerCase()">
+          {{ a.degreJuridique }}
+        </span>
+      </div>
 
-          <th class="actions-col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let a of affaires">
-          <td>{{ a.numeroAffaire }}</td>
-          <td>{{ a.objet || '—' }}</td>
-          <td>{{ a.degreJuridique }}</td>
-          <td>{{ a.dateConvocation | date:'shortDate' }}</td>
-          <td>{{ a.dateCloture ? (a.dateCloture | date:'shortDate') : '—' }}</td>
-          <td>{{ a.clotureApresReception ? 'Oui' : 'Non' }}</td>
-          <td>{{ a.remarques || '—' }}</td>
-          <td>{{ a.reclamation?.type }}</td>
-          <td>{{ a.typeClient }}</td>
-          <td>{{ a.numeroVol || '—' }}</td>
-          
-          <td>
-            {{ a.avocat?.nom || '—' }}
-            {{ a.avocat?.prenom || '' }}
-          </td>
-          
-          <td>{{ a.tribunal?.nom || '—' }}</td>
-          <td>
-            <span *ngFor="let s of a.saisies; let last = last">
-              {{ s.numeroSaisie }}<span *ngIf="!last">, </span>
-            </span>
-            <span *ngIf="!a.saisies || a.saisies.length === 0">—</span>
-          </td>
-          <td>{{ a.consignment?.montant || '—' }} TND</td>
-          <td>
-            {{ a.consignment?.dateConsignation ? (a.consignment.dateConsignation | date:'shortDate') : 'En cours' }}
-          </td>
-          <td>
-            {{ a.consignment?.dateRecuperation? (a.consignment.dateRecuperation| date:'shortDate') : 'En cours' }}
-          </td>
-                    <td class="actions">
-            <button class="btn edit" (click)="onEdit(a._id)">
-              <i class="fas fa-pen"></i> Modifier
-            </button>
-            <button class="btn delete" (click)="onDelete(a._id)">
-              <i class="fas fa-trash-alt"></i> Supprimer
-            </button>
-            <button class="btn assign" (click)="onAssign(a._id)">
-              <i class="fas fa-user-check"></i> Assigner Avocat
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <div class="affaire-body">
+        <div class="affaire-row">
+          <div class="affaire-info">
+            <label>Objet</label>
+            <p>{{ a.objet || 'Non spécifié' }}</p>
+          </div>
+          <div class="affaire-info">
+            <label>Client</label>
+            <p>{{ a.typeClient }}</p>
+          </div>
+        </div>
+
+        <div class="affaire-row">
+          <div class="affaire-info">
+            <label>Convocation</label>
+            <p>{{ a.dateConvocation | date:'shortDate' }}</p>
+          </div>
+          <div class="affaire-info">
+            <label>Clôture</label>
+            <p>{{ a.dateCloture ? (a.dateCloture | date:'shortDate') : 'En cours' }}</p>
+          </div>
+        </div>
+
+        <div class="affaire-row">
+          <div class="affaire-info">
+            <label>Réception</label>
+            <p>{{ a.clotureApresReception ? 'Oui' : 'Non' }}</p>
+          </div>
+          <div class="affaire-info">
+            <label>Réclamation</label>
+            <p>{{ a.reclamation?.type || '—' }}</p>
+          </div>
+        </div>
+
+        <div class="affaire-row">
+          <div class="affaire-info">
+            <label>Vol</label>
+            <p>{{ a.numeroVol || '—' }}</p>
+          </div>
+          <div class="affaire-info">
+            <label>Numéro saisie</label>
+            <p>
+              <span *ngFor="let s of a.saisies; let last = last">
+                {{ s.numeroSaisie }}<span *ngIf="!last">, </span>
+              </span>
+              <span *ngIf="!a.saisies || a.saisies.length === 0">—</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="affaire-row">
+          <div class="affaire-info">
+            <label>Avocat</label>
+            <p>
+              {{ a.avocat?.nom || '—' }}
+              {{ a.avocat?.prenom || '' }}
+            </p>
+          </div>
+          <div class="affaire-info">
+            <label>Tribunal</label>
+            <p>{{ a.tribunal?.nom || '—' }}</p>
+          </div>
+        </div>
+
+        <div class="consignation-section">
+          <h4>Consignation</h4>
+          <div class="consignation-grid">
+            <div class="consignation-item">
+              <label>Montant</label>
+              <p class="highlight">{{ a.consignment?.montant || '—' }} TND</p>
+            </div>
+            <div class="consignation-item">
+              <label>Date Consignation</label>
+              <p class="highlight">
+                {{ a.consignment?.dateConsignation ? (a.consignment.dateConsignation | date:'shortDate') : 'En cours' }}
+              </p>
+            </div>
+            <div class="consignation-item">
+              <label>Date Récupération</label>
+              <p class="highlight">
+                {{ a.consignment?.dateRecuperation ? (a.consignment.dateRecuperation | date:'shortDate') : 'En cours' }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="affaire-info remarks">
+          <label>Remarques</label>
+          <p>{{ a.remarques || 'Aucune remarque' }}</p>
+        </div>
+      </div>
+
+      <div class="affaire-actions">
+        <button class="action-btn edit" (click)="onEdit(a._id)">
+          <i class="fas fa-pen"></i> Modifier
+        </button>
+        <button class="action-btn delete" (click)="onDelete(a._id)">
+          <i class="fas fa-trash-alt"></i> Supprimer
+        </button>
+        <button class="action-btn assign" (click)="onAssign(a._id)">
+          <i class="fas fa-user-check"></i> Assigner
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Modal pour l'assignation d'avocat -->
-  <div class="overlay" *ngIf="showModal"></div>
+  <div class="modal-overlay" *ngIf="showModal"></div>
 
-  <div *ngIf="showModal" class="modal">
+  <div *ngIf="showModal" class="avocat-modal">
     <div class="modal-content">
       <h3>Avocats Éligibles</h3>
       
@@ -90,19 +132,25 @@
         {{ modalError }}
       </div>
       
-      <!-- Affichage de l'état de chargement -->
-      <div *ngIf="modalLoading" class="loading-message">
-        <p>Chargement...</p>
+      <div *ngIf="modalLoading" class="modal-loading">
+        <p>Chargement des avocats...</p>
       </div>
   
-      <ul *ngIf="!modalLoading">
-        <li *ngFor="let avocat of avocatsEligibles">
-          <span>{{ avocat.utilisateur.nom }} {{ avocat.utilisateur.prenom }} - {{ avocat.degreJuridiction }}</span>
-          <button class="btn assign-btn" (click)="assignerAvocat(avocat.utilisateur._id)">Assigner</button>
-        </li>
-      </ul>
+      <div *ngIf="!modalLoading" class="avocat-list">
+        <div *ngFor="let avocat of avocatsEligibles" class="avocat-item">
+          <div class="avocat-info">
+            <span class="avocat-name">{{ avocat.utilisateur.nom }} {{ avocat.utilisateur.prenom }}</span>
+            <span class="avocat-degre">{{ avocat.degreJuridiction }}</span>
+          </div>
+          <button class="assign-btn" (click)="assignerAvocat(avocat.utilisateur._id)">
+            <i class="fas fa-user-plus"></i> Assigner
+          </button>
+        </div>
+      </div>
     
-      <button class="btn modal-close-btn" (click)="fermerModal()">Fermer</button>
+      <button class="modal-close-btn" (click)="fermerModal()">
+        <i class="fas fa-times"></i> Fermer
+      </button>
     </div>
   </div>
 </div>

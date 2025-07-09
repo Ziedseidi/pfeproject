@@ -1,91 +1,143 @@
-<div class="recherche-affaire">
-    <h2>Affectation d'une Consignation</h2>
-  
-    <!-- Formulaire de recherche -->
-    <form (ngSubmit)="onSearch()" #rechercheForm="ngForm" class="search-form">
-      <div class="form-group">
-        <label for="numeroAffaire">Numéro de l'Affaire</label>
-        <input
-          type="text"
-          id="numeroAffaire"
-          [(ngModel)]="numeroAffaire"
-          name="numeroAffaire"
-          class="form-control"
-          required
-          #numeroAffaireInput="ngModel"
-        />
-        <div *ngIf="numeroAffaireInput.invalid && numeroAffaireInput.touched" class="error-message">
-          Le numéro de l'affaire est requis.
+<div class="consignation-container">
+  <h2 class="consignation-main-title">
+    <span class="consignation-icon">💰</span>
+    Affectation d'une Consignation
+  </h2>
+
+  <!-- Formulaire de recherche -->
+  <form (ngSubmit)="onSearch()" #rechercheForm="ngForm" class="consignation-search-form">
+    <div class="form-group">
+      <label for="numeroAffaire" class="form-label">
+        <span class="label-icon">📁</span>
+        Numéro de l'Affaire
+      </label>
+      <input
+        type="text"
+        id="numeroAffaire"
+        [(ngModel)]="numeroAffaire"
+        name="numeroAffaire"
+        class="form-input"
+        required
+        #numeroAffaireInput="ngModel"
+        placeholder="Entrez le numéro d'affaire"
+      />
+      <div *ngIf="numeroAffaireInput.invalid && numeroAffaireInput.touched" class="error-message">
+        <span class="error-icon">!</span> Le numéro de l'affaire est requis.
+      </div>
+    </div>
+
+    <button type="submit" class="search-btn" [disabled]="rechercheForm.invalid">
+      <span class="btn-icon">🔍</span> Rechercher
+    </button>
+  </form>
+
+  <!-- Messages -->
+  <div *ngIf="successMessage" class="success-message message-box">
+    <span class="message-icon">✓</span>
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message message-box">
+    <span class="message-icon">!</span>
+    {{ errorMessage }}
+  </div>
+
+  <!-- Détails de l'affaire -->
+  <div *ngIf="affaire" class="affaire-details-card">
+    <div class="affaire-header">
+      <h3 class="affaire-title">
+        <span class="affaire-icon">📋</span>
+        Détails de l'Affaire
+      </h3>
+    </div>
+
+    <div class="affaire-details-grid">
+      <div class="detail-item">
+        <span class="detail-label">Numéro :</span>
+        <span class="detail-value highlight">{{ affaire.numeroAffaire }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">Objet :</span>
+        <span class="detail-value">{{ affaire.objet }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">Avocat :</span>
+        <span class="detail-value">
+          {{ affaire.avocat?.utilisateur?.nom || 'Non assigné' }}
+          {{ affaire.avocat?.utilisateur?.prenom || '' }}
+        </span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">Tribunal :</span>
+        <span class="detail-value">{{ affaire.tribunal ? affaire.tribunal.nom : 'Non assigné' }}</span>
+      </div>
+    </div>
+
+    <!-- Liste des consignations -->
+    <div *ngIf="affaire.consignations && affaire.consignations.length > 0" class="consignations-section">
+      <h4 class="consignations-title">
+        <span class="section-icon">💵</span>
+        Consignations existantes
+      </h4>
+      
+      <div class="consignations-list">
+        <div *ngFor="let consignation of affaire.consignations" class="consignation-item">
+          <div class="consignation-amount">
+            <span class="amount-value">{{ consignation.montant }} TND</span>
+          </div>
+          <div class="consignation-date">
+            {{ consignation.dateConsignation | date: 'dd/MM/yyyy' }}
+          </div>
         </div>
       </div>
-  
-      <button type="submit" class="btn btn-primary" [disabled]="rechercheForm.invalid">
-        Rechercher
-      </button>
-    </form>
-  
-    <!-- Affichage du message de succès -->
-    <div *ngIf="successMessage" class="success-message">
-      {{ successMessage }}
     </div>
-  
-    <!-- Affichage des détails de l'affaire -->
-    <div *ngIf="affaire" class="affaire-details">
-      <h3>Détails de l'Affaire</h3>
-      <p><strong>Numéro :</strong> {{ affaire.numeroAffaire }}</p>
-      <p><strong>Objet :</strong> {{ affaire.objet }}</p>
-      <p><strong>Avocat :</strong>
-        {{ affaire.avocat?.utilisateur?.nom }} {{ affaire.avocat?.utilisateur?.prenom }}
-      </p>      
-      <p><strong>Tribunal :</strong> {{ affaire.tribunal ? affaire.tribunal.nom : 'Non assigné' }}</p>
-  
-      <!-- Affichage des consignations -->
-      <div *ngIf="affaire.consignations && affaire.consignations.length > 0">
-        <h4>Consignations</h4>
-        <ul>
-          <li *ngFor="let consignation of affaire.consignations">
-            <strong>Montant :</strong> {{ consignation.montant }} TND |
-            <strong> Date de Consignation :</strong> {{ consignation.dateConsignation | date: 'dd/MM/yyyy' }}
-          </li>
-        </ul>
-      </div>
-  
-      <!-- Formulaire de consignation -->
-      <h3>Assigner une Consignation</h3>
-      <form (ngSubmit)="onAssignConsignation()" #consignationForm="ngForm" class="search-form">
+
+    <!-- Formulaire d'assignation -->
+    <div class="assign-consignation-section">
+      <h3 class="assign-title">
+        <span class="assign-icon">➕</span>
+        Assigner une Consignation
+      </h3>
+
+      <form (ngSubmit)="onAssignConsignation()" #consignationForm="ngForm" class="assign-form">
         <div class="form-group">
-          <label for="montant">Montant de la Consignation</label>
+          <label for="montant" class="form-label">
+            <span class="label-icon">💲</span>
+            Montant de la Consignation
+          </label>
           <input
             type="number"
             id="montant"
             [(ngModel)]="montantConsignation"
             name="montant"
-            class="form-control"
+            class="form-input"
             required
+            placeholder="Entrez le montant"
           />
         </div>
-  
+
         <div class="form-group">
-          <label for="dateConsignation">Date de Consignation</label>
+          <label for="dateConsignation" class="form-label">
+            <span class="label-icon">📅</span>
+            Date de Consignation
+          </label>
           <input
             type="date"
             id="dateConsignation"
             [(ngModel)]="dateConsignation"
             name="dateConsignation"
-            class="form-control"
+            class="form-input"
             required
           />
         </div>
-  
-        <button type="submit" class="btn btn-success" [disabled]="consignationForm.invalid">
-          Assigner Consignation
+
+        <button type="submit" class="assign-btn" [disabled]="consignationForm.invalid">
+          <span class="btn-icon">✓</span> Assigner Consignation
         </button>
       </form>
     </div>
-  
-    <!-- Affichage des erreurs -->
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
   </div>
-  
+</div>

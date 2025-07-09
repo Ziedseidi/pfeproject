@@ -1,5 +1,5 @@
 <div class="recherche-affaire">
-  <h2><i class="fas fa-search"></i> Recherche d'Affaire</h2>
+  <h2 class="main-title"><i class="fas fa-search"></i> Recherche d'Affaire</h2>
 
   <!-- Formulaire de recherche -->
   <form (ngSubmit)="rechercherAffaire()" #rechercheForm="ngForm" class="search-form">
@@ -20,72 +20,130 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="loading || rechercheForm.invalid">
+    <button type="submit" class="btn btn-search" [disabled]="loading || rechercheForm.invalid">
       <i class="fas fa-search"></i> Rechercher
     </button>
   </form>
 
-  <!-- Message d'erreur -->
-  <div *ngIf="errorMessage" class="error-message">
+  <!-- Messages -->
+  <div *ngIf="errorMessage" class="error-message message-box">
     <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
   </div>
 
-  <!-- Message de succès -->
-  <div *ngIf="successMessage" class="success-message">
+  <div *ngIf="successMessage" class="success-message message-box">
     <i class="fas fa-check-circle"></i> {{ successMessage }}
   </div>
 
-  <!-- Détails de l'affaire -->
-  <div *ngIf="affaire" class="affaire-details">
-    <h3><i class="fas fa-info-circle"></i> Détails de l'Affaire</h3>
+  <!-- Conteneur horizontal principal -->
+  <div class="affaire-container" *ngIf="affaire">
+    <!-- Colonne de gauche - Détails de l'affaire -->
+    <div class="affaire-details-column">
+      <div class="section-header">
+        <h3><i class="fas fa-info-circle"></i> Détails de l'Affaire</h3>
+      </div>
 
-    <p><strong><i class="fas fa-file-alt"></i> Numéro d'Affaire:</strong> {{ affaire.numeroAffaire }}</p>
-    <p><strong><i class="fas fa-book"></i> Objet:</strong> {{ affaire.objet }}</p>
-    <p><strong><i class="fas fa-balance-scale"></i> Degré Juridique:</strong> {{ affaire.degreJuridique }}</p>
+      <div class="details-grid">
+        <div class="detail-card">
+          <div class="detail-icon"><i class="fas fa-file-alt"></i></div>
+          <div class="detail-content">
+            <div class="detail-label">Numéro</div>
+            <div class="detail-value">{{ affaire.numeroAffaire }}</div>
+          </div>
+        </div>
 
-    <div class="tribunal-info">
-      <p><strong><i class="fas fa-gavel"></i> Tribunal:</strong>
-        <span>{{ affaire.tribunal?.nom || 'Non assigné' }}</span> - 
-        <span>{{ affaire.tribunal?.ville || 'Non assigné' }}</span>
-        <span *ngIf="affaire.tribunal?.typeTribunal">({{ affaire.tribunal.typeTribunal }})</span>
-      </p>
-      <div *ngIf="affaire.tribunal?.imagetribunal" class="tribunal-image-container">
-        <img [src]="affaire.tribunal.imagetribunal" alt="Image du tribunal" class="tribunal-image" />
+        <div class="detail-card">
+          <div class="detail-icon"><i class="fas fa-book"></i></div>
+          <div class="detail-content">
+            <div class="detail-label">Objet</div>
+            <div class="detail-value">{{ affaire.objet }}</div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-icon"><i class="fas fa-balance-scale"></i></div>
+          <div class="detail-content">
+            <div class="detail-label">Degré Juridique</div>
+            <div class="detail-value">{{ affaire.degreJuridique }}</div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-icon"><i class="fas fa-user-tie"></i></div>
+          <div class="detail-content">
+            <div class="detail-label">Avocat</div>
+            <div class="detail-value">
+              {{ affaire.avocat?.utilisateur?.nom || 'Non assigné' }}
+              {{ affaire.avocat?.utilisateur?.prenom || '' }}
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <div class="detail-icon"><i class="fas fa-comment-dots"></i></div>
+          <div class="detail-content">
+            <div class="detail-label">Remarques</div>
+            <div class="detail-value">{{ affaire.remarques }}</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <p><strong><i class="fas fa-user-tie"></i> Avocat:</strong>
-      {{ affaire.avocat?.utilisateur?.nom || 'Non assigné' }}
-      {{ affaire.avocat?.utilisateur?.prenom || '' }}
-    </p>
+    <!-- Colonne de droite - Tribunal -->
+    <div class="tribunal-column">
+      <div class="tribunal-card">
+        <div class="section-header">
+          <h3><i class="fas fa-gavel"></i> Tribunal</h3>
+        </div>
 
-    <p><strong><i class="fas fa-comment-dots"></i> Remarques:</strong> {{ affaire.remarques }}</p>
-  </div>
+        <div class="tribunal-content-container">
+          <div class="tribunal-info">
+            <div class="tribunal-field">
+              <span class="tribunal-label">Nom:</span>
+              <span class="tribunal-value">{{ affaire.tribunal?.nom || 'Non assigné' }}</span>
+            </div>
+            <div class="tribunal-field">
+              <span class="tribunal-label">Ville:</span>
+              <span class="tribunal-value">{{ affaire.tribunal?.ville || '-' }}</span>
+            </div>
+            <div class="tribunal-field" *ngIf="affaire.tribunal?.typeTribunal">
+              <span class="tribunal-label">Type:</span>
+              <span class="tribunal-value">{{ affaire.tribunal.typeTribunal }}</span>
+            </div>
+          </div>
 
-  <!-- Message si tribunal déjà assigné -->
-  <div *ngIf="tribunalDejaAssigne" class="info-message">
-    <i class="fas fa-info-circle"></i>
-    <strong>Un tribunal est déjà assigné à cette affaire.</strong><br />
-    ➡️ Pour toute demande de modification, merci de contacter l'administration.
-  </div>
+          <!-- Image du tribunal placée à côté -->
+          <div *ngIf="affaire.tribunal?.imagetribunal" class="tribunal-image-container">
+            <img [src]="affaire.tribunal.imagetribunal" alt="Image du tribunal" class="tribunal-image" />
+          </div>
+        </div>
+      </div>
 
-  <!-- Sélecteur de tribunal si non assigné -->
-  <div *ngIf="!tribunalDejaAssigne && tribunauxCompatibles.length > 0" class="tribunal-select">
-    <label for="tribunalCompatible">
-      <i class="fas fa-building"></i> Tribunaux compatibles :
-    </label>
-    <select id="tribunalCompatible" [(ngModel)]="selectedTribunalId" name="selectedTribunalId" class="form-control">
-      <option *ngFor="let tribunal of tribunauxCompatibles" [value]="tribunal._id">
-        {{ tribunal.nom }} - {{ tribunal.ville }} - {{ tribunal.typeTribunal }}
-      </option>
-    </select>
-    <button (click)="assignTribunal()" class="btn btn-success mt-2">
-      <i class="fas fa-check"></i> Assigner ce tribunal
-    </button>
+      <!-- Message si tribunal déjà assigné -->
+      <div *ngIf="tribunalDejaAssigne" class="info-message tribunal-message">
+        <div class="message-icon"><i class="fas fa-info-circle"></i></div>
+        <div class="message-content">
+          <strong>Un tribunal est déjà assigné à cette affaire.</strong><br />
+          Pour toute modification, merci de contacter l'administration.
+        </div>
+      </div>
+
+      <!-- Sélecteur de tribunal si non assigné -->
+      <div *ngIf="!tribunalDejaAssigne && tribunauxCompatibles.length > 0" class="tribunal-select-container">
+        <h4 class="select-title"><i class="fas fa-building"></i> Tribunaux compatibles</h4>
+        <select id="tribunalCompatible" [(ngModel)]="selectedTribunalId" name="selectedTribunalId" class="tribunal-select">
+          <option *ngFor="let tribunal of tribunauxCompatibles" [value]="tribunal._id">
+            {{ tribunal.nom }} - {{ tribunal.ville }} - {{ tribunal.typeTribunal }}
+          </option>
+        </select>
+        <button (click)="assignTribunal()" class="btn btn-assign">
+          <i class="fas fa-check"></i> Assigner ce tribunal
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Chargement -->
   <div *ngIf="loading" class="loading">
-    <i class="fas fa-spinner fa-spin"></i> Chargement...
+    <i class="fas fa-spinner fa-spin"></i> Chargement en cours...
   </div>
 </div>

@@ -1,150 +1,256 @@
-/* Conteneur principal */
-.container {
-  margin: 40px auto;
-  max-width: 900px;
-  padding: 0 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* Style général */
+.dossier-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Titre */
-h2 {
+.dossier-main-title {
+  color: #d32f2f;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #ffebee;
+  padding-bottom: 0.5rem;
+}
+
+.dossier-icon {
+  margin-right: 0.75rem;
+  font-size: 1.5rem;
+}
+
+/* Messages */
+.dossier-error-message {
+  background-color: #ffebee;
+  color: #d32f2f;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  border-left: 4px solid #d32f2f;
+}
+
+.error-icon {
+  background-color: #d32f2f;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.75rem;
+  font-weight: bold;
+}
+
+.dossier-not-found {
+  background-color: #f5f5f5;
+  color: #555;
+  padding: 1.5rem;
   text-align: center;
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 20px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+}
+
+.not-found-icon {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
 }
 
 /* Carte du dossier */
-.card {
-  background-color: #fff;
-  padding: 20px;
+.dossier-card {
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-/* Titre du dossier */
-.card h3 {
-  font-size: 1.5rem;
-  color: #444;
-  margin-bottom: 10px;
-}
-
-/* Paragraphes des détails */
-.card p {
-  font-size: 1rem;
-  color: #555;
-  line-height: 1.6;
-  margin-bottom: 10px;
-}
-
-/* Section "Avocat" */
-.card div {
-  margin-bottom: 10px;
-}
-
-/* Message d'erreur */
-.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 15px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-}
-
-/* Message si aucun dossier */
-.no-dossiers {
-  background-color: #e2e3e5;
-  color: #383d41;
-  padding: 15px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-/* Conteneur des images */
-.images-container {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-/* Chaque image de fichier */
-.image-card {
-  width: calc(33.33% - 20px); /* Trois images par ligne */
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  position: relative;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+}
+
+.dossier-card-header {
+  background-color: #d32f2f;
+  padding: 1rem 1.5rem;
+}
+
+.dossier-card-title {
+  color: white;
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.dossier-card-body {
+  padding: 1.5rem;
+}
+
+/* Éléments d'information */
+.dossier-info-item {
+  margin-bottom: 1.25rem;
+}
+
+.info-label {
+  display: block;
+  color: #d32f2f;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.info-value {
+  color: #333;
+  font-size: 1.05rem;
+}
+
+.info-description {
+  background-color: #fafafa;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+.info-warning {
+  color: #ff8f00;
+  font-style: italic;
+}
+
+/* Section fichiers */
+.dossier-files-section {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.files-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: #d32f2f;
+  font-size: 1.1rem;
+}
+
+.files-icon {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.dossier-files-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.dossier-file-card {
+  border: 1px solid #eee;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.3s ease;
   cursor: pointer;
 }
 
-.image-card:hover {
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+.dossier-file-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(211, 47, 47, 0.2);
+  border-color: #d32f2f;
 }
 
-/* Image */
-.image-preview {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  transition: transform 0.3s ease-in-out;
+.file-image-wrapper {
+  position: relative;
+  height: 140px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.image-preview:hover {
-  transform: scale(1.05);
+.dossier-file-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
-/* Responsive pour les petites tailles d'écran */
-@media screen and (max-width: 768px) {
-  .image-card {
-    width: calc(50% - 20px); /* Deux images par ligne */
-  }
+.file-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(211, 47, 47, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-@media screen and (max-width: 480px) {
-  .image-card {
-    width: 100%; /* Une seule image par ligne */
-  }
+.dossier-file-card:hover .file-overlay {
+  opacity: 1;
+}
+
+.zoom-icon {
+  color: white;
+  font-size: 1.5rem;
 }
 
 /* Modale */
-.modal {
+.dossier-modal {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 9999;
+  justify-content: center;
+  z-index: 1000;
 }
 
-/* Image modale agrandie */
-/* Image modale agrandie */
-.modal-image {
-  max-width: 600%; /* Augmente la largeur de l'image */
-  max-height: 600%; /* Augmente la hauteur de l'image */
-  object-fit: contain;
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  cursor: zoom-out; /* Permet de zoomer ou fermer la modale */
-  transition: transform 0.3s ease-in-out;
+  padding: 1rem;
 }
 
-/* Zoom sur survol de l'image */
-.modal-image:hover {
-  transform: scale(1.1); /* Augmenter la taille légèrement sur hover */
-}
-
-/* Fermer la modale en cliquant sur l'arrière-plan */
-.modal:hover {
+.modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #d32f2f;
   cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.modal-close:hover {
+  background-color: #ffebee;
+}
+
+.dossier-modal-image {
+  max-width: 100%;
+  max-height: 80vh;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dossier-container {
+    padding: 1rem;
+  }
+  
+  .dossier-files-container {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
 }

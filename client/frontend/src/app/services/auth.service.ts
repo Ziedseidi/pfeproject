@@ -46,4 +46,8 @@ export class AuthService {
   logout(): Observable<any> {
     return this.http.post<any>(this.logoutUrl, {});
   }
+  isLoggedIn(): boolean {
+  const token = this.getToken();
+  return !!token;  // retourne true si token existe, sinon false
+}
 }
