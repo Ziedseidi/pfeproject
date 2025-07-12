@@ -7,7 +7,9 @@ const saisieSchema = new mongoose.Schema({
     numeroSaisie: { type: String },
     nomAdverse: { type: String },
     numeroPV: { type: String },
-    montantSaisi: { type: Number }
+    montantSaisi: { type: Number },
+    paymentStatus: { type: String, default: 'unpaid' },
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('Saisie', saisieSchema);

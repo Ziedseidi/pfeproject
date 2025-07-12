@@ -5,6 +5,8 @@ const jugementSchema = new mongoose.Schema({
   montant: { type: Number, required: true },
   issue: { type: String, required: true },
   remarques: { type: String },
+  paymentStatus: { type: String, default: 'unpaid' },
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('Jugement', jugementSchema);

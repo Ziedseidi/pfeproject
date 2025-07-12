@@ -11,6 +11,7 @@ const affaireRoutes = require('./routes/affaireRoutes');
 const tribunalRoutes = require('./routes/tribunalRoutes');
 const contratRoutes = require('./routes/contratRoutes');
 const dossierRoutes=require('./routes/dossierRoutes');
+const paypalRoutes=require('./routes/paypalRoutes');
 
 const app = express();
 
@@ -34,5 +35,6 @@ app.use('/affaire', affaireRoutes);
 app.use('/tribunal', tribunalRoutes);
 app.use('/contrat', contratRoutes);
 app.use('/dossier',dossierRoutes);
+app.use('/stripe',paypalRoutes);
 
 module.exports = app;

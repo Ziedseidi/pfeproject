@@ -8,8 +8,8 @@ const Demandeur = require('../models/Demandeur.model');
 const Saisie = require('../models/Saisie.model');
 const Consignation = require('../models/Consignation.model');
 const Tribunal=require('../models/Tribunal.model');
-const Jugement=require('../models/jugement.model');
 const Contrat=require('../models/Contrat.model');
+const Jugement=require('../models/Jugement.model');
 const { v4: uuidv4 } = require('uuid');
 
 const affaireController = {};

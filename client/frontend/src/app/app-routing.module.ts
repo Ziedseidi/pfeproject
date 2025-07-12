@@ -34,6 +34,8 @@ import { ContratPdfComponent } from './contrat-pdf/contrat-pdf.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { ChatbotJuridiqueComponent } from './chatbot-juridique/chatbot-juridique.component';
 import { AuthGuard } from './auth.guard';
+import { pairs } from 'rxjs';
+import { PayerConsignationComponent } from './payer-consignation/payer-consignation.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -61,7 +63,7 @@ const routes: Routes = [
       { path: 'mes-affaires-liste', component: MesAffairesListeComponent },
       {path:'ajouter-dossier',component:AjouterDossierComponent},
       {path:'Pdfs', component:ContratPdfComponent},
-      // Ajoutez d'autres routes pour l'avocat ici si nécessaire
+      {path:'paiement-consignation', component:PayerConsignationComponent},
     
  
   { path: 'expert-dashboard', component: ExpertDashboardComponent,  canActivate: [AuthGuard] },

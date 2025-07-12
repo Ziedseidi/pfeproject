@@ -57,6 +57,7 @@ import { ChartComponent } from './chart/chart.component';
 import { ChatbotJuridiqueComponent } from './chatbot-juridique/chatbot-juridique.component';
 import { InfoJurediqueComponent } from './info-juredique/info-juredique.component';
 import { InfoJurediqueAvocatComponent } from './info-juredique-avocat/info-juredique-avocat.component';
+import { PayerConsignationComponent } from './payer-consignation/payer-consignation.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { InfoJurediqueAvocatComponent } from './info-juredique-avocat/info-jured
     ChatbotJuridiqueComponent,
     InfoJurediqueComponent,
     InfoJurediqueAvocatComponent,
+    PayerConsignationComponent,
   ],
   imports: [
     BrowserModule,

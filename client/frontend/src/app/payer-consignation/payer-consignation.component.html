@@ -1,0 +1,48 @@
+<div class="expert-payment">
+  <!-- En-tête -->
+  <div class="payment-title">
+    <h2> Paiement de Consignation</h2>
+  </div>
+
+  <!-- Recherche -->
+  <div class="input-section">
+    <label>🔎 Numéro d'affaire</label>
+    <div class="input-combo">
+      <input type="text" [(ngModel)]="numAffaire" placeholder="AFF12345">
+      <button (click)="chargerConsignation()" [disabled]="loading" class="big-button search-button">
+        {{ loading ? '🔍 Recherche...' : '🔍 Chercher' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Paiement -->
+  <div *ngIf="consignation" class="payment-section">
+    <div class="payment-info">
+      <div class="amount-display">
+        <span>Montant :</span>
+        <span class="highlight-amount">{{ consignation.montant | currency:'DNT' }}</span>
+      </div>
+      
+      <div class="status-display">
+        <span>Statut :</span>
+        <span class="status-badge {{ consignation.paymentStatus.toLowerCase() }}">
+          {{ consignation.paymentStatus }}
+        </span>
+      </div>
+    </div>
+
+    <div *ngIf="showCard">
+      <div id="card-element" class="oversized-card"></div>
+      <div id="card-errors" class="error-message">{{ cardErrors }}</div>
+
+      <div class="action-buttons">
+        <button (click)="creerPaymentIntent()" [disabled]="loading" class="big-button payment-button">
+          💳 CRÉER LE PAIEMENT
+        </button>
+        <button (click)="confirmerPaiement()" [disabled]="loading" class="big-button confirm-button">
+          ✅ PAYER MAINTENANT
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
