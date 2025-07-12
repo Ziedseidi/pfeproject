@@ -36,6 +36,7 @@ import { ChatbotJuridiqueComponent } from './chatbot-juridique/chatbot-juridique
 import { AuthGuard } from './auth.guard';
 import { pairs } from 'rxjs';
 import { PayerConsignationComponent } from './payer-consignation/payer-consignation.component';
+import { PayerSaisieComponent } from './payer-saisie/payer-saisie.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -64,6 +65,7 @@ const routes: Routes = [
       {path:'ajouter-dossier',component:AjouterDossierComponent},
       {path:'Pdfs', component:ContratPdfComponent},
       {path:'paiement-consignation', component:PayerConsignationComponent},
+      {path:'paiement-saisie', component: PayerSaisieComponent},
     
  
   { path: 'expert-dashboard', component: ExpertDashboardComponent,  canActivate: [AuthGuard] },

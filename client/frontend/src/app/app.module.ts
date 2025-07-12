@@ -58,6 +58,7 @@ import { ChatbotJuridiqueComponent } from './chatbot-juridique/chatbot-juridique
 import { InfoJurediqueComponent } from './info-juredique/info-juredique.component';
 import { InfoJurediqueAvocatComponent } from './info-juredique-avocat/info-juredique-avocat.component';
 import { PayerConsignationComponent } from './payer-consignation/payer-consignation.component';
+import { PayerSaisieComponent } from './payer-saisie/payer-saisie.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +109,7 @@ import { PayerConsignationComponent } from './payer-consignation/payer-consignat
     InfoJurediqueComponent,
     InfoJurediqueAvocatComponent,
     PayerConsignationComponent,
+    PayerSaisieComponent,
   ],
   imports: [
     BrowserModule,

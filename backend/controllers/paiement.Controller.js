@@ -3,9 +3,7 @@ const stripe = require('../utils/stripeClient');
 
 const paiementController = {};
 
-/**
- * ✅ Obtenir les infos d'une consignation par numéro d'affaire
- */
+
 paiementController.getConsignationByNumeroAffaire = async (req, res) => {
   try {
     const { numAffaire } = req.params;
@@ -31,10 +29,7 @@ paiementController.getConsignationByNumeroAffaire = async (req, res) => {
   }
 };
 
-/**
- * ✅ Créer un PaymentIntent pour une consignation
- *  - On récupère le montant en base de données via consignationId
- */
+
 paiementController.createPaymentIntentForConsignation = async (req, res) => {
   try {
     const { consignationId } = req.body;
@@ -73,10 +68,7 @@ paiementController.createPaymentIntentForConsignation = async (req, res) => {
   }
 };
 
-/**
- * ✅ Confirmer et marquer la consignation comme payée en DB
- *  - Frontend doit appeler ça après le paiement réussi côté Stripe
- */
+
 paiementController.confirmPayment = async (req, res) => {
   try {
     const { paymentIntentId, consignationId } = req.body;
