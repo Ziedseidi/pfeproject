@@ -13,7 +13,7 @@ const contratRoutes = require('./routes/contratRoutes');
 const dossierRoutes=require('./routes/dossierRoutes');
 const paypalRoutes=require('./routes/paypalRoutes');
 const stripe_saisie=require('./routes/saisieRoutes');
-
+const factureRoutes=require('./routes/factureRoutes');
 const app = express();
 
 app.use(cors()); 
@@ -38,5 +38,6 @@ app.use('/contrat', contratRoutes);
 app.use('/dossier',dossierRoutes);
 app.use('/stripe',paypalRoutes);
 app.use('/stripe_saisie',stripe_saisie);
+app.use('/consig/facture',factureRoutes);
 
 module.exports = app;
