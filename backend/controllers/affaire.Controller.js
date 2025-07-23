@@ -553,6 +553,115 @@ affaireController.countAvocatsByDegreWithAffaires= async (req, res) => {
   }
 };
 
+affaireController.getPaymentStatistics=async(req,res)=>{
+  try {
+    // Regroupement pour Consignation
+    const consignationStats = await Consignation.aggregate([
+      {
+        $group: {
+          _id: '$paymentStatus',
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    // Regroupement pour Saisie
+    const saisieStats = await Saisie.aggregate([
+      {
+        $group: {
+          _id: '$paymentStatus',
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    // Formater les résultats
+    const result = {
+      consignation: {
+        paid: 0,
+        unpaid: 0
+      },
+      saisie: {
+        paid: 0,
+        unpaid: 0
+      }
+    };
+
+    consignationStats.forEach(item => {
+      if (item._id === 'paid') result.consignation.paid = item.count;
+      if (item._id === 'unpaid') result.consignation.unpaid = item.count;
+    });
+
+    saisieStats.forEach(item => {
+      if (item._id === 'paid') result.saisie.paid = item.count;
+      if (item._id === 'unpaid') result.saisie.unpaid = item.count;
+    });
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error('Erreur lors du calcul des statistiques de paiement:', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+};
+
+affaireController.getAffairesCountByTypeClient = async (req, res) => {
+  try {
+    const stats = await Affaire.aggregate([
+      {
+        $group: {
+          _id: '$typeClient',
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $project: {
+          typeClient: '$_id',
+          count: 1,
+          _id: 0
+        }
+      }
+    ]);
+
+    // Initialiser le résultat avec les types attendus
+    const result = {
+      fournisseur: 0,
+      assurance: 0,
+      passager: 0,
+      employe: 0
+    };
+
+    stats.forEach((item) => {
+      if (result.hasOwnProperty(item.typeClient)) {
+        result[item.typeClient] = item.count;
+      }
+    });
+
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error('Erreur dans getAffairesCountByTypeClient:', error);
+    return res.status(500).json({ error: 'Erreur serveur lors du calcul des affaires' });
+  }
+};
+affaireController.getAffairesStatusCount=async(req,res)=>{
+  try {
+    // Nombre d'affaires terminées (au moins un jugement lié)
+    const affairesTermineesCount = await Affaire.countDocuments({ jugements: { $exists: true, $not: { $size: 0 } } });
+
+    // Nombre d'affaires en cours (sans jugement)
+    const affairesEnCoursCount = await Affaire.countDocuments({ $or: [
+      { jugements: { $exists: false } },
+      { jugements: { $size: 0 } }
+    ] });
+
+    res.json({
+      enCours: affairesEnCoursCount,
+      terminees: affairesTermineesCount
+    });
+  } catch (error) {
+    console.error('Erreur getAffairesStatusCount:', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+}
 
 
 

@@ -1,30 +1,72 @@
-<div class="chatbot-wrapper">
-  <!-- HEADER -->
-  <div class="chatbot-header">
-    <img src="assets/juridique-bot.png" alt="Bot" class="bot-icon" />
-    <div>
-      <h3>Juridique-bot</h3>
-      <small>Your Virtual Assistant</small>
+<div class="chatbot-container" *ngIf="!isClosed">
+  <div class="chatbot-wrapper" [class.minimized]="isMinimized">
+    <!-- HEADER -->
+    <div class="chatbot-header">
+      <div class="header-content">
+        <div class="bot-avatar">
+          <img src="assets/juridique-bot.png" alt="Juridique Bot" class="bot-icon" />
+          <div class="status-indicator online"></div>
+        </div>
+        <div class="bot-info">
+          <h3 class="bot-name">Juridique-bot</h3>
+          <small class="bot-description">Votre Assistant Juridique Virtuel</small>
+        </div>
+        <div class="chat-controls">
+          <button class="control-btn" title="Minimiser" (click)="minimiserChat()">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button class="control-btn" title="Fermer" (click)="fermerChat()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- CORPS DU CHAT -->
-  <div class="chatbot-body">
-    <div *ngFor="let msg of messages" class="chat-message" [ngClass]="msg.type">
-      {{ msg.text }}
+    <!-- CORPS DU CHAT -->
+    <div class="chatbot-body" *ngIf="!isMinimized">
+      <div class="messages-container">
+        <div *ngFor="let msg of messages" class="chat-message" [ngClass]="msg.type">
+          <div class="message-content">
+            <div class="message-text">{{ msg.text }}</div>
+            <div class="message-time" *ngIf="msg.time">{{ msg.time | date:'HH:mm' }}</div>
+          </div>
+        </div>
+
+        <div *ngIf="loading" class="chat-message bot">
+          <div class="message-content">
+            <div class="message-text typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+              Recherche en cours...
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div *ngIf="loading" class="chat-message bot">Recherche en cours...</div>
-  </div>
-
-  <!-- PIED DU CHAT -->
-  <div class="chatbot-footer">
-    <input
-      type="text"
-      [(ngModel)]="question"
-      (keyup.enter)="poserQuestion()"
-      placeholder="Tapez votre message ici"
-    />
-    <button (click)="poserQuestion()">➤</button>
+    <!-- PIED DU CHAT -->
+    <div class="chatbot-footer" *ngIf="!isMinimized">
+      <div class="input-container">
+        <button class="attachment-btn" title="Joindre un fichier">
+          <i class="fas fa-paperclip"></i>
+        </button>
+        <input
+          type="text"
+          [(ngModel)]="question"
+          (keyup.enter)="poserQuestion()"
+          placeholder="Posez votre question juridique ici..."
+          class="chat-input"
+        />
+        <button class="send-btn" (click)="poserQuestion()" [disabled]="!question.trim()">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+      <div class="footer-note">
+        <small>
+          Juridique-bot peut faire des erreurs. Consultez toujours un professionnel pour des conseils importants.
+        </small>
+      </div>
+    </div>
   </div>
 </div>

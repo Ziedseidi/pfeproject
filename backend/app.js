@@ -38,6 +38,6 @@ app.use('/contrat', contratRoutes);
 app.use('/dossier',dossierRoutes);
 app.use('/stripe',paypalRoutes);
 app.use('/stripe_saisie',stripe_saisie);
-app.use('/consig/facture',factureRoutes);
+app.use('/facture',factureRoutes);
 
 module.exports = app;

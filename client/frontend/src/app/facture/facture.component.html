@@ -1,0 +1,24 @@
+<!-- facture.component.html -->
+<div class="facture-container">
+  <div class="facture-box">
+    <div class="navbar-logo">
+      ⚖️ <span>Tunisair</span>
+    </div>
+    
+    <h2>📄 Télécharger une Facture</h2>
+    
+    <p class="facture-rules">
+      🔹 Entrez le numéro d'affaire correct pour générer la facture.<br>
+      🔹 Le format du numéro doit respecter celui fourni dans l'affaire.<br>
+      🔹 Vous recevrez un fichier PDF téléchargeable instantanément.<br>
+      🔹 Assurez-vous que l'affaire soit validée avant de générer la facture.<br>
+      🔹 En cas d’erreur, contactez le support juridique.<br>
+
+    </p>
+
+    <div class="input-group">
+      <input type="text" [(ngModel)]="numeroAffaire" placeholder="Numéro d'affaire" />
+      <button (click)="onTelechargerFacture()">📥 Télécharger</button>
+    </div>
+  </div>
+</div>

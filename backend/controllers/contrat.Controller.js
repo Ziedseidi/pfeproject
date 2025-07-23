@@ -144,5 +144,40 @@ contratController.refuserContrat = async (req, res) => {
   }
 };
 
+contratController.countContratsBtEtat = async (req, res) => {
+  try {
+    const result = await Contrat.aggregate([
+      {
+        $match: {
+          etat: { $in: ['accepté', 'refusé'] }
+        }
+      },
+      {
+        $group: {
+          _id: '$etat',
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    // Initialiser les compteurs à zéro
+    const counts = {
+      accepté: 0,
+      refusé: 0
+    };
+
+    // Remplir les compteurs avec les résultats
+    result.forEach(item => {
+      counts[item._id] = item.count;
+    });
+
+    return res.status(200).json(counts);
+  } catch (err) {
+    console.error('Erreur lors du comptage des contrats:', err);
+    return res.status(500).json({ message: 'Erreur serveur', error: err.message });
+  }
+};
+
+
 
  module.exports=contratController;

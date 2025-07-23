@@ -1,66 +1,100 @@
+/* Variables pour une cohérence globale */
+:root {
+  --chart-radius: 16px;
+  --chart-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --chart-padding: 24px;
+  --chart-gap: 32px;
+  --chart-bg: #ffffff;
+  --chart-border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Conteneur principal */
 .charts-row {
   display: flex;
-  justify-content: flex-end; /* aligne à droite */
-  gap: 32px;
+  justify-content: flex-end;
+  gap: var(--chart-gap);
   flex-wrap: wrap;
   padding: 20px 0;
-  background-color: #f8fafc;
-  width: 120%;
+  width: 100%;
   box-sizing: border-box;
+  margin-left: auto;
 }
 
-/* Taille fixe et identique pour chaque carte */
+/* Carte de graphique standard */
 .chart-wrapper {
-  flex: 0 0 48%;
-  max-width: 48%;
-  background: white;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-
+  flex: 0 0 calc(50% - var(--chart-gap));
+  background: var(--chart-bg);
+  padding: var(--chart-padding);
+  border-radius: var(--chart-radius);
+  box-shadow: var(--chart-shadow);
+  border: var(--chart-border);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 380px;
+  position: relative;
+  overflow: hidden;
 
-  box-sizing: border-box;
-
-  /* Taille fixe */
-  height: 340px; /* hauteur fixe identique */
-  min-height: 400px;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
 }
 
-/* Carte en bas (centrée à droite) */
+/* Carte centrée spéciale */
 .centered {
-  width: 110%;
-  max-width: 600px;
+  width: 100%;
+  max-width: 800px;
   margin: 40px 0 0 auto;
-  background: white;
-  padding: 24px;
-  border-radius: 20px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  background: var(--chart-bg);
+  padding: var(--chart-padding);
+  border-radius: var(--chart-radius);
+  box-shadow: var(--chart-shadow);
+  border: var(--chart-border);
+  height: 360px;
+  transition: all 0.3s ease;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  box-sizing: border-box;
-
-  /* Même hauteur pour uniformité */
-  height: 320px;
-  min-height: 320px;
+  &:hover {
+    transform: translateY(-3px);
+  }
 }
 
-/* Responsive : en petit écran, full width et hauteur auto */
-@media (max-width: 768px) {
-  .chart-wrapper,
-  .centered {
+/* Conteneur du graphique */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 40px); /* Réserve l'espace pour le titre */
+  min-height: 280px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .chart-wrapper {
     flex: 0 0 100%;
-    max-width: 100%;
-    height: auto; /* hauteur auto pour petit écran */
-    min-height: auto;
+    height: auto;
+    min-height: 320px;
   }
 
   .centered {
     margin-left: 0;
+    height: auto;
+    min-height: 300px;
+  }
+
+  .chart-container {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .charts-row {
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .chart-wrapper, 
+  .centered {
+    padding: 16px;
+    border-radius: 12px;
   }
 }

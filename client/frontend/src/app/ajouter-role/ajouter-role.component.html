@@ -1,38 +1,49 @@
 <div class="role-form-container">
   <div class="role-form-card">
-    <h2 class="role-form-title">✨ Nouveau Rôle</h2>
+    <div class="form-header">
+      <h2 class="role-form-title">✨ Nouveau Rôle</h2>
+      <div class="decorative-line"></div>
+    </div>
 
     <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
       <div class="role-form-group">
         <label for="nom">🧾 Nom du rôle</label>
-        <input
-          type="text"
-          id="nom"
-          formControlName="nom"
-          placeholder="Ex : Super Admin"
-        />
+        <div class="input-container">
+          <input
+            type="text"
+            id="nom"
+            formControlName="nom"
+            placeholder="Ex : Super Admin"
+          />
+          <span class="input-icon">🔑</span>
+        </div>
       </div>
 
       <div class="role-form-group">
         <label for="description">📝 Description</label>
-        <textarea
-          id="description"
-          formControlName="description"
-          rows="4"
-          placeholder="Décrivez brièvement le rôle..."
-        ></textarea>
+        <div class="textarea-container">
+          <textarea
+            id="description"
+            formControlName="description"
+            rows="4"
+            placeholder="Décrivez brièvement le rôle..."
+          ></textarea>
+          <span class="textarea-icon">✏️</span>
+        </div>
       </div>
 
       <div class="role-form-actions">
         <button type="submit" [disabled]="roleForm.invalid" class="btn-create">
-          ➕ Créer le rôle
+          <span class="btn-icon">➕</span> Créer le rôle
         </button>
         <a routerLink="/admin-dashboard/liste-roles" class="btn-secondary">
-          📋 Voir les rôles
+          <span class="btn-icon">📋</span> Voir les rôles
         </a>
       </div>
     </form>
 
-    <p *ngIf="message" class="form-message">{{ message }}</p>
+    <div *ngIf="message" class="form-message-container">
+      <div class="message-bubble">{{ message }}</div>
+    </div>
   </div>
 </div>

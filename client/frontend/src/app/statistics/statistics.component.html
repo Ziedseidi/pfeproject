@@ -1,14 +1,83 @@
-<div class="charts-row">
-  <div class="chart-wrapper">
-    <h3>Affaires par degré juridique</h3>
-    <div class="chart-content">
-      <app-chart [data]="affairesData" [options]="affairesOptions" [type]="affairesType"></app-chart>
+<div class="statistics-container">
+  <div class="charts-row">
+    <!-- Affaires par degré juridique -->
+    <div class="chart-card-3d">
+      <div class="chart-glass-effect"></div>
+      <h3 class="chart-title">Affaires par degré juridique</h3>
+      <div class="chart-wrapper-3d">
+        <canvas baseChart
+                type="bar"
+                [data]="affairesData"
+                [options]="affairesOptions">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Avocats par degré -->
+    <div class="chart-card-3d">
+      <div class="chart-glass-effect"></div>
+      <h3 class="chart-title">Avocats par degré</h3>
+      <div class="chart-wrapper-3d pie-3d">
+        <canvas baseChart
+                type="pie"
+                [data]="avocatsData"
+                [options]="avocatsOptions">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Affaires par client -->
+   <div class="chart-card-3d">
+      <div class="chart-glass-effect"></div>
+      <h3 class="chart-title">Affaires par client</h3>
+      <div class="chart-wrapper-3d">
+        <canvas baseChart
+                type="bar"
+                [data]="clientsData"
+                [options]="clientsOptions">
+        </canvas>
+      </div>
     </div>
   </div>
-  <div class="chart-wrapper">
-    <h3>Nombre d'avocats par degré avec affaires</h3>
-    <div class="chart-content">
-      <app-chart [data]="avocatsData" [options]="avocatsOptions" [type]="avocatsType"></app-chart>
+
+  <div class="charts-row">
+    <!-- Contrats -->
+    <div class="chart-card-3d">
+      <div class="chart-glass-effect"></div>
+      <h3 class="chart-title">Contrats</h3>
+      <div class="chart-wrapper-3d doughnut-3d">
+        <canvas baseChart
+                type="doughnut"
+                [data]="contratsData"
+                [options]="contratsOptions">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Consignations / Saisies -->
+    <div class="chart-card-3d">
+      <div class="chart-glass-effect"></div>
+      <h3 class="chart-title">Consignations / Saisies</h3>
+      <div class="chart-wrapper-3d">
+        <canvas baseChart
+                type="bar"
+                [data]="consignationSaisieData"
+                [options]="consignationSaisieOptions">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Statut Paid / Unpaid -->
+    <div class="chart-card-3d">
+      <div class="chart-glass-effect"></div>
+      <h3 class="chart-title">Statut des Affaires</h3>
+      <div class="chart-wrapper-3d">
+        <canvas baseChart
+                type="bar"
+                [data]="statutAffairesData"
+                [options]="statutAffairesOptions">
+        </canvas>
+      </div>
     </div>
   </div>
 </div>

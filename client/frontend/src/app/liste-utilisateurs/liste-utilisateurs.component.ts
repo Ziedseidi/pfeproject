@@ -25,6 +25,11 @@ export class ListeUtilisateursComponent implements OnInit {
   isEditModalOpen: boolean = false;
   selectedUserToEdit: User | null = null;
 
+  // Pagination
+  pageSize: number = 5;
+  currentPage: number = 1;
+  totalPages: number = 1;
+
   constructor(
     private userService: UserService,
     private roleService: RoleService
@@ -42,6 +47,7 @@ export class ListeUtilisateursComponent implements OnInit {
         this.utilisateurs = data;
         this.filteredUtilisateurs = data;
         this.isLoading = false;
+        this.updatePagination();
       },
       (error) => {
         this.errorMessage = 'Erreur lors de la récupération des utilisateurs.';
@@ -62,12 +68,35 @@ export class ListeUtilisateursComponent implements OnInit {
   }
 
   filterUsers(): void {
+    this.currentPage = 1;
+    this.updatePagination();
+  }
+
+  updatePagination(): void {
     const query = this.searchQuery.trim().toLowerCase();
-    this.filteredUtilisateurs = this.utilisateurs.filter(
+    const filtered = this.utilisateurs.filter(
       (u) =>
         u.nom.toLowerCase().includes(query) ||
         u.prenom.toLowerCase().includes(query)
     );
+    this.totalPages = Math.ceil(filtered.length / this.pageSize);
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.filteredUtilisateurs = filtered.slice(startIndex, endIndex);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+    }
   }
 
   openEditModal(user: User): void {
@@ -85,14 +114,13 @@ export class ListeUtilisateursComponent implements OnInit {
     this.closeEditModal();
   }
 
-  // Les autres fonctions que tu as déjà...
-
   supprimerUtilisateur(userId: string): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
       this.userService.deleteUser(userId).subscribe(
         () => {
           this.utilisateurs = this.utilisateurs.filter(u => u._id !== userId);
           this.filteredUtilisateurs = this.filteredUtilisateurs.filter(u => u._id !== userId);
+          this.updatePagination();
         },
         (error) => {
           console.error('Erreur lors de la suppression de l’utilisateur :', error);

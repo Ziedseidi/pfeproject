@@ -17,8 +17,11 @@ router.post('/assign-consignation',authenticateToken,roleMiddleware('PersonelJur
 router.post('/assign-saisie',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.assigneSaisie);
 router.get('/mes-affaires',authenticateToken,roleMiddleware('Avocat'),affaireController.getAffairesByAvocat);
 router.post('/assign-jugement',authenticateToken,roleMiddleware('PersonelJurédique'),affaireController.assigneJugement);
-router.get('/degre-juridique',affaireController.countByDegreJuridique);
-router.get('/count-by-degre-avec-affaires',affaireController.countAvocatsByDegreWithAffaires);
+router.get('/degre-juridique',authenticateToken,roleMiddleware('Admin'),affaireController.countByDegreJuridique);
+router.get('/count-by-degre-avec-affaires',authenticateToken,roleMiddleware('Admin'),affaireController.countAvocatsByDegreWithAffaires);
+router.get('/payments',authenticateToken,roleMiddleware('Admin'),affaireController.getPaymentStatistics);
+router.get('/typeClient',authenticateToken,roleMiddleware('Admin'),affaireController.getAffairesCountByTypeClient);
+router.get('/statutAffaire',authenticateToken,roleMiddleware('Admin'),affaireController.getAffairesStatusCount);
 module.exports = router;
 
 

@@ -10,6 +10,7 @@ router.post('/ajouterContrat',authenticateToken,roleMiddleware('PersonelJurédiq
 router.get('/Pdfs',authenticateToken,roleMiddleware('Avocat'),contratController.getPdfContratsByAvocat),
 router.put('/:id/accepter', authenticateToken,roleMiddleware('Avocat'),contratController.accepterContrat);
 router.put('/:id/refuser', authenticateToken,roleMiddleware('Avocat'),contratController.refuserContrat);
+router.get('/staticContrat',authenticateToken,roleMiddleware('Admin'),contratController.countContratsBtEtat),
 
 
 module.exports = router;
