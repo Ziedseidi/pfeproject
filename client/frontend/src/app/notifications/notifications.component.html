@@ -1,0 +1,14 @@
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">Notifications</h2>
+
+  <div *ngIf="notifications.length > 0; else noNotif">
+    <div *ngFor="let notif of notifications" class="bg-white shadow p-4 rounded mb-3 border border-gray-200">
+      <p class="text-gray-800">{{ notif.message }}</p>
+      <p class="text-sm text-gray-500">{{ notif.date | date:'short' }}</p>
+    </div>
+  </div>
+
+  <ng-template #noNotif>
+    <p>Aucune notification disponible.</p>
+  </ng-template>
+</div>

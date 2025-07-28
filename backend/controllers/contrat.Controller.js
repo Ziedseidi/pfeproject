@@ -5,6 +5,7 @@ const User = require('../models/User.model');
 const Affaire = require('../models/Affaire.model');
 const path = require('path');
 const generateContractPdf = require('../utils/generateContractPdf');
+const Notification=require('../models/Notification.model');
 
 const contratController = {};
 
@@ -21,12 +22,12 @@ contratController.createContrat = async (req, res) => {
       ...contratData
     } = req.body;
 
-    // Vérification des champs requis
+    // ✅ Vérification des champs requis
     if (!avocatNom || !avocatPrenom || !demandeurNom || !demandeurPrenom || !numeroAffaire) {
       return res.status(400).json({ message: 'Champs requis manquants.' });
     }
 
-    // Trouver l'utilisateur avocat
+    // ✅ Trouver l'utilisateur avocat
     const utilisateurAvocat = await User.findOne({ nom: avocatNom, prenom: avocatPrenom });
     if (!utilisateurAvocat) {
       return res.status(404).json({ message: "Utilisateur avocat introuvable." });
@@ -37,6 +38,7 @@ contratController.createContrat = async (req, res) => {
       return res.status(404).json({ message: "Avocat introuvable." });
     }
 
+    // ✅ Trouver l'utilisateur demandeur
     const utilisateurDemandeur = await User.findOne({ nom: demandeurNom, prenom: demandeurPrenom });
     if (!utilisateurDemandeur) {
       return res.status(404).json({ message: "Utilisateur demandeur introuvable." });
@@ -47,12 +49,14 @@ contratController.createContrat = async (req, res) => {
       return res.status(404).json({ message: "Demandeur introuvable." });
     }
 
+    // ✅ Vérifier les affaires
     const numeroAffaireArray = Array.isArray(numeroAffaire) ? numeroAffaire : [numeroAffaire];
     const affaires = await Affaire.find({ numeroAffaire: { $in: numeroAffaireArray } });
     if (affaires.length === 0) {
       return res.status(404).json({ message: "Aucune affaire trouvée avec les numéros fournis." });
     }
 
+    // ✅ Création du contrat
     const contrat = new Contrat({
       ...contratData,
       avocat: avocat._id,
@@ -63,17 +67,23 @@ contratController.createContrat = async (req, res) => {
 
     await contrat.save();
 
-    // Lier le contrat à l'avocat
+    // ✅ Lier le contrat à l'avocat
     avocat.contrats.push(contrat._id);
     await avocat.save();
 
-    // Génération du fichier PDF
+    // ✅ Génération du fichier PDF
     const fileName = `contrat_${contrat._id}.pdf`;
     const filePath = path.join(__dirname, '../pdfs', fileName);
     await generateContractPdf(contrat, avocat, demandeur, affaires, filePath);
 
     contrat.fichier = fileName;
     await contrat.save();
+
+    // ✅ Créer une notification pour l’avocat
+    await Notification.create({
+      destinataire: utilisateurAvocat._id,
+      message: `Un nouveau contrat a été créé pour vous.`,
+    });
 
     return res.status(201).json(contrat);
 
@@ -177,6 +187,19 @@ contratController.countContratsBtEtat = async (req, res) => {
     return res.status(500).json({ message: 'Erreur serveur', error: err.message });
   }
 };
+
+contratController.getNotificationsForUser = async (req, res) => {
+  try {
+    console.log('User ID from token:', req.user.userId);
+
+    const notifications = await Notification.find({ destinataire: req.user.userId }).sort({ date: -1 });
+    return res.status(200).json(notifications);
+  } catch (err) {
+    console.error('Erreur lors de la récupération des notifications :', err);
+    return res.status(500).json({ message: 'Erreur serveur.' });
+  }
+};
+
 
 
 

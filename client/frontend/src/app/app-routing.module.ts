@@ -38,6 +38,7 @@ import { pairs } from 'rxjs';
 import { PayerConsignationComponent } from './payer-consignation/payer-consignation.component';
 import { PayerSaisieComponent } from './payer-saisie/payer-saisie.component';
 import { FactureComponent } from './facture/facture.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -68,6 +69,7 @@ const routes: Routes = [
       {path:'paiement-consignation', component:PayerConsignationComponent},
       {path:'paiement-saisie', component: PayerSaisieComponent},
       {path:'factures', component:FactureComponent},
+      {path:'notifications',component:NotificationsComponent},
     
  
   { path: 'expert-dashboard', component: ExpertDashboardComponent,  canActivate: [AuthGuard] },

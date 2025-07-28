@@ -60,5 +60,15 @@ refuserContrat(contratId: string): Observable<any> {
   const headers = this.getAuthHeaders();
   return this.http.put(`${this.apiUrl}/${contratId}/refuser`, {}, { headers });
 }
+getNotifications(): Observable<any[]> {
+  const headers = this.getAuthHeaders();
+  return this.http.get<any[]>(`${this.apiUrl}/notifications`, { headers })
+    .pipe(
+      catchError(error => {
+        console.error('Erreur lors de la récupération des notifications:', error);
+        return throwError(() => new Error('Échec de la récupération des notifications. Veuillez réessayer plus tard.'));
+      })
+    );
+}
 
 }

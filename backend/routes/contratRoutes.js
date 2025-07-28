@@ -11,6 +11,7 @@ router.get('/Pdfs',authenticateToken,roleMiddleware('Avocat'),contratController.
 router.put('/:id/accepter', authenticateToken,roleMiddleware('Avocat'),contratController.accepterContrat);
 router.put('/:id/refuser', authenticateToken,roleMiddleware('Avocat'),contratController.refuserContrat);
 router.get('/staticContrat',authenticateToken,roleMiddleware('Admin'),contratController.countContratsBtEtat),
+router.get('/notifications',authenticateToken,roleMiddleware('Avocat'),contratController.getNotificationsForUser);
 
 
 module.exports = router;

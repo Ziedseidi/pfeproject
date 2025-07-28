@@ -60,6 +60,7 @@ import { InfoJurediqueAvocatComponent } from './info-juredique-avocat/info-jured
 import { PayerConsignationComponent } from './payer-consignation/payer-consignation.component';
 import { PayerSaisieComponent } from './payer-saisie/payer-saisie.component';
 import { FactureComponent } from './facture/facture.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { FactureComponent } from './facture/facture.component';
     PayerConsignationComponent,
     PayerSaisieComponent,
     FactureComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,

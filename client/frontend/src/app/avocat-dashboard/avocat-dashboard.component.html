@@ -55,9 +55,12 @@
     <a class="nav-link" [routerLink]="['/ajouter-dossier']">
       ➕ Ajouter dossier
     </a>
-    <a class="nav-link" [routerLink]="['/notifications']">
-      🔔 Notifications
-    </a>
+   <a class="nav-link position-relative" (click)="toggleNotifications()">
+  🔔 Notifications
+  <span *ngIf="notifications.length" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
+    {{ notifications.length }}
+  </span>
+</a>
 
     <!-- AJOUT DU LIEN PAIEMENT -->
     <a class="nav-link" [routerLink]="['/paiement-consignation']">

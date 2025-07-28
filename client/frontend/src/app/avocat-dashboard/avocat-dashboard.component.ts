@@ -1,34 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { ContratService } from '../services/contrat.service';
 
 @Component({
   selector: 'app-avocat-dashboard',
   templateUrl: './avocat-dashboard.component.html',
   styleUrls: ['./avocat-dashboard.component.css']
 })
-export class AvocatDashboardComponent {
+export class AvocatDashboardComponent implements OnInit {
   user: any = {};
   isAddAffaireModal = false;
-  isLoading = false;  // Pour gérer le spinner
+  isLoading = false;
+  isChatbotVisible = false;
 
-  isChatbotVisible = false;  // ✅ Ajout pour ton bouton chatbot
+  // ✅ Notifications
+  notifications: any[] = [];
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private contratService: ContratService, // ✅ injecter
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.authService.getUserInfo().subscribe(
-      (data) => this.user = data,
-      (error) => console.error('Erreur récupération user', error)
-    );
-  }
+    this.authService.getUserInfo().subscribe({
+      next: (data) => this.user = data,
+      error: (err) => console.error('Erreur récupération user', err)
+    });
 
-  openAddAffaireModal() {
-    this.isAddAffaireModal = true;
-  }
-
-  closeAddAffaireModal() {
-    this.isAddAffaireModal = false;
+    this.loadNotifications(); // ✅ charger au démarrage
   }
 
   toggleChatbot() {
@@ -36,20 +37,31 @@ export class AvocatDashboardComponent {
   }
 
   logout() {
-    this.isLoading = true; // Active le spinner avant la déconnexion
-
-    this.authService.logout().subscribe(
-      () => {
+    this.isLoading = true;
+    this.authService.logout().subscribe({
+      next: () => {
         this.authService.clearToken();
         setTimeout(() => {
           this.router.navigate(['/login']);
           this.isLoading = false;
         }, 2000);
       },
-      (error) => {
-        console.error('Erreur lors de la déconnexion', error);
+      error: () => {
         this.isLoading = false;
       }
-    );
+    });
+  }
+
+  // ✅ Méthode pour charger les notifications
+  loadNotifications() {
+    this.contratService.getNotifications().subscribe({
+      next: (data) => this.notifications = data,
+      error: (err) => console.error('Erreur chargement notifications', err)
+    });
+  }
+
+  // ✅ Navigue vers le composant notifications
+  toggleNotifications() {
+    this.router.navigate(['/notifications']);
   }
 }
