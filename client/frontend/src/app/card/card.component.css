@@ -1,68 +1,98 @@
-/* From Uiverse.io by satyamchaudharydev */ 
-/* this card is inspired form this - https://georgefrancis.dev/ */
+/* ---- WRAPPER POUR ESPACER LES CARTES ---- */
+.cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;        /* permet de passer à la ligne */
+  gap: 30px;              /* espace entre les cartes */
+  justify-content: center;
+  margin: 20px auto;
+}
 
+/* ---- CONTAINER DE CHAQUE CARTE ---- */
+.card-container {
+  perspective: 1400px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* ---- STYLE DES CARTES ---- */
 .card {
-    --border-radius: 0.75rem;
-    --primary-color: #f204ff;
-    --secondary-color: #000000;
-    width: 280px; 
-    height: 350px; 
-    font-family: "Arial";
-    padding: 1.5rem;
-    cursor: pointer;
-    border-radius: var(--border-radius);
-    background: #fbfbfd;
-    box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 3%);
-    position: relative;
-}
-.card > * + * {
-    margin-top: 1.2em; /* Ajustement de l'espace entre les éléments internes */
+  position: relative;
+  width: 100%;
+  height: 250px;
+  border-radius: 16px;
+  padding: 24px;
+  background: linear-gradient(135deg, #ea6666 0%, #a91919 100%);
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  cursor: pointer;
+  overflow: hidden;
 }
 
-.card .card__content {
-    color: var(--secondary-color);
-    font-size: 1rem; /* Légère augmentation de la taille de la police */
+/* Effet overlay */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(51, 21, 21, 0.1), rgba(0, 0, 0, 0.1));
+  z-index: 2;
+  pointer-events: none;
 }
 
-.card .card__title {
-    padding: 0;
-    font-size: 1.4rem; /* Augmentation de la taille du titre */
-    font-weight: bold;
+.card__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  transform: translateZ(30px);
 }
 
-.card .card__date {
-    color: #301a1a;
-    font-size: 0.9rem; /* Légère augmentation de la taille de la date */
+.card__content {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  transform: translateZ(20px);
 }
 
-.card .card__arrow {
-    position: absolute;
-    background: var(--primary-color);
-    padding: 0.5rem; /* Augmentation du padding de l'arrow */
-    border-top-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
-    bottom: 0;
-    right: 0;
-    transition: 0.2s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.card__date {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  transform: translateZ(10px);
 }
 
-.card svg {
-    transition: 0.2s;
+.card__arrow {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(117, 35, 35, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  transform: translateZ(15px);
 }
 
-/* hover */
-.card:hover .card__title {
-    color: var(--primary-color);
-    text-decoration: underline;
+.card__arrow svg {
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
 }
 
 .card:hover .card__arrow {
-    background: #111;
+  transform: translateZ(25px) translateX(5px);
 }
 
 .card:hover .card__arrow svg {
-    transform: translateX(3px);
+  transform: translateX(3px);
 }

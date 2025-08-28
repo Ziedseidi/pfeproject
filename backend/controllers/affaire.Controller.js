@@ -665,4 +665,40 @@ affaireController.getAffairesStatusCount=async(req,res)=>{
 
 
 
+affaireController.getAllAvocatsWithAffaireCount = async (req, res) => {
+  try {
+    const avocats = await Avocat.find()
+      .populate({
+        path: 'utilisateur',
+        model: 'User',
+        select: 'nom prenom email imageprofile role'
+      })
+      .lean();
+
+    const avocatsWithCount = avocats.map(avocat => {
+      return {
+        _id: avocat._id,
+        utilisateur: avocat.utilisateur,
+        adresse: avocat.adresse,
+        dateDebutConvention: avocat.dateDebutConvention,
+        dateFinConvention: avocat.dateFinConvention,
+        region: avocat.region,
+        honoraires: avocat.honoraires,
+        degreJuridiction: avocat.degreJuridiction,
+        contrats: avocat.contrats,
+        createdAt: avocat.createdAt,
+        updatedAt: avocat.updatedAt,
+        nombreAffaires: avocat.affairesAttribuees ? avocat.affairesAttribuees.length : 0
+      };
+    });
+
+    res.status(200).json(avocatsWithCount);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erreur serveur lors de la récupération des avocats.' });
+  }
+};
+
+
+
 module.exports = affaireController;

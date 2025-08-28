@@ -182,3 +182,71 @@
   background: white;
   z-index: 1000;
 }
+.navbar-right .notification-icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 24px;
+  user-select: none;
+  color: white;
+  display: inline-block;
+  padding: 0 8px;
+
+  /* Décalage un peu vers la gauche */
+  margin-left: -10px; /* un peu moins que -6px */
+}
+
+.navbar-right .notification-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #fff4f4;
+  color: rgb(0, 0, 0);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 90%;
+  font-weight: 600;
+  min-width: 16px;
+  text-align: center;
+  line-height: 1;
+  pointer-events: none;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+.notification-panel {
+  position: absolute;
+  top: 65px; /* légèrement en dessous de l'icône 🔔 */
+  right: 0;
+  left: 740px;
+  width: 300px;
+  max-height: 400px; /* hauteur maximale */
+  overflow-y: auto;  /* scroll vertical si dépassement */
+  background-color: transparent; /* mettre transparent ici, on stylera les cards */
+  border: 1px solid #a19d9d;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  padding: 10px;
+}
+
+/* Style des cartes individuelles */
+.notification-card {
+  background-color: rgb(0, 0, 0); /* fond blanc */
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Texte en rouge */
+.notification-card p {
+  color: rgb(245, 0, 0); /* rouge vif */
+}
+
+/* Date en rouge plus clair et italique */
+.notification-card p.date {
+  color: #ff6b6b;
+  font-style: italic;
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+

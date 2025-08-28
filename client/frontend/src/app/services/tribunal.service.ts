@@ -55,4 +55,14 @@ export class TribunalService {
       })
     );
   }
+  toggleAllTribunaux(): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/toggleAllTribunaux`, {}, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      catchError((error) => {
+        console.error('Erreur lors du toggle de l\'état des tribunaux:', error);
+        return throwError(() => new Error('Erreur lors du toggle de l\'état des tribunaux.'));
+      })
+    );
+  }
 }

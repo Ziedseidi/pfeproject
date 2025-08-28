@@ -14,12 +14,13 @@ export class AvocatDashboardComponent implements OnInit {
   isLoading = false;
   isChatbotVisible = false;
 
-  // ✅ Notifications
   notifications: any[] = [];
+  hasNewNotifications = false;
+  showNotificationPanel = false;
 
   constructor(
     private authService: AuthService,
-    private contratService: ContratService, // ✅ injecter
+    private contratService: ContratService,
     private router: Router
   ) {}
 
@@ -29,7 +30,36 @@ export class AvocatDashboardComponent implements OnInit {
       error: (err) => console.error('Erreur récupération user', err)
     });
 
-    this.loadNotifications(); // ✅ charger au démarrage
+    this.loadNotifications();
+  }
+
+  loadNotifications() {
+    this.contratService.getNotifications().subscribe({
+      next: (data) => {
+        this.notifications = data;
+
+        // Récupérer les IDs des notifications déjà vues depuis localStorage
+        const viewedJson = localStorage.getItem('notificationsViewedIds');
+        const viewedIds: string[] = viewedJson ? JSON.parse(viewedJson) : [];
+
+        // Vérifier si au moins une notification n’a pas été vue
+        const hasUnread = this.notifications.some(notif => !viewedIds.includes(notif._id));
+
+        this.hasNewNotifications = hasUnread;
+      },
+      error: (err) => console.error('Erreur chargement notifications', err)
+    });
+  }
+
+  toggleNotifications() {
+    this.showNotificationPanel = !this.showNotificationPanel;
+
+    if (this.showNotificationPanel) {
+      // Quand on ouvre le panneau, marquer toutes les notifications comme vues
+      const allIds = this.notifications.map(notif => notif._id);
+      localStorage.setItem('notificationsViewedIds', JSON.stringify(allIds));
+      this.hasNewNotifications = false;
+    }
   }
 
   toggleChatbot() {
@@ -50,18 +80,5 @@ export class AvocatDashboardComponent implements OnInit {
         this.isLoading = false;
       }
     });
-  }
-
-  // ✅ Méthode pour charger les notifications
-  loadNotifications() {
-    this.contratService.getNotifications().subscribe({
-      next: (data) => this.notifications = data,
-      error: (err) => console.error('Erreur chargement notifications', err)
-    });
-  }
-
-  // ✅ Navigue vers le composant notifications
-  toggleNotifications() {
-    this.router.navigate(['/notifications']);
   }
 }

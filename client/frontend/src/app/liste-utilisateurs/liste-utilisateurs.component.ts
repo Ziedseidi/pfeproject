@@ -110,8 +110,23 @@ export class ListeUtilisateursComponent implements OnInit {
   }
 
   submitEdit(): void {
-    // Pour l'instant on ne fait rien, juste fermer le modal
-    this.closeEditModal();
+    if (this.selectedUserToEdit && this.selectedUserToEdit._id) {
+      this.userService.updateUser(this.selectedUserToEdit._id, this.selectedUserToEdit).subscribe(
+        (updatedUser) => {
+          const index = this.utilisateurs.findIndex(u => u._id === updatedUser._id);
+          if (index !== -1) {
+            this.utilisateurs[index] = updatedUser;
+            this.updatePagination();
+          }
+          alert('Utilisateur mis à jour avec succès !');
+          this.closeEditModal();
+        },
+        (error) => {
+          console.error('Erreur lors de la mise à jour:', error);
+          alert('Erreur lors de la mise à jour de l\'utilisateur.');
+        }
+      );
+    }
   }
 
   supprimerUtilisateur(userId: string): void {

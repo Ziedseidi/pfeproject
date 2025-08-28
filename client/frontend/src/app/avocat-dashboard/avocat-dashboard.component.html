@@ -5,8 +5,21 @@
       <div class="navbar-logo">⚖️ <span>Tunisair</span></div>
     </div>
 
-    <div class="navbar-right">
-      <!-- Chatbot toggle -->
+    <div class="navbar-right relative">
+      <!-- Notification icon -->
+      <div class="notification-icon relative cursor-pointer" (click)="toggleNotifications()">
+        🔔
+        <span *ngIf="hasNewNotifications" class="notification-badge">
+          {{ notifications.length }}
+        </span>
+      </div>
+
+      <!-- Popup notifications panel -->
+      <div class="notification-panel" *ngIf="showNotificationPanel">
+        <app-notifications></app-notifications>
+      </div>
+
+      <!-- Chatbot -->
       <div class="chatbot-link" (click)="toggleChatbot()" style="cursor:pointer;">
         <img src="assets/chatbot.png" alt="Chatbot IA" class="chatbot-icon" />
         <span>Juridique-IA</span>
@@ -35,55 +48,25 @@
     <app-chatbot-juridique></app-chatbot-juridique>
   </div>
 
-  <!-- Content with sidebar and main -->
+  <!-- Main content -->
   <div class="content-wrapper">
-    <!-- Sidebar -->
-   <aside class="sidebar">
-  <nav class="nav">
-    <a class="nav-link" [routerLink]="['/profile']">
-      👤 Profil
-    </a>
-    <a class="nav-link" [routerLink]="['/mes-affaires-liste']">
-      📂 Mes affaires
-    </a>
-    <a class="nav-link" [routerLink]="['/audiences']">
-      📅 Mes audiences
-    </a>
-    <a class="nav-link" [routerLink]="['/Pdfs']">
-      📁 Mes Contrats
-    </a>
-    <a class="nav-link" [routerLink]="['/ajouter-dossier']">
-      ➕ Ajouter dossier
-    </a>
-   <a class="nav-link position-relative" (click)="toggleNotifications()">
-  🔔 Notifications
-  <span *ngIf="notifications.length" class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
-    {{ notifications.length }}
-  </span>
-</a>
+    <aside class="sidebar">
+      <nav class="nav">
+        <a class="nav-link" [routerLink]="['/profile']">👤 Profil</a>
+        <a class="nav-link" [routerLink]="['/mes-affaires-liste']">📂 Mes affaires</a>
+        <a class="nav-link" [routerLink]="['/audiences']">📅 Mes audiences</a>
+        <a class="nav-link" [routerLink]="['/Pdfs']">📁 Mes Contrats</a>
+        <a class="nav-link" [routerLink]="['/ajouter-dossier']">➕ Ajouter dossier</a>
+        <a class="nav-link" [routerLink]="['/paiement-consignation']">💸 Paiement Consignation</a>
+        <a class="nav-link" [routerLink]="['/paiement-saisie']">💸 Paiement Saisie</a>
+        <a class="nav-link" [routerLink]="['/factures']">🧾 Factures</a>
+      </nav>
+    </aside>
 
-    <!-- AJOUT DU LIEN PAIEMENT -->
-    <a class="nav-link" [routerLink]="['/paiement-consignation']">
-      💸 Paiement Consignation
-    </a>
-    <a class="nav-link" [routerLink]="['/paiement-saisie']">
-      💸 Paiement Saisie
-    </a>
-    <a class="nav-link" [routerLink]="['/factures']">
-      🧾 Factures
-    </a>
-  </nav>
-
-</aside>
-
-    <!-- Main content -->
     <main class="main-content">
       <app-spinner *ngIf="isLoading"></app-spinner>
-
-      <!-- 👇 TON COMPONENT CALÉ ICI EN DUR -->
       <app-info-juredique-avocat></app-info-juredique-avocat>
     </main>
-          <router-outlet></router-outlet>
-
+    <router-outlet></router-outlet>
   </div>
 </div>

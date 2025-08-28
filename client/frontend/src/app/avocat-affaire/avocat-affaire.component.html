@@ -1,0 +1,78 @@
+<div class="avocats-container">
+  <h2 class="section-title">Liste des Avocats</h2>
+
+  <!-- Filtres de recherche -->
+  <div class="filters-container">
+    <div class="filter-group">
+      <label for="region-filter">Filtrer par région :</label>
+      <select id="region-filter" [(ngModel)]="selectedRegion" (change)="filterAvocats()" class="filter-select">
+        <option value="">Toutes les régions</option>
+        <option *ngFor="let region of regionsList" [value]="region">{{ region }}</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="degree-filter">Filtrer par degré juridiction :</label>
+      <select id="degree-filter" [(ngModel)]="selectedDegree" (change)="filterAvocats()" class="filter-select">
+        <option value="">Tous les degrés</option>
+        <option *ngFor="let degree of degreesList" [value]="degree">{{ degree }}</option>
+      </select>
+    </div>
+
+    <button class="reset-filters" (click)="resetFilters()">Réinitialiser</button>
+  </div>
+
+  <!-- États de chargement et messages -->
+  <div *ngIf="loading" class="loading">Chargement...</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <div *ngIf="!loading && filteredAvocats.length === 0" class="empty-message">
+    Aucun avocat ne correspond à vos critères de recherche.
+  </div>
+
+  <!-- Liste des avocats -->
+  <div class="avocats-grid" *ngIf="!loading && filteredAvocats.length > 0">
+    <div *ngFor="let avocat of filteredAvocats" class="avocat-card">
+      <!-- Contenu de la carte inchangé -->
+      <div class="card-header">
+        <img [src]="avocat.utilisateur?.imageprofile || 'assets/images/user-profile.jpg'" alt="Photo de profil" class="profile-image">
+        <div class="header-text">
+          <h3>{{ avocat.utilisateur?.nom }} {{ avocat.utilisateur?.prenom }}</h3>
+          <span class="juridiction-badge">{{ avocat.degreJuridiction }}</span>
+        </div>
+        <div *ngIf="avocat.nombreAffaires < 10" class="affaires-badge">{{ avocat.nombreAffaires }}/10</div>
+      </div>
+      
+      <div class="card-body">
+        <div class="info-row">
+          <span class="label">Email:</span>
+          <span class="value">{{ avocat.utilisateur?.email }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Localisation:</span>
+          <span class="value">{{ avocat.region }}, {{ avocat.adresse }}</span>
+        </div>
+        <div class="info-row highlight">
+          <span class="label">Honoraires:</span>
+          <span class="value">{{ avocat.honoraires }} TND</span>
+        </div>
+        <div class="affaires-progress-container" *ngIf="avocat.nombreAffaires < 10">
+          <div class="progress-info">
+            <span class="progress-label">Progression:</span>
+            <span class="progress-value">{{ avocat.nombreAffaires }}/10 affaires</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="(avocat.nombreAffaires / 10) * 100"></div>
+          </div>
+          <div class="progress-text">Il reste {{ 10 - avocat.nombreAffaires }} affaires pour atteindre l'expérience requise</div>
+        </div>
+        <div class="expert-badge" *ngIf="avocat.nombreAffaires >= 10">
+          <span>✔ Expert confirmé ({{ avocat.nombreAffaires }} affaires)</span>
+        </div>
+      </div>
+      
+      <div class="card-footer">
+        <button class="contact-btn">Contacter</button>
+      </div>
+    </div>
+  </div>
+</div>

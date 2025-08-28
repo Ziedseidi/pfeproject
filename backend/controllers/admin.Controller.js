@@ -1,7 +1,9 @@
 const User = require('../models/User.model');
 const Avocat = require('../models/Avocat.model');
 const Expert = require('../models/Expert.model');
-const Demandeur = require('../models/Demandeur.model')
+const Demandeur = require('../models/Demandeur.model');
+const Tribunal = require('../models/Tribunal.model'); // Ton modèle Tribunal
+
 const { sendMail } = require("../utils/sendEmail");
 const mongoose = require('mongoose');  // Ajoute cette ligne
 
@@ -131,6 +133,28 @@ adminController.sendEmailToUser = async (req, res) => {
         console.error("Erreur lors de l'envoi de l'email", error);
         res.status(500).json({ message: 'Erreur serveur lors de l\'envoi de l\'email' });
     }
+};
+
+adminController.updateUser = async (req, res) => {
+  const userId = req.params.userId; // <-- changé ici
+  const updateData = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    }
+
+    Object.keys(updateData).forEach(key => {
+      user[key] = updateData[key];
+    });
+
+    const updatedUser = await user.save();
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour de l’utilisateur :', error);
+    res.status(500).json({ message: 'Erreur lors de la mise à jour de l’utilisateur', error });
+  }
 };
 
 

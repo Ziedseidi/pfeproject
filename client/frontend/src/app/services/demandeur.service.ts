@@ -11,9 +11,7 @@ export class DemandeurService {
   constructor(private http: HttpClient) {}
 
   registerDemandeur(demandeurData: any, file: File): Observable<any> {
-    console.log('Données envoyées au backend:', demandeurData); // Debug
 
-    // Créer une instance de FormData
     const formData: FormData = new FormData();
     
     formData.append('nom', demandeurData.nom);
@@ -34,8 +32,8 @@ export class DemandeurService {
         // Pas besoin de token pour cette méthode, donc on ne l'ajoute pas aux headers
         return this.http.post(this.apiUrl, formData).pipe(
           catchError((error) => {
-            console.error('Erreur lors de l\'enregistrement de l\'avocat:', error);
-            return throwError(() => new Error('Erreur lors de l\'enregistrement de l\'avocat.'));
+            console.error('Erreur lors de l\'enregistrement de personnel juridique:', error);
+            return throwError(() => new Error('Erreur lors de l\'enregistrement de personel juridique.'));
           })
         );
       }

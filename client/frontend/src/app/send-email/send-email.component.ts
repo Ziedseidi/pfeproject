@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { UserService } from '../services/user.service'; // Importer ton service
 
 @Component({
   selector: 'app-send-email',
@@ -6,38 +7,41 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./send-email.component.css']
 })
 export class SendEmailComponent {
-  @Input() userId: string | null = null; // ID de l'utilisateur sélectionné
-  @Output() closeModal = new EventEmitter<void>(); // Émettre un événement pour fermer le modal
+  @Input() userId: string | null = null; 
+  @Output() closeModal = new EventEmitter<void>();
 
-  subject: string = ''; // Sujet de l'email
-  emailContent: string = ''; // Contenu de l'email
-  isSuccess: boolean = false; // Variable pour afficher un message de succès
+  subject: string = ''; 
+  emailContent: string = ''; 
+  isSuccess: boolean = false;
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
-  // Méthode pour soumettre le formulaire
   onSubmit(): void {
-    if (this.subject && this.emailContent) {
-      // Logique pour envoyer l'email ici
-      console.log(`Envoyer un email à l'utilisateur ${this.userId} avec le sujet "${this.subject}" et le contenu: "${this.emailContent}"`);
-
-      // Simuler l'envoi d'un email (à remplacer par ton service réel)
-      setTimeout(() => {
-        this.isSuccess = true; // Afficher le message de succès
-        setTimeout(() => {
-          this.isSuccess = false; // Masquer le message après 3 secondes
-        }, 3000);
-      }, 500); // Simulation de délai d'envoi
-
-      // Fermer le modal après soumission
-      this.closeModal.emit();
-    } else {
-      console.log('Le sujet et le contenu de l\'email sont obligatoires.');
+    if (!this.userId) {
+      console.error('Utilisateur non sélectionné.');
+      return;
     }
+
+    if (!this.subject.trim() || !this.emailContent.trim()) {
+      console.warn('Le sujet et le contenu de l\'email sont obligatoires.');
+      return;
+    }
+
+    // Appel réel à ton service
+    this.userService.sendEmail(this.userId, this.subject, this.emailContent).subscribe(
+      () => {
+        this.isSuccess = true;
+        setTimeout(() => this.isSuccess = false, 3000);
+        this.closeModal.emit(); // fermer modal
+      },
+      (error) => {
+        console.error('Erreur lors de l\'envoi de l\'email:', error);
+        alert('Erreur lors de l\'envoi de l\'email ❌');
+      }
+    );
   }
 
-  // Méthode pour fermer le modal
   close(): void {
-    this.closeModal.emit(); // Émettre un événement pour fermer le modal
+    this.closeModal.emit();
   }
 }

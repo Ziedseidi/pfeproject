@@ -46,6 +46,25 @@ tribunalController.addTribunal = async (req, res) => {
       }
     };
 
-    
+  tribunalController.toggleAllTribunaux = async (req, res) => {
+  try {
+    // Vérifier l'état actuel : s'il existe au moins un tribunal actif
+    const anyActive = await Tribunal.exists({ etatTribunal: true });
+
+    // Définir le nouvel état : si au moins un actif, on désactive tous ; sinon on active tous
+    const newState = !anyActive;
+
+    // Mettre à jour tous les tribunaux
+    await Tribunal.updateMany({}, { etatTribunal: newState });
+
+    res.status(200).json({ 
+      message: `Tous les tribunaux ont été ${newState ? 'activés' : 'désactivés'} avec succès`,
+      etatGlobal: newState
+    });
+  } catch (error) {
+    console.error('Erreur lors de la modification de l’état des tribunaux :', error);
+    res.status(500).json({ message: 'Erreur serveur lors du toggle des tribunaux', error });
+  }
+};  
   
 module.exports = tribunalController;

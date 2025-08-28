@@ -195,3 +195,37 @@
 .app-tribunal {
     /* Styles spécifiques pour le modal, si nécessaire */
 }
+.btn-toggle-global {
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+/* État actif (verts) */
+.btn-success {
+  background-color: #28a745;
+}
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* État inactif (rouge) */
+.btn-danger {
+  background-color: #dc3545;
+}
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Icône toggle */
+.btn-toggle-global .fa {
+  font-size: 18px;
+}

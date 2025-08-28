@@ -24,6 +24,10 @@ export class TribunalListComponent implements OnInit {
   // Filtrage
   searchVille: string = '';
 
+  // Toggle global
+  allTribunauxActive: boolean = true; // true = tous actifs, false = tous désactivés
+  toggleLoading: boolean = false;
+
   constructor(private tribunalService: TribunalService) {}
 
   ngOnInit(): void {
@@ -38,6 +42,12 @@ export class TribunalListComponent implements OnInit {
         this.premieresInstance = resp["Première Instance"] || [];
         this.filteredCoursAppel = [...this.coursAppel];
         this.filteredPremieresInstance = [...this.premieresInstance];
+
+        // Déterminer si tous les tribunaux sont actifs
+        const allCourActifs = this.coursAppel.every(t => t.etatTribunal);
+        const allPremActifs = this.premieresInstance.every(t => t.etatTribunal);
+        this.allTribunauxActive = allCourActifs && allPremActifs;
+
         this.loading = false;
       },
       error: err => {
@@ -107,5 +117,29 @@ export class TribunalListComponent implements OnInit {
 
   closeModal(): void {
     this.isModalOpen = false;
+  }
+
+  // 🔹 Méthode pour activer/désactiver tous les tribunaux
+  toggleAllTribunaux(): void {
+    this.toggleLoading = true;
+    this.tribunalService.toggleAllTribunaux().subscribe({
+      next: res => {
+        // Inverser l'état local
+        this.allTribunauxActive = !this.allTribunauxActive;
+
+        // Mettre à jour tous les tribunaux affichés
+        this.coursAppel.forEach(t => t.etatTribunal = this.allTribunauxActive);
+        this.premieresInstance.forEach(t => t.etatTribunal = this.allTribunauxActive);
+        this.filteredCoursAppel.forEach(t => t.etatTribunal = this.allTribunauxActive);
+        this.filteredPremieresInstance.forEach(t => t.etatTribunal = this.allTribunauxActive);
+
+        this.toggleLoading = false;
+      },
+      error: err => {
+        console.error('Erreur lors du toggle global:', err);
+        this.toggleLoading = false;
+        alert('Erreur lors de l’activation/désactivation des tribunaux.');
+      }
+    });
   }
 }

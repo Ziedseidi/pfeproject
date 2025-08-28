@@ -166,4 +166,14 @@ assignerJugement(jugementData: {
     })
   );
 }
+getAllAvocatsWithAffaireCount(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/avocats`, {
+    headers: this.getAuthHeaders()
+  }).pipe(
+    catchError(err => {
+      console.error('Erreur lors de la récupération des avocats :', err);
+      return throwError(() => new Error('Erreur lors de la récupération des avocats.'));
+    })
+  );
+}
 }

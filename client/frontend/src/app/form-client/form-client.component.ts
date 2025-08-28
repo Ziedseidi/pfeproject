@@ -29,7 +29,7 @@ export class FormClientComponent {
           console.log("✅ Réponse du serveur:", response);
         },
         error: (error) => {
-          this.message = 'Erreur lors de l\'inscription du demandeur';
+          this.message = 'Email déja existe !!!!';
           console.error("🔥 Erreur API:", error);
         }
       });

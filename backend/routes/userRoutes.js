@@ -8,6 +8,8 @@ router.delete('/deleteUser/:userId', authenticateToken, roleMiddleware('Admin'),
 router.patch('/toggleUserActivation/:userId', authenticateToken, roleMiddleware('Admin'), adminController.toggleUserActivation);
 router.get('/All-users', authenticateToken, roleMiddleware('Admin'),adminController.getAllUsersWithInfo);
 router.post('/send-email-to-user', authenticateToken, roleMiddleware('Admin'), adminController.sendEmailToUser);
+router.patch('/updateUser/:userId',authenticateToken,roleMiddleware('Admin')  ,adminController.updateUser);
+
 
 
 module.exports = router;

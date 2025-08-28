@@ -1,241 +1,193 @@
-/* Navbar Styles */
+/* Navbar générale */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 20px;
-    background-color: #ffffff;
-    align-items: center;
-    height: 60px; /* Ajuster la hauteur de la navbar */
-  }
-  
-  /* Logo */
-  .logo-container {
-    flex-shrink: 0; /* Empêche le logo de se réduire */
-  }
-  
-  .logo {
-    width: 11vw; /* Le logo prend 10% de la largeur de la fenêtre */
-    height: auto; /* Maintient les proportions de l'image */
-  }
-  
-  /* Navigation Links */
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  /* Styles pour les boutons de navigation */
-  .nav-button, .login-button, .language-button {
-    background-color: #ffffff;
-    color: rgb(24, 17, 17);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .nav-button i, .login-button i, .language-button i {
-    font-size: 20px; /* Taille des icônes */
-  }
-  
-  .nav-button:hover, .login-button:hover, .language-button:hover {
-    background-color: #d0c4c4;
-  }
-  
-  /* Conteneur du bouton de langue et login */
-  .login-container {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Espacement entre l'icône globe et le bouton login */
-  }
-  
-  /* Style du bouton Globe */
-  .language-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    color: rgb(24, 17, 17);
-    display: flex;
-    align-items: center;
-  }
-  
-  .language-button:hover {
-    color: #f1c40f;
-  }
-  
-  /* Dropdown Menu (Liste des pays) */
-  .dropdown-menu {
-    position: absolute;
-    top: 50px;
-    right: 50px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    list-style: none;
-    padding: 8px 0;
-    min-width: 180px;
-    z-index: 10;
-    max-height: 250px;
-    overflow-y: auto; /* Ajoute un défilement si trop de pays */
-  }
-  
-  .dropdown-menu li {
-    padding: 10px 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
-  
-  .dropdown-menu li:hover {
-    background-color: #f1f1f1;
-  }
-  
-  /* Flag Icon Style */
-  .flag-icon {
-    width: 20px;
-    height: 14px;
-    margin-right: 10px; /* Espacement entre le drapeau et le texte */
-  }
-  
-  /* Styles pour la partie centrale */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: #ad1c1c; /* Rouge Tunisair */
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Logo */
+.logo {
+  width: 120px;
+  height: auto;
+}
+
+/* Navigation centrale */
+.center-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Liens nav */
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+/* Boutons */
+.nav-button, .login-button, .language-button {
+  background: white;
+  color: #b30000;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover, .login-button:hover, .language-button:hover {
+  background: #ff4d4d;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+/* Barre de recherche */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  padding: 7px 12px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  width: 200px;
+}
+
+.search-button {
+  padding: 7px 14px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-button:hover {
+  background: #b30000;
+}
+
+/* Service Box */
+.service-container {
+  position: relative;
+}
+
+.service-box {
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background: white;
+  color: #b30000;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  width: 250px;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.service-container:hover .service-box {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service-box h3 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  color: #b30000;
+}
+
+.service-box h4 {
+  margin-top: 15px;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.service-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.service-box ul li {
+  padding: 8px 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.service-box ul li:hover {
+  background: #b30000;
+  color: white;
+}
+
+/* Dropdown pays */
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  color: #b30000;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  min-width: 180px;
+  z-index: 10;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.dropdown-menu li {
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-menu li:hover {
+  background: #ff4d4d;
+  color: white;
+}
+
+/* Flag */
+.flag-icon {
+  width: 20px;
+  height: 14px;
+}
+
+/* Login container */
+.login-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .center-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px; /* Espace entre les boutons et le champ de recherche */
-    flex-grow: 1;
-  }
-  
-  /* Barre de recherche */
-  .search-container {
-    display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 15px;
   }
-  
-  .search-input {
-    padding: 5px 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+  .service-box, .dropdown-menu {
+    width: 90%;
+    max-width: 300px;
   }
-  
-  .search-button {
-    background-color: #444;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .search-button i {
-    font-size: 18px;
-  }
-  
-  .search-button:hover {
-    background-color: #555;
-  }
-  
-  /* Service Box */
-  .service-container {
-    position: relative;
-  }
-  
-  .service-box {
-    position: absolute;
-    top: 100%; /* Positionne la boîte juste en dessous du bouton */
-    left: 0;
-    background-color: #ffffff;
-    padding: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 250px; /* Largeur de la boîte */
-    display: none;
-    border-radius: 8px;
-    z-index: 10;
-    transition: opacity 0.3s ease-in-out; /* Transition pour l'apparition */
-    opacity: 0;
-  }
-  
-  .service-container:hover .service-box {
-    display: block;
-    opacity: 1;
-  }
-  
-  .service-box h3 {
-    font-size:20px;
-    margin-bottom: 10px;
-    font-weight: 600;
-    color: #a41414;
-  }
-  
-  .service-box h4 {
-    font-size: 16px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    font-weight: 500;
-    color: #000000;
-  }
-  
-  .service-box ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .service-box ul li {
-    margin: 8px 0;
-    font-size: 14px;
-    color: #5b1212;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    padding: 5px;
-  }
-  
-  .service-box ul li i {
-    font-size: 18px; /* Ajuste la taille des icônes dans la liste */
-  }
-  
-  /* Ajout de couleurs dans la liste des services au survol */
-  .service-box ul li:hover {
-    background-color: #f39c12; /* Couleur de fond au survol */
-    color: white; /* Texte blanc au survol */
-    border-radius: 5px; /* Bords arrondis au survol */
-  }
-  
-  /* Flèche indiquant la boîte de services */
-  .service-box::after {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 10px;
-    border-style: solid;
-    border-color: transparent transparent white transparent;
-  }
-  
-  /* Responsive for mobile */
-  @media (max-width: 768px) {
-    .center-container {
-      flex-direction: column;
-      align-items: center;
-    }
-    .service-box {
-      width: 100%;
-      max-width: 300px;
-    }
-  }
-  
+}

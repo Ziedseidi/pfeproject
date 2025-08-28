@@ -1,6 +1,4 @@
-// chemin : src/app/components/notifications/notifications.component.ts
-
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ContratService } from '../services/contrat.service';
 
 @Component({
@@ -9,7 +7,7 @@ import { ContratService } from '../services/contrat.service';
   styleUrls: ['./notifications.component.css'],
 })
 export class NotificationsComponent implements OnInit {
-  notifications: any[] = [];
+  @Input() notifications: any[] = [];
 
   constructor(private contratService: ContratService) {}
 
@@ -19,7 +17,7 @@ export class NotificationsComponent implements OnInit {
 
   loadNotifications(): void {
     this.contratService.getNotifications().subscribe({
-      next: (data) => {
+      next: (data: any[]) => {
         this.notifications = data;
       },
       error: (err) => {

@@ -72,4 +72,15 @@ export class UserService {
         })
       );
   }
+  updateUser(userId: string, updatedUser: Partial<User>): Observable<User> {
+  const headers = this.getAuthHeaders();
+  return this.http
+    .patch<User>(`${this.baseUrl}/updateUser/${userId}`, updatedUser, { headers })
+    .pipe(
+      catchError((error) => {
+        console.error('Erreur lors de la mise à jour de l\'utilisateur :', error);
+        return throwError(() => new Error('Erreur lors de la mise à jour'));
+      })
+    );
+}
 }

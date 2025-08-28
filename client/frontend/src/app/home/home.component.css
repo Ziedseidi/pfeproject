@@ -5,7 +5,7 @@
     align-items: center;
     width: 100vw;
     height: 50vh;
-    background-image: url('/assets/images/juridique.png');
+    background-image: url('/assets/images/arriereplan.png');
     background-size: 100% 100%; 
     background-position: center;
     background-repeat: no-repeat;
@@ -33,7 +33,7 @@
     border: none;
     background-size: cover;
     background-position: center;
-    border-radius: 10px;
+    border-radius:0px;
     cursor: pointer;
 }
 
@@ -42,7 +42,7 @@
     display: flex;
     flex-wrap: wrap;  /* Permet aux cartes de se réorganiser sur plusieurs lignes si nécessaire */
     justify-content: center;
-    gap: 15px;  /* Espacement entre les cartes */
+    gap:70px;  /* Espacement entre les cartes */
     width: 100%;  /* Prendre toute la largeur disponible */
     padding: 0 20px; /* Ajout d'un peu d'espace autour des cartes */
 }
@@ -51,7 +51,6 @@
 .card {
     border: 1px solid #bb7979;
     padding: 20px;
-    border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     background-color: rgb(193, 147, 147);
     display: flex;

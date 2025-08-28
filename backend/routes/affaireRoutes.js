@@ -22,6 +22,7 @@ router.get('/count-by-degre-avec-affaires',authenticateToken,roleMiddleware('Adm
 router.get('/payments',authenticateToken,roleMiddleware('Admin'),affaireController.getPaymentStatistics);
 router.get('/typeClient',authenticateToken,roleMiddleware('Admin'),affaireController.getAffairesCountByTypeClient);
 router.get('/statutAffaire',authenticateToken,roleMiddleware('Admin'),affaireController.getAffairesStatusCount);
+router.get('/avocats',authenticateToken, roleMiddleware('PersonelJurédique'),affaireController.getAllAvocatsWithAffaireCount);
 module.exports = router;
 
 

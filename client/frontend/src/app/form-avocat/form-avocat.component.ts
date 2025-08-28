@@ -37,7 +37,7 @@ export class FormAvocatComponent {
           console.log("✅ Réponse du serveur:", response);
         },
         error: (error) => {
-          this.message = 'Erreur lors de l\'inscription de l\'avocat';
+          this.message = 'Email déja existe !!!!';
           console.error("🔥 Erreur API:", error);
         }
       });

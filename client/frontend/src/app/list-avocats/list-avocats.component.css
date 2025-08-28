@@ -1,102 +1,227 @@
-.page-container {
-  padding-left: 150px;
-}
-.search-icon {
-  position: absolute;
-  top: 300%;
-  left: 100px;
-  transform: translateY(-50%);
-  color: #888;
-  font-size: 1.2rem;
-  pointer-events: none;
-}
-
-/* Style des champs de recherche avec icône et padding */
-input.form-control.ps-5 {
-  padding-left: 3rem; /* Ajout du padding pour la place de l'icône */
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  height: 50px;
-}
-
-/* Focus des champs de recherche */
 
 
-
-.input-group {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.input-group input {
-  padding-left: 35px; /* Espacement pour l'icône à gauche */
-  padding-right: 70px; /* Pour éviter que le texte ne chevauche le bord droit */
-  border-radius: 25px;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #36b93f;
-  width: 100%;
-  text-align:center; /* Aligner le texte à droite dans le champ de saisie */
-}
-
-.input-group i {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #090808;
-  font-size: 18px;
-}
-
-/* Responsivité pour les petits écrans */
-@media (max-width: 768px) {
-  .col-md-6 {
-    flex: 0 0 100%;
-  }
-}
-
-/* Badge de degré stylisé */
-.badge.bg-gradient {
-  background: linear-gradient(to right, #007bff, #00c6ff);
-  font-weight: 600;
-  border-radius: 12px;
-  padding: 0.4rem 0.7rem;
-  font-size: 0.85rem;
-}
-
-.table-responsive {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.table-striped tbody tr:nth-child(odd) {
-  background-color: #f9f9f9;
-}
-
-.table-dark th {
-  background-color: #8995a2;
-  font-size: 1rem;
-}
-
-img.rounded-circle {
-  border: 2px solid #8f979f;
-  transition: transform 0.3s ease-in-out;
-}
-
-img.rounded-circle:hover {
-  transform: scale(1.1);
-}
-.page-container {
-  padding-left: 150px; /* décalage global */
+/* Search Styles */
+.search-container {
+  margin-bottom: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  top: 80px;
 }
 
 .search-row {
-  margin-left: 250px;
-  margin-top: -150px; 
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.table-responsive {
-  margin-left: 250px; 
+.search-group {
+  position: relative;
+  flex: 1;
 }
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #d32f2f;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #d32f2f;
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+}
+
+/* Cards Styles */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.avocat-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+}
+
+.avocat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+  color: white;
+}
+
+.profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid white;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.name-container {
+  flex: 1;
+}
+
+.name-container h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.badge-degree {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  color: #555;
+}
+
+.info-row i {
+  color: #d32f2f;
+  margin-right: 0.8rem;
+  width: 20px;
+  text-align: center;
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.honoraires {
+  display: flex;
+  align-items: center;
+  color: #d32f2f;
+  font-size: 1.1rem;
+}
+
+.honoraires i {
+  margin-right: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .search-row {
+    flex-direction: column;
+  }
+  
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .avocat-card {
+    max-width: 100%;
+  }
+}
+/* Styles SPECIFIQUES pour les inputs de recherche */
+.search-container {
+  padding: 1rem;
+  margin-top: -130px;
+}
+
+.search-row {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+}
+
+.input-group {
+  position: relative;
+  flex: 1;
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #d32f2f;
+  z-index: 10;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px 12px 45px;
+  border: 1px solid #e0e0e0;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+  background: #f9f9f9;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #d32f2f;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+/* Media Queries pour la responsive */
+@media (max-width: 768px) {
+  .search-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .input-group {
+    width: 100%;
+  }
+}
+
+/* Le reste du CSS pour les cartes reste inchangé */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* ... autres styles de cartes ... */
